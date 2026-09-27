@@ -1,0 +1,46 @@
+# Environment and Secrets (NEVER commit secrets or SMTP credentials)
+.env
+.env.*
+!.env.example
+server/.env
+server/.env.*
+!server/.env.example
+*.env
+*.db
+*.db.bak
+*.sqlite
+*.sqlite3
+swasthya_triage.db
+server/swasthya_triage.db
+.venv
+__pycache__
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
