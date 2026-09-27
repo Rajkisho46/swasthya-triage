@@ -381,7 +381,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
                 <div
                   style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
                     gap: '1rem',
                     marginBottom: '1.5rem',
                   }}
@@ -1104,7 +1104,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
                     style={{
                       padding: '1.25rem',
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))',
                       gap: '1.25rem',
                       marginTop: '1rem',
                       marginBottom: '1.5rem',

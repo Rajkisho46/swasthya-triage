@@ -472,7 +472,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
 
           {/* Active Case Selector */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-            <div className="search-box glass" style={{ minWidth: '240px', padding: '0.35rem 0.65rem' }}>
+            <div className="search-box glass" style={{ minWidth: 'min(100%, 240px)', flex: '1 1 auto', padding: '0.35rem 0.65rem' }}>
               <User size={14} color="var(--text-muted)" style={{ marginRight: '6px' }} />
               <select
                 value={selectedCaseId}
@@ -677,7 +677,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           className="nurse-workstation-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
             gap: '1.25rem',
             alignItems: 'start',
           }}

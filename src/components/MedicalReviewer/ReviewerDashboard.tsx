@@ -254,7 +254,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
           </label>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: '240px', flex: '1 1 240px', maxWidth: '380px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', minWidth: 'min(100%, 240px)', flex: '1 1 auto', maxWidth: '380px' }}>
           <div style={{ position: 'relative', width: '100%' }}>
             <Search size={15} color="var(--text-muted)" style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)' }} />
             <input

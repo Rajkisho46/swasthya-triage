@@ -102,7 +102,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
             <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '10px' }}>
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 <Database size={13} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />

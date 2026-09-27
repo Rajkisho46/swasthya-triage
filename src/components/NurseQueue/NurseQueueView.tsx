@@ -132,7 +132,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <div className="search-box glass" style={{ minWidth: '220px' }}>
+            <div className="search-box glass" style={{ minWidth: 'min(100%, 220px)', flex: '1 1 auto' }}>
               <Search size={14} color="var(--text-muted)" />
               <input
                 type="text"
