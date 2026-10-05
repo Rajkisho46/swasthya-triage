@@ -11,14 +11,14 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { PatientAuthForm } from './PatientAuthForm';
-import { Footer } from '../Layout/Footer';
+import { PortalToggle } from './PortalToggle';
 import type { TrustCenterTab } from '../TrustCenter/PrivacyTrustCenter';
 
 interface LoginScreenProps {
-  onOpenTrustCenter?: (tab: TrustCenterTab) => void;
+  onOpenTrustCenter?: (tab?: TrustCenterTab) => void;
 }
 
-export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) => {
+export const LoginScreen: React.FC<LoginScreenProps> = () => {
   const { login, isLoading } = useAuth();
   const [activePortalTab, setActivePortalTab] = useState<'patient' | 'staff'>('patient');
 
@@ -170,7 +170,10 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
             ========================================================================= */}
         <div className="split-card-column">
           {activePortalTab === 'patient' && (
-            <PatientAuthForm />
+            <PatientAuthForm
+              activePortalTab={activePortalTab}
+              onSwitchPortalTab={setActivePortalTab}
+            />
           )}
 
           {activePortalTab === 'staff' && (
@@ -180,32 +183,10 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
                 <div className="stitch-rim-highlight" aria-hidden="true" />
 
                 {/* Centered Portal Switcher at the top of the card */}
-                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: '6px' }}>
-                  <div className="split-portal-switcher" role="tablist" aria-label="Portal Selection">
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={false}
-                      onClick={() => setActivePortalTab('patient')}
-                      className="split-portal-btn"
-                      id="tab-patient-portal"
-                    >
-                      <HeartPulse size={13} color="#8fa39b" />
-                      <span>PATIENT PORTAL</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={true}
-                      className="split-portal-btn active"
-                      id="tab-staff-portal"
-                    >
-                      <ShieldCheck size={13} color="#00382e" />
-                      <span>STAFF DEMO</span>
-                    </button>
-                  </div>
-                </div>
+                <PortalToggle
+                  activeTab={activePortalTab}
+                  onTabChange={setActivePortalTab}
+                />
 
                 {/* Staff Console Demo Badge */}
                 <div className="stitch-brand-chip" style={{ alignSelf: 'center', marginBottom: '2px' }}>
@@ -338,11 +319,6 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
           )}
         </div>
       </main>
-
-      {/* Institutional Footer only rendered on Staff Demo login portal */}
-      {activePortalTab === 'staff' && (
-        <Footer onOpenTrustCenter={onOpenTrustCenter} />
-      )}
     </div>
   );
 };

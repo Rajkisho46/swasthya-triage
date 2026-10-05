@@ -17,6 +17,7 @@ import {
   Languages,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { PortalToggle } from './PortalToggle';
 
 type AuthMode =
   | 'login'
@@ -27,10 +28,14 @@ type AuthMode =
   | 'register-success';
 
 interface PatientAuthFormProps {
-  // Props reserved for future extension
+  activePortalTab?: 'patient' | 'staff';
+  onSwitchPortalTab?: (tab: 'patient' | 'staff') => void;
 }
 
-export const PatientAuthForm: React.FC<PatientAuthFormProps> = () => {
+export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
+  activePortalTab = 'patient',
+  onSwitchPortalTab,
+}) => {
   const {
     patientLogin,
     patientRegister,
@@ -328,6 +333,14 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = () => {
             ===================================================================== */}
         {mode === 'login' && (
           <>
+            {/* Centered Portal Switcher at the top of the card */}
+            {onSwitchPortalTab && (
+              <PortalToggle
+                activeTab={activePortalTab}
+                onTabChange={onSwitchPortalTab}
+              />
+            )}
+
             {/* Patient Portal / Secure Access Badge */}
             <div className="stitch-brand-chip" style={{ alignSelf: 'center', marginBottom: '2px' }}>
               <Shield size={12} color="#5DFDDD" />
