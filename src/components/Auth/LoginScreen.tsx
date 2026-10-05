@@ -170,11 +170,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
             ========================================================================= */}
         <div className="split-card-column">
           {activePortalTab === 'patient' && (
-            <PatientAuthForm
-              onSwitchToStaffLogin={() => setActivePortalTab('staff')}
-              activePortalTab={activePortalTab}
-              onSwitchPortalTab={setActivePortalTab}
-            />
+            <PatientAuthForm />
           )}
 
           {activePortalTab === 'staff' && (

@@ -17,7 +17,6 @@ import {
   Languages,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { PortalToggle } from './PortalToggle';
 
 type AuthMode =
   | 'login'
@@ -28,16 +27,10 @@ type AuthMode =
   | 'register-success';
 
 interface PatientAuthFormProps {
-  onSwitchToStaffLogin?: () => void;
-  activePortalTab?: 'patient' | 'staff';
-  onSwitchPortalTab?: (tab: 'patient' | 'staff') => void;
+  // Props reserved for future extension
 }
 
-export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
-  onSwitchToStaffLogin,
-  activePortalTab = 'patient',
-  onSwitchPortalTab,
-}) => {
+export const PatientAuthForm: React.FC<PatientAuthFormProps> = () => {
   const {
     patientLogin,
     patientRegister,
@@ -335,16 +328,10 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
             ===================================================================== */}
         {mode === 'login' && (
           <>
-            {/* Centered Portal Switcher at the top of the card */}
-            <PortalToggle
-              activeTab={activePortalTab}
-              onTabChange={(tab) => (onSwitchPortalTab ? onSwitchPortalTab(tab) : onSwitchToStaffLogin?.())}
-            />
-
             {/* Patient Portal / Secure Access Badge */}
             <div className="stitch-brand-chip" style={{ alignSelf: 'center', marginBottom: '2px' }}>
-              <Shield size={12} color="#5dfddd" />
-              <span className="stitch-brand-chip-text" style={{ color: '#5dfddd' }}>
+              <Shield size={12} color="#5DFDDD" />
+              <span className="stitch-brand-chip-text" style={{ color: '#5DFDDD' }}>
                 PATIENT PORTAL &bull; SECURE ACCESS
               </span>
             </div>
