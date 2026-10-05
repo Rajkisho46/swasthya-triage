@@ -541,12 +541,6 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = () => {
                 </button>
               </div>
             </form>
-
-            {/* Compliance Footer Note */}
-            <div className="stitch-compliance-footer" style={{ marginTop: '16px' }}>
-              <ShieldCheck size={14} color="#5DFDDD" />
-              <span>🔒 Secure patient access &bull; Human-reviewed clinical workflow &bull; Audit-ready</span>
-            </div>
           </>
         )}
 
