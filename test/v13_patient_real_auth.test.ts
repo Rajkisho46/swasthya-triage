@@ -24,20 +24,20 @@ test('SWASTHYA TRIAGE V13 - REAL PATIENT AUTHENTICATION & PORTAL ISOLATION SUITE
     assert.strictEqual(validateRegistrationInputs('Ananya', 'user@yahoo.co.in').valid, true);
   });
 
-  await t.test('2. Password complexity validation (min 8 chars, uppercase, lowercase, number)', () => {
+  await t.test('2. Password validation (min 8 chars, any arbitrary characters allowed)', () => {
     const validatePassword = (password: string) => {
-      if (password.length < 8) return false;
-      if (!/[A-Z]/.test(password)) return false;
-      if (!/[a-z]/.test(password)) return false;
-      if (!/[0-9]/.test(password)) return false;
-      return true;
+      return password.length >= 8;
     };
 
-    assert.strictEqual(validatePassword('short1A'), false); // < 8 chars
-    assert.strictEqual(validatePassword('alllowercase123'), false); // No uppercase
-    assert.strictEqual(validatePassword('ALLUPPERCASE123'), false); // No lowercase
-    assert.strictEqual(validatePassword('NoNumbersHereAtAll'), false); // No numbers
-    assert.strictEqual(validatePassword('SecurePassword123'), true); // Valid
+    assert.strictEqual(validatePassword('short1A'), false); // < 8 chars (7 chars)
+    assert.strictEqual(validatePassword('1234567'), false); // < 8 chars (7 chars)
+    assert.strictEqual(validatePassword('abcdefg'), false); // < 8 chars (7 chars)
+    assert.strictEqual(validatePassword('abcdefgh'), true); // 8 chars lowercase
+    assert.strictEqual(validatePassword('12345678'), true); // 8 chars numbers
+    assert.strictEqual(validatePassword('password'), true); // 8 chars word
+    assert.strictEqual(validatePassword('@@@@@@@@'), true); // 8 chars special characters
+    assert.strictEqual(validatePassword('a1@B#xyz'), true); // 8 chars mixed
+    assert.strictEqual(validatePassword('SecurePassword123'), true); // > 8 chars
   });
 
   await t.test('3. Password confirmation check', () => {

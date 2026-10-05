@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 class PatientRegisterRequest(BaseModel):
     full_name: str = Field(..., min_length=2, max_length=128, description="Patient's full name")
     email: str = Field(..., min_length=5, max_length=256, description="Valid real email address")
-    password: str = Field(..., min_length=8, max_length=128, description="Account password (min 8 chars, 1 uppercase, 1 lowercase, 1 number)")
+    password: str = Field(..., min_length=8, max_length=128, description="Minimum 8 characters")
     preferred_language: Optional[str] = Field("English", description="Preferred clinical communication language")
 
 class PatientVerifyEmailRequest(BaseModel):
@@ -25,7 +25,7 @@ class PatientForgotPasswordRequest(BaseModel):
 class PatientResetPasswordRequest(BaseModel):
     email: str = Field(..., min_length=5, max_length=256, description="Registered email address")
     otp: str = Field(..., min_length=6, max_length=6, description="6-digit password reset code")
-    new_password: str = Field(..., min_length=8, max_length=128, description="New account password")
+    new_password: str = Field(..., min_length=8, max_length=128, description="Minimum 8 characters")
 
 class PatientUserDTO(BaseModel):
     id: str

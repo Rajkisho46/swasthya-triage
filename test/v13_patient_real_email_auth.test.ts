@@ -7,21 +7,25 @@ test('SWASTHYA TRIAGE V13 - REAL PATIENT EMAIL & GMAIL OTP AUTHENTICATION SUITE'
   const client = new AuthClient();
 
   // 1. New patient registration input validation
-  await t.test('1. New patient registration (name, valid real email, complex password)', () => {
+  await t.test('1. New patient registration (name, valid real email, min 8 char password)', () => {
     const validateRegistration = (fullName: string, email: string, password: string) => {
       if (!fullName || fullName.trim().length < 2) return { valid: false, error: 'Name too short' };
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!email || !emailPattern.test(email.trim())) return { valid: false, error: 'Invalid email' };
-      if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password)) {
-        return { valid: false, error: 'Password does not meet complexity requirements' };
+      if (password.length < 8) {
+        return { valid: false, error: 'Password must contain at least 8 characters.' };
       }
       return { valid: true };
     };
 
     assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', 'SecurePass123').valid, true);
+    assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', '12345678').valid, true);
+    assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', 'abcdefgh').valid, true);
+    assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', '@@@@@@@@').valid, true);
     assert.strictEqual(validateRegistration('R', 'patient@gmail.com', 'SecurePass123').valid, false);
     assert.strictEqual(validateRegistration('Rajesh Kumar', 'invalid-email', 'SecurePass123').valid, false);
-    assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', 'simple').valid, false);
+    assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', 'simple').valid, false); // 6 chars
+    assert.strictEqual(validateRegistration('Rajesh Kumar', 'patient@gmail.com', '1234567').valid, false); // 7 chars
   });
 
   // 2. Email normalization

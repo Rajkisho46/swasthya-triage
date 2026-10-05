@@ -53,21 +53,6 @@ def validate_password_strength(password: str) -> None:
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Password must contain at least 8 characters."
         )
-    if not re.search(r"[A-Z]", password):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Password must contain at least one uppercase letter."
-        )
-    if not re.search(r"[a-z]", password):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Password must contain at least one lowercase letter."
-        )
-    if not re.search(r"[0-9]", password):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Password must contain at least one number."
-        )
 
 @router.post("/register", response_model=PatientRegisterResponse)
 async def register_patient(
@@ -301,14 +286,6 @@ async def login_patient(
     db: AsyncSession = Depends(get_db)
 ):
     normalized_email = req.email.strip().lower()
-
-    # Rate limit check on logins
-    rate_key = f"login:{normalized_email}"
-    if not check_rate_limit(rate_key, max_requests=10, window_seconds=300):
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many login attempts. Please wait 5 minutes before trying again."
-        )
 
     stmt = select(PatientUser).where(PatientUser.email_normalized == normalized_email)
     res = await db.execute(stmt)

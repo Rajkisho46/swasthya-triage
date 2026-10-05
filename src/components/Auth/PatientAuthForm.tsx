@@ -86,18 +86,11 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
 
   // Password requirements calculation
   const hasMinLength = password.length >= 8;
-  const hasUppercase = /[A-Z]/.test(password);
-  const hasLowercase = /[a-z]/.test(password);
-  const hasNumber = /[0-9]/.test(password);
-  const isPasswordValid = hasMinLength && hasUppercase && hasLowercase && hasNumber;
+  const isPasswordValid = hasMinLength;
 
   // New Password requirements calculation for reset
   const hasResetMinLength = newPassword.length >= 8;
-  const hasResetUppercase = /[A-Z]/.test(newPassword);
-  const hasResetLowercase = /[a-z]/.test(newPassword);
-  const hasResetNumber = /[0-9]/.test(newPassword);
-  const isResetPasswordValid =
-    hasResetMinLength && hasResetUppercase && hasResetLowercase && hasResetNumber;
+  const isResetPasswordValid = hasResetMinLength;
 
   const getCombinedOtp = (digits: string[]) => digits.join('');
 
@@ -135,7 +128,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
     }
 
     if (!isPasswordValid) {
-      setErrorMessage('Please ensure your password meets all complexity requirements (8+ chars, uppercase, lowercase, number).');
+      setErrorMessage('Password must be at least 8 characters.');
       return;
     }
 
@@ -228,7 +221,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
     }
 
     if (!isResetPasswordValid) {
-      setErrorMessage('Please ensure your new password meets complexity requirements.');
+      setErrorMessage('Password must be at least 8 characters.');
       return;
     }
 
@@ -719,35 +712,22 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                 </select>
               </div>
 
-              {/* Password Requirements Checklist Pill */}
+              {/* Password Requirements */}
               <div
                 style={{
                   padding: '6px 10px',
                   borderRadius: '8px',
                   background: 'rgba(0, 0, 0, 0.25)',
                   border: '1px solid rgba(255, 255, 255, 0.06)',
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '3px 8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
                   fontSize: '11px',
+                  color: hasMinLength ? '#5dfddd' : '#85948f',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: hasMinLength ? '#5dfddd' : '#85948f' }}>
-                  {hasMinLength ? <Check size={11} /> : <X size={11} />}
-                  <span>8+ Chars</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: hasUppercase ? '#5dfddd' : '#85948f' }}>
-                  {hasUppercase ? <Check size={11} /> : <X size={11} />}
-                  <span>Uppercase (A-Z)</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: hasLowercase ? '#5dfddd' : '#85948f' }}>
-                  {hasLowercase ? <Check size={11} /> : <X size={11} />}
-                  <span>Lowercase (a-z)</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: hasNumber ? '#5dfddd' : '#85948f' }}>
-                  {hasNumber ? <Check size={11} /> : <X size={11} />}
-                  <span>Number (0-9)</span>
-                </div>
+                {hasMinLength ? <Check size={12} /> : <X size={12} />}
+                <span>Password must be at least 8 characters.</span>
               </div>
 
               {/* Security Callout Note */}
@@ -1196,6 +1176,24 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                     {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
                 </div>
+              </div>
+
+              {/* Password Requirement */}
+              <div
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: '8px',
+                  background: 'rgba(0, 0, 0, 0.25)',
+                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11px',
+                  color: hasResetMinLength ? '#5dfddd' : '#85948f',
+                }}
+              >
+                {hasResetMinLength ? <Check size={12} /> : <X size={12} />}
+                <span>Password must be at least 8 characters.</span>
               </div>
 
               <button

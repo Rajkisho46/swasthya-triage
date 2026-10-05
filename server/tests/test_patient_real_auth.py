@@ -308,3 +308,153 @@ async def test_smtp_failure_handling():
         # Restore test environment
         settings.ENVIRONMENT = "test"
 
+@pytest.mark.asyncio
+async def test_simplified_password_policy_registration():
+    """Verify simplified patient password policy: min length 8, arbitrary characters accepted, <8 rejected."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        # 1. Shorter than 8 characters MUST be rejected
+        short_passwords = ["1234567", "abcdefg", "short", "a1@B#x"]
+        for sp in short_passwords:
+            resp = await client.post(
+                "/api/patient/auth/register",
+                json={
+                    "full_name": "Short Pass User",
+                    "email": f"short_{uuid.uuid4().hex[:6]}@gmail.com",
+                    "password": sp
+                }
+            )
+            assert resp.status_code in [400, 422]
+            if resp.status_code == 400:
+                assert "Password must contain at least 8 characters." in resp.json()["detail"]
+
+        # 2. Arbitrary passwords with length >= 8 MUST be accepted
+        valid_passwords = [
+            "abcdefgh",       # exactly 8, only lowercase
+            "12345678",       # exactly 8, only numbers
+            "password",       # exactly 8, plain word
+            "1234abcd",       # exactly 8, alphanumeric
+            "@@@@@@@@",       # exactly 8, only special characters
+            "a1@B#xyz",       # exactly 8, mixed characters
+            "longerpassword123456" # > 8 characters
+        ]
+        for vp in valid_passwords:
+            resp = await client.post(
+                "/api/patient/auth/register",
+                json={
+                    "full_name": "Valid Pass User",
+                    "email": f"valid_{uuid.uuid4().hex[:6]}@gmail.com",
+                    "password": vp
+                }
+            )
+            assert resp.status_code == 200
+            assert resp.json()["status"] == "success"
+
+@pytest.mark.asyncio
+async def test_no_patient_login_attempt_limit_on_repeated_wrong_passwords():
+    """Verify patient login does NOT trigger HTTP 429 after repeated wrong password attempts."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        email = f"unlimited_login_{uuid.uuid4().hex[:6]}@gmail.com"
+        correct_password = "mypassword123"
+
+        # 1. Register and verify patient
+        await client.post(
+            "/api/patient/auth/register",
+            json={
+                "full_name": "Test Login Limit",
+                "email": email,
+                "password": correct_password
+            }
+        )
+        outbox = get_dev_outbox()
+        otp = re.search(r"\b\d{6}\b", outbox[-1]["text"]).group(0)
+        await client.post(
+            "/api/patient/auth/verify-email",
+            json={"email": email, "otp": otp}
+        )
+
+        # 2. Perform 15 consecutive failed login attempts
+        for i in range(15):
+            resp = await client.post(
+                "/api/patient/auth/login",
+                json={"email": email, "password": f"wrong_password_{i}"}
+            )
+            assert resp.status_code == 401, f"Attempt {i+1} failed with status {resp.status_code}"
+            assert resp.json()["detail"] == "Invalid email or password."
+
+        # 3. Successful login immediately works with 200
+        success_resp = await client.post(
+            "/api/patient/auth/login",
+            json={"email": email, "password": correct_password}
+        )
+        assert success_resp.status_code == 200
+        assert success_resp.json()["access_token"]
+
+@pytest.mark.asyncio
+async def test_simplified_password_policy_reset():
+    """Verify password reset accepts any password >= 8 characters and rejects < 8 characters."""
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        email = f"reset_policy_{uuid.uuid4().hex[:6]}@gmail.com"
+        initial_password = "initialpassword1"
+
+        # Register and verify patient
+        await client.post(
+            "/api/patient/auth/register",
+            json={
+                "full_name": "Reset Policy User",
+                "email": email,
+                "password": initial_password
+            }
+        )
+        outbox = get_dev_outbox()
+        otp = re.search(r"\b\d{6}\b", outbox[-1]["text"]).group(0)
+        await client.post(
+            "/api/patient/auth/verify-email",
+            json={"email": email, "otp": otp}
+        )
+
+        # Request reset
+        await client.post(
+            "/api/patient/auth/request-password-reset",
+            json={"email": email}
+        )
+        reset_otp = re.search(r"\b\d{6}\b", get_dev_outbox()[-1]["text"]).group(0)
+
+        # 1. Reset with password < 8 chars -> FAIL
+        short_reset_resp = await client.post(
+            "/api/patient/auth/verify-password-reset",
+            json={
+                "email": email,
+                "otp": reset_otp,
+                "new_password": "1234567"
+            }
+        )
+        assert short_reset_resp.status_code in [400, 422]
+
+        # 2. Reset with valid 8-char password (e.g. only numbers) -> PASS
+        valid_reset_resp = await client.post(
+            "/api/patient/auth/verify-password-reset",
+            json={
+                "email": email,
+                "otp": reset_otp,
+                "new_password": "12345678"
+            }
+        )
+        assert valid_reset_resp.status_code == 200
+
+        # 3. Old password fails, new password logs in
+        old_login = await client.post(
+            "/api/patient/auth/login",
+            json={"email": email, "password": initial_password}
+        )
+        assert old_login.status_code == 401
+
+        new_login = await client.post(
+            "/api/patient/auth/login",
+            json={"email": email, "password": "12345678"}
+        )
+        assert new_login.status_code == 200
+
+
