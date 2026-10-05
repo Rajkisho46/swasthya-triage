@@ -11,10 +11,10 @@ import {
 import type { TrustCenterTab } from '../TrustCenter/PrivacyTrustCenter';
 
 interface FooterProps {
-  onOpenTrustCenter: (tab: TrustCenterTab) => void;
+  onOpenTrustCenter?: (tab: TrustCenterTab) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenTrustCenter }) => {
+export const Footer: React.FC<FooterProps> = () => {
   return (
     <footer className="app-footer" role="contentinfo" aria-label="Institutional Footer & Governance">
       <div className="footer-inner">
@@ -22,72 +22,43 @@ export const Footer: React.FC<FooterProps> = ({ onOpenTrustCenter }) => {
           &copy; 2026 [ORGANIZATION NAME] &bull; Swasthya Triage v2.4 &bull; PHC Evaluation Environment
         </div>
 
-        <nav className="footer-links" aria-label="Privacy and Legal Links">
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('privacy')}
-          >
+        <div className="footer-links" aria-label="Privacy and Legal Information">
+          <span className="footer-nav-item">
             <Lock size={12} aria-hidden="true" />
             <span>Privacy Policy</span>
-          </button>
+          </span>
 
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('terms')}
-          >
+          <span className="footer-nav-item">
             <Scale size={12} aria-hidden="true" />
             <span>Terms</span>
-          </button>
+          </span>
 
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('cookies')}
-          >
+          <span className="footer-nav-item">
             <Cookie size={12} aria-hidden="true" />
             <span>Cookies & Storage</span>
-          </button>
+          </span>
 
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('ai-transparency')}
-          >
+          <span className="footer-nav-item">
             <Cpu size={12} aria-hidden="true" />
             <span>AI Transparency</span>
-          </button>
+          </span>
 
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('accessibility')}
-          >
+          <span className="footer-nav-item">
             <Accessibility size={12} aria-hidden="true" />
             <span>Accessibility</span>
-          </button>
+          </span>
 
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('contact')}
-          >
+          <span className="footer-nav-item">
             <Mail size={12} aria-hidden="true" />
             <span>Contact & DPO</span>
-          </button>
+          </span>
 
-          <button
-            type="button"
-            className="footer-nav-link"
-            onClick={() => onOpenTrustCenter('overview')}
-          >
+          <span className="footer-nav-item">
             <ShieldCheck size={12} aria-hidden="true" />
             <span>Privacy & Trust Center</span>
-          </button>
-        </nav>
+          </span>
+        </div>
       </div>
     </footer>
   );
 };
-
