@@ -4581,6 +4581,14 @@ textarea:focus-visible {
 }
 
 /* Portal Tab Switcher - Centered at Top of Auth Card */
+.split-portal-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
 .split-portal-switcher {
   display: grid;
   grid-template-columns: 1fr 1fr;
