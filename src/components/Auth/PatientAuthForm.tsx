@@ -10,7 +10,6 @@ import {
   ArrowRight,
   RefreshCw,
   ShieldCheck,
-  UserPlus,
   Hourglass,
   Check,
   X,
@@ -330,13 +329,9 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
         {mode === 'login' && (
           <>
             {/* Header Block */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '4px' }}>
-              <div className="stitch-brand-chip">
-                <Shield size={12} color="#35e0c1" />
-                <span className="stitch-brand-chip-text">PATIENT PORTAL</span>
-              </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', gap: '6px', marginBottom: '8px' }}>
               <h1 className="stitch-header-title">Welcome back</h1>
-              <p className="stitch-header-subtitle">Sign in to continue to your patient portal.</p>
+              <p className="stitch-header-subtitle">Secure access to your Swasthya Triage patient portal.</p>
             </div>
 
             {/* Error Alert Banner */}
@@ -381,29 +376,29 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                   }
                 }}
                 className="stitch-btn-secondary"
-                style={{ fontSize: '12px', color: '#5bfbdb', height: '36px' }}
+                style={{ fontSize: '12px', color: '#5DFDDD', height: '40px' }}
               >
                 <span>Resend verification code & verify now &rarr;</span>
               </button>
             )}
 
             {/* Login Form */}
-            <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {/* Email Field */}
               <div className="stitch-form-group">
                 <label className="stitch-label" htmlFor="patient-login-email">
-                  Gmail / Email Address
+                  EMAIL ADDRESS
                 </label>
                 <div className="stitch-input-container">
                   <span className="stitch-input-icon">
-                    <Mail size={16} />
+                    <Mail size={18} />
                   </span>
                   <input
                     id="patient-login-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your Gmail address"
+                    placeholder="Enter your registered email"
                     className="stitch-input"
                     autoComplete="email"
                     required
@@ -414,8 +409,8 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
 
               {/* Password Field */}
               <div className="stitch-form-group">
-                <div className="stitch-label">
-                  <label htmlFor="patient-login-password">Password</label>
+                <div className="stitch-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label htmlFor="patient-login-password">PASSWORD</label>
                   <button
                     type="button"
                     onClick={() => {
@@ -426,8 +421,8 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: '#47dbd5',
-                      fontSize: '11.5px',
+                      color: '#5DFDDD',
+                      fontSize: '12px',
                       cursor: 'pointer',
                       padding: 0,
                       fontWeight: 500,
@@ -438,7 +433,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                 </div>
                 <div className="stitch-input-container">
                   <span className="stitch-input-icon">
-                    <Lock size={16} />
+                    <Lock size={18} />
                   </span>
                   <input
                     id="patient-login-password"
@@ -456,36 +451,36 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                     className="stitch-eye-toggle"
                     aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                   </button>
                 </div>
               </div>
 
               {/* Trust & Remember Device Row */}
-              <div className="stitch-trust-row">
-                <label style={{ display: 'flex', alignItems: 'center', gap: '7px', cursor: 'pointer', userSelect: 'none' }}>
+              <div className="stitch-trust-row" style={{ marginTop: '2px', marginBottom: '2px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', userSelect: 'none' }}>
                   <input
                     type="checkbox"
                     checked={rememberDevice}
                     onChange={(e) => setRememberDevice(e.target.checked)}
                     style={{
-                      accentColor: '#5bfbdb',
-                      width: '14px',
-                      height: '14px',
-                      borderRadius: '3px',
+                      accentColor: '#5DFDDD',
+                      width: '15px',
+                      height: '15px',
+                      borderRadius: '4px',
                       cursor: 'pointer',
                     }}
                   />
-                  <span style={{ fontSize: '12px', color: '#bacac4' }}>Remember this device</span>
+                  <span style={{ fontSize: '12px', color: '#8899a6' }}>Remember this device</span>
                 </label>
-                <span style={{ fontSize: '11px', color: '#47dbd5', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ fontSize: '11.5px', color: '#5DFDDD', display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <span
                     style={{
                       width: '6px',
                       height: '6px',
                       borderRadius: '9999px',
-                      backgroundColor: '#35e0c1',
-                      boxShadow: '0 0 8px #35e0c1',
+                      backgroundColor: '#5DFDDD',
+                      boxShadow: '0 0 8px #5DFDDD',
                       display: 'inline-block',
                     }}
                   />
@@ -499,47 +494,50 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                 disabled={isLoading}
                 className="stitch-btn-primary"
                 id="btn-patient-login"
-                style={{ marginTop: '4px' }}
+                style={{ marginTop: '6px' }}
               >
                 {isLoading ? (
                   <>
-                    <RefreshCw size={16} className="spin" />
-                    <span>Authenticating...</span>
+                    <RefreshCw size={18} className="spin" />
+                    <span>Signing in...</span>
                   </>
                 ) : (
                   <>
                     <span>Sign In</span>
-                    <ArrowRight size={16} />
+                    <ArrowRight size={18} />
                   </>
                 )}
               </button>
 
-              {/* Divider */}
-              <div className="stitch-divider-row">
-                <div className="stitch-divider-line" />
-                <span className="stitch-divider-text">New to Swasthya Triage?</span>
-                <div className="stitch-divider-line" />
+              {/* Register row */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '8px', fontSize: '13px', color: '#8899a6' }}>
+                <span>Don't have an account?</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    clearFeedback();
+                    setMode('register');
+                  }}
+                  id="btn-go-to-create-account"
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#5DFDDD',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    padding: 0,
+                  }}
+                >
+                  Create Patient Account
+                </button>
               </div>
-
-              {/* Secondary Create Account CTA */}
-              <button
-                type="button"
-                onClick={() => {
-                  clearFeedback();
-                  setMode('register');
-                }}
-                className="stitch-btn-secondary"
-                id="btn-go-to-create-account"
-              >
-                <UserPlus size={15} color="#47dbd5" />
-                <span>Create Patient Account</span>
-              </button>
             </form>
 
             {/* Compliance Footer Note */}
-            <div className="stitch-compliance-footer">
-              <ShieldCheck size={13} color="#47dbd5" />
-              <span>256-Bit Encrypted &bull; ABDM & HIPAA Compliant</span>
+            <div className="stitch-compliance-footer" style={{ marginTop: '16px' }}>
+              <ShieldCheck size={14} color="#5DFDDD" />
+              <span>🔒 Secure patient access &bull; Human-reviewed clinical workflow &bull; Audit-ready</span>
             </div>
           </>
         )}
