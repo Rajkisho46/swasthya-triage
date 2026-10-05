@@ -17,6 +17,7 @@ import {
   Languages,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { PortalToggle } from './PortalToggle';
 
 type AuthMode =
   | 'login'
@@ -28,9 +29,15 @@ type AuthMode =
 
 interface PatientAuthFormProps {
   onSwitchToStaffLogin?: () => void;
+  activePortalTab?: 'patient' | 'staff';
+  onSwitchPortalTab?: (tab: 'patient' | 'staff') => void;
 }
 
-export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaffLogin }) => {
+export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
+  onSwitchToStaffLogin,
+  activePortalTab = 'patient',
+  onSwitchPortalTab,
+}) => {
   const {
     patientLogin,
     patientRegister,
@@ -328,8 +335,22 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
             ===================================================================== */}
         {mode === 'login' && (
           <>
+            {/* Centered Portal Switcher at the top of the card */}
+            <PortalToggle
+              activeTab={activePortalTab}
+              onTabChange={(tab) => (onSwitchPortalTab ? onSwitchPortalTab(tab) : onSwitchToStaffLogin?.())}
+            />
+
+            {/* Patient Portal / Secure Access Badge */}
+            <div className="stitch-brand-chip" style={{ alignSelf: 'center', marginBottom: '2px' }}>
+              <Shield size={12} color="#5dfddd" />
+              <span className="stitch-brand-chip-text" style={{ color: '#5dfddd' }}>
+                PATIENT PORTAL &bull; SECURE ACCESS
+              </span>
+            </div>
+
             {/* Header Block */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', gap: '6px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left', gap: '6px', marginBottom: '8px', width: '100%' }}>
               <h1 className="stitch-header-title">Welcome back</h1>
               <p className="stitch-header-subtitle">Secure access to your Swasthya Triage patient portal.</p>
             </div>
@@ -471,7 +492,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                       cursor: 'pointer',
                     }}
                   />
-                  <span style={{ fontSize: '12px', color: '#8899a6' }}>Remember this device</span>
+                  <span style={{ fontSize: '12px', color: '#98A6A4' }}>Remember this device</span>
                 </label>
                 <span style={{ fontSize: '11.5px', color: '#5DFDDD', display: 'flex', alignItems: 'center', gap: '5px' }}>
                   <span
@@ -510,7 +531,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
               </button>
 
               {/* Register row */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '8px', fontSize: '13px', color: '#8899a6' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '8px', fontSize: '13px', color: '#98A6A4' }}>
                 <span>Don't have an account?</span>
                 <button
                   type="button"
@@ -550,8 +571,8 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
             {/* Header Block */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '4px' }}>
               <div className="stitch-brand-chip">
-                <Shield size={12} color="#47dbd5" />
-                <span className="stitch-brand-chip-text" style={{ color: '#47dbd5' }}>
+                <Shield size={12} color="#5DFDDD" />
+                <span className="stitch-brand-chip-text" style={{ color: '#5DFDDD' }}>
                   PATIENT REGISTRATION
                 </span>
               </div>
@@ -628,7 +649,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                 <div className="stitch-form-group">
                   <div className="stitch-label">
                     <label htmlFor="patient-reg-password">Password</label>
-                    <span style={{ fontSize: '9.5px', color: '#85948f' }}>(8+ chars)</span>
+                    <span style={{ fontSize: '9.5px', color: '#98A6A4' }}>(8+ chars)</span>
                   </div>
                   <div className="stitch-input-container">
                     <input
@@ -686,7 +707,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
               <div className="stitch-form-group">
                 <label className="stitch-label" htmlFor="patient-reg-lang">
                   <span>Preferred Language</span>
-                  <Languages size={12} color="#85948f" />
+                  <Languages size={12} color="#98A6A4" />
                 </label>
                 <select
                   id="patient-reg-lang"
@@ -696,8 +717,9 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                   style={{
                     height: '38px',
                     fontSize: '13px',
-                    backgroundColor: 'rgba(16, 20, 25, 0.85)',
-                    color: '#e0e2ea',
+                    backgroundColor: '#141C1E',
+                    color: '#F4F7F6',
+                    border: '1px solid rgba(255, 255, 255, 0.10)',
                     cursor: 'pointer',
                   }}
                 >
@@ -715,13 +737,13 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                 style={{
                   padding: '6px 10px',
                   borderRadius: '8px',
-                  background: 'rgba(0, 0, 0, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: '#0B1214',
+                  border: '1px solid rgba(255, 255, 255, 0.10)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
                   fontSize: '11px',
-                  color: hasMinLength ? '#5dfddd' : '#85948f',
+                  color: hasMinLength ? '#5DFDDD' : '#98A6A4',
                 }}
               >
                 {hasMinLength ? <Check size={12} /> : <X size={12} />}
@@ -736,12 +758,12 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                   gap: '6px',
                   padding: '5px 8px',
                   borderRadius: '8px',
-                  background: 'rgba(24, 28, 33, 0.70)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: '#141C1E',
+                  border: '1px solid rgba(255, 255, 255, 0.10)',
                 }}
               >
-                <ShieldCheck size={14} color="#47dbd5" style={{ flexShrink: 0 }} />
-                <span style={{ fontSize: '11px', color: '#bacac4', lineHeight: 1.2 }}>
+                <ShieldCheck size={14} color="#5DFDDD" style={{ flexShrink: 0 }} />
+                <span style={{ fontSize: '11px', color: '#98A6A4', lineHeight: 1.2 }}>
                   Your email will be verified with a 6-digit one-time password (OTP).
                 </span>
               </div>
@@ -770,7 +792,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
 
             {/* Bottom Nav to Sign In */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
-              <div style={{ fontSize: '12.5px', color: '#bacac4', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <div style={{ fontSize: '12.5px', color: '#98A6A4', display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <span>Already have an account?</span>
                 <button
                   type="button"
@@ -781,7 +803,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: '#47dbd5',
+                    color: '#5DFDDD',
                     fontWeight: 600,
                     cursor: 'pointer',
                     textDecoration: 'underline',
@@ -793,7 +815,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
               </div>
 
               <div className="stitch-compliance-footer">
-                <ShieldCheck size={12} color="#47dbd5" />
+                <ShieldCheck size={12} color="#5DFDDD" />
                 <span>ABDM & National Health Authority Standards</span>
               </div>
             </div>
@@ -808,8 +830,8 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
             {/* Header Block */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '3px' }}>
               <div className="stitch-brand-chip">
-                <Shield size={12} color="#47dbd5" />
-                <span className="stitch-brand-chip-text" style={{ color: '#47dbd5' }}>
+                <Shield size={12} color="#5DFDDD" />
+                <span className="stitch-brand-chip-text" style={{ color: '#5DFDDD' }}>
                   IDENTITY VERIFICATION
                 </span>
               </div>
@@ -821,7 +843,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
               {/* Masked Email Chip */}
               <div className="stitch-email-chip">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                  <Mail size={13} color="#47dbd5" />
+                  <Mail size={13} color="#5DFDDD" />
                   <span className="stitch-email-chip-text">{formatMaskedEmail(email)}</span>
                 </div>
                 <button
@@ -894,22 +916,22 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                     width: '6px',
                     height: '6px',
                     borderRadius: '9999px',
-                    backgroundColor: isOtpComplete ? '#5dfddd' : '#47dbd5',
-                    boxShadow: isOtpComplete ? '0 0 8px #5dfddd' : '0 0 6px #47dbd5',
+                    backgroundColor: '#5DFDDD',
+                    boxShadow: '0 0 8px #5DFDDD',
                     display: 'inline-block',
                   }}
                 />
-                <span style={{ fontSize: '11.5px', color: '#bacac4', fontWeight: 500 }}>
+                <span style={{ fontSize: '11.5px', color: '#98A6A4', fontWeight: 500 }}>
                   {isOtpComplete ? 'Complete code entered. Ready to confirm.' : 'Ready for code entry'}
                 </span>
               </div>
 
               {/* Timer / Resend Row */}
               <div className="stitch-timer-row">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#bacac4' }}>
-                  <Hourglass size={13} color="#47dbd5" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '12px', color: '#98A6A4' }}>
+                  <Hourglass size={13} color="#5DFDDD" />
                   <span>
-                    Resend in <strong style={{ color: '#ffffff' }}>00:{resendCooldown < 10 ? `0${resendCooldown}` : resendCooldown}</strong>
+                    Resend in <strong style={{ color: '#F4F7F6' }}>00:{resendCooldown < 10 ? `0${resendCooldown}` : resendCooldown}</strong>
                   </span>
                 </div>
 
@@ -921,7 +943,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: resendCooldown > 0 ? '#85948f' : '#47dbd5',
+                    color: resendCooldown > 0 ? '#98A6A4' : '#5DFDDD',
                     fontSize: '12px',
                     fontWeight: 600,
                     cursor: resendCooldown > 0 ? 'not-allowed' : 'pointer',
@@ -960,7 +982,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
 
             {/* Security Callout */}
             <div className="stitch-compliance-footer">
-              <ShieldCheck size={13} color="#47dbd5" />
+              <ShieldCheck size={13} color="#5DFDDD" />
               <span>Never share your triage verification code with anyone.</span>
             </div>
           </>
@@ -973,8 +995,8 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
           <>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '4px' }}>
               <div className="stitch-brand-chip">
-                <Shield size={12} color="#e2c382" />
-                <span className="stitch-brand-chip-text" style={{ color: '#e2c382' }}>
+                <Shield size={12} color="#5DFDDD" />
+                <span className="stitch-brand-chip-text" style={{ color: '#5DFDDD' }}>
                   ACCOUNT RECOVERY
                 </span>
               </div>
@@ -1067,8 +1089,8 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
           <>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '4px' }}>
               <div className="stitch-brand-chip">
-                <Shield size={12} color="#e2c382" />
-                <span className="stitch-brand-chip-text" style={{ color: '#e2c382' }}>
+                <Shield size={12} color="#5DFDDD" />
+                <span className="stitch-brand-chip-text" style={{ color: '#5DFDDD' }}>
                   SET NEW PASSWORD
                 </span>
               </div>
@@ -1181,13 +1203,13 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                 style={{
                   padding: '6px 10px',
                   borderRadius: '8px',
-                  background: 'rgba(0, 0, 0, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  background: '#0B1214',
+                  border: '1px solid rgba(255, 255, 255, 0.10)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
                   fontSize: '11px',
-                  color: hasResetMinLength ? '#5dfddd' : '#85948f',
+                  color: hasResetMinLength ? '#5DFDDD' : '#98A6A4',
                 }}
               >
                 {hasResetMinLength ? <Check size={12} /> : <X size={12} />}
@@ -1220,7 +1242,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                     clearFeedback();
                     setMode('login');
                   }}
-                  style={{ background: 'none', border: 'none', color: '#85948f', fontSize: '12px', cursor: 'pointer', textDecoration: 'underline' }}
+                  style={{ background: 'none', border: 'none', color: '#98A6A4', fontSize: '12px', cursor: 'pointer', textDecoration: 'underline' }}
                 >
                   &larr; Cancel
                 </button>
@@ -1231,7 +1253,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: resendCooldown > 0 ? '#85948f' : '#47dbd5',
+                    color: resendCooldown > 0 ? '#98A6A4' : '#5DFDDD',
                     fontSize: '12px',
                     fontWeight: 600,
                     cursor: resendCooldown > 0 ? 'not-allowed' : 'pointer',
@@ -1242,29 +1264,6 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({ onSwitchToStaf
               </div>
             </form>
           </>
-        )}
-
-        {/* Switch to Staff Demo Link */}
-        {onSwitchToStaffLogin && (
-          <div style={{ marginTop: '6px', paddingTop: '8px', borderTop: '1px solid rgba(255, 255, 255, 0.06)', textAlign: 'center' }}>
-            <button
-              type="button"
-              onClick={onSwitchToStaffLogin}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#85948f',
-                fontSize: '11px',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '4px',
-              }}
-            >
-              <ShieldCheck size={13} color="#47dbd5" />
-              <span>Clinician / Administrator? Switch to Staff Demo Login &rarr;</span>
-            </button>
-          </div>
         )}
       </div>
     </div>

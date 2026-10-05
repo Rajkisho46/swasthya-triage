@@ -123,8 +123,7 @@ function MainWorkspace() {
   if (!isAuthenticated) {
     return (
       <div className="app-container">
-        <LoginScreen />
-        <Footer onOpenTrustCenter={handleOpenTrustCenter} />
+        <LoginScreen onOpenTrustCenter={handleOpenTrustCenter} />
         <PrivacyTrustCenter
           isOpen={isTrustCenterOpen}
           initialTab={trustCenterTab}
