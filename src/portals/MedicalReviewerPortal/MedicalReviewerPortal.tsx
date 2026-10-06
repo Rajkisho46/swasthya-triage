@@ -49,12 +49,12 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
     <div className="portal-container medical-reviewer-portal-wrapper">
       {/* Reviewer Specific Liquid Glass Navigation Bar */}
       <div
-        className="glass"
+        className="glass scroll-reveal"
         style={{
           display: 'flex',
           gap: '0.5rem',
           padding: '0.4rem 0.6rem',
-          borderRadius: '10px',
+          borderRadius: '12px',
           marginBottom: '1.25rem',
           width: 'fit-content',
           flexWrap: 'wrap',

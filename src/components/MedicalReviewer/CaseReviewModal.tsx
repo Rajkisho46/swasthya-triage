@@ -582,32 +582,32 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', fontSize: '0.80rem', fontFamily: 'var(--font-mono)' }}>
                   {latestBedside.vitals.systolicBP && latestBedside.vitals.diastolicBP && (
-                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '8px', color: 'var(--text-primary)' }}>
                       BP: <strong style={{ color: 'var(--mint)' }}>{latestBedside.vitals.systolicBP}/{latestBedside.vitals.diastolicBP}</strong> mmHg
                     </span>
                   )}
                   {latestBedside.vitals.heartRate && (
-                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '8px', color: 'var(--text-primary)' }}>
                       Pulse: <strong style={{ color: 'var(--champagne)' }}>{latestBedside.vitals.heartRate}</strong> bpm
                     </span>
                   )}
                   {latestBedside.vitals.spo2 && (
-                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '8px', color: 'var(--text-primary)' }}>
                       SpO2: <strong style={{ color: 'var(--teal)' }}>{latestBedside.vitals.spo2}%</strong>
                     </span>
                   )}
                   {latestBedside.vitals.temperature && (
-                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '8px', color: 'var(--text-primary)' }}>
                       Temp: <strong style={{ color: 'var(--champagne)' }}>{latestBedside.vitals.temperature}°{latestBedside.vitals.tempUnit || 'F'}</strong>
                     </span>
                   )}
                   {latestBedside.vitals.respiratoryRate && (
-                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '8px', color: 'var(--text-primary)' }}>
                       RR: <strong style={{ color: 'var(--mint)' }}>{latestBedside.vitals.respiratoryRate}/min</strong>
                     </span>
                   )}
                   {latestBedside.vitals.bloodGlucose && (
-                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '4px', color: 'var(--text-primary)' }}>
+                    <span className="glass" style={{ padding: '0.2rem 0.5rem', borderRadius: '8px', color: 'var(--text-primary)' }}>
                       RBS: <strong>{latestBedside.vitals.bloodGlucose} mg/dL</strong>
                     </span>
                   )}

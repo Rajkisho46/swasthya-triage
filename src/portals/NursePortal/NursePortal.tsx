@@ -57,12 +57,12 @@ export const NursePortal: React.FC<NursePortalProps> = ({
     <div className="portal-container nurse-portal-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       {/* 3 Primary Navigation Sections */}
       <div
-        className="glass"
+        className="glass scroll-reveal"
         style={{
           display: 'flex',
           gap: '0.5rem',
           padding: '0.4rem 0.6rem',
-          borderRadius: '10px',
+          borderRadius: '12px',
           width: 'fit-content',
           flexWrap: 'wrap',
         }}

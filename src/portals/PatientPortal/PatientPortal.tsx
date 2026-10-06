@@ -58,7 +58,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
     <div className="portal-container patient-portal-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
       {/* Patient Specific Segmented Navigation Control */}
       <nav
-        className="patient-nav-dock glass"
+        className="patient-nav-dock glass scroll-reveal"
         role="navigation"
         aria-label="Patient Portal Navigation"
       >
@@ -133,7 +133,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
 
       {/* 03 — MY CASES */}
       {patientTab === 'cases' && (
-        <div className="glass-card" style={{ padding: '1.75rem', borderRadius: '14px' }}>
+        <div className="glass-card" style={{ padding: '1.75rem', borderRadius: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
               <div className="badge glass" style={{ color: '#60a5fa', borderColor: '#60a5fa', fontSize: '0.72rem', marginBottom: '0.35rem' }}>
@@ -170,7 +170,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
                     className="glass-card"
                     style={{
                       padding: '1.1rem 1.25rem',
-                      borderRadius: '10px',
+                      borderRadius: '16px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',

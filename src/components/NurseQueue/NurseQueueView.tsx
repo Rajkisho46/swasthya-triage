@@ -77,7 +77,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
       <CaseJourney currentStep="reviewer" compact />
 
       {/* 3. Header Command Panel */}
-      <div className="triage-case-header-bar glass-panel">
+      <div className="triage-case-header-bar glass-panel scroll-reveal reveal-delay-1">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge" style={{ borderColor: 'var(--mint)', color: 'var(--mint)' }}>
@@ -179,7 +179,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
       </div>
 
       {/* Queue Case List */}
-      <div className="reviewer-case-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+      <div className="reviewer-case-list scroll-reveal reveal-delay-2" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
         {filteredCases.length === 0 ? (
           <div className="glass-card" style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
             <HeartPulse size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.5, color: 'var(--mint)' }} />
@@ -201,7 +201,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                 className="case-queue-item glass-card"
                 style={{
                   padding: '1.25rem',
-                  borderRadius: '12px',
+                  borderRadius: '16px',
                   border: hasUrgency
                     ? '1px solid rgba(248, 113, 113, 0.4)'
                     : isReviewed

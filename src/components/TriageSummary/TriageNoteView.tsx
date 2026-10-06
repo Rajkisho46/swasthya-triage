@@ -122,7 +122,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       )}
 
       {/* 3. Command Header Bar */}
-      <div className="triage-case-header-bar glass-panel">
+      <div className="triage-case-header-bar glass-panel scroll-reveal reveal-delay-1">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge">03 / TRIAGE EVIDENCE NOTE</div>
@@ -232,7 +232,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
 
       {/* 4. Urgency Review Signal Banner */}
       {hasUrgency ? (
-        <div className="card-urgency glass-card" role="alert">
+        <div className="card-urgency glass-card scroll-reveal reveal-delay-2" role="alert">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <ShieldAlert size={20} color="var(--urgency-light)" aria-hidden="true" />
@@ -274,7 +274,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
         </div>
       ) : (
         <div
-          className="glass-card"
+          className="glass-card scroll-reveal reveal-delay-2"
           style={{
             padding: '0.85rem 1.25rem',
             display: 'flex',
@@ -323,7 +323,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       )}
 
       {/* 6. Section 1: Evidence Ingestion vs AI Advisory Synthesis */}
-      <div className={`summary-grid-layout ${!hasPatientEvidence ? 'single-column' : ''}`}>
+      <div className={`summary-grid-layout scroll-reveal reveal-delay-3 ${!hasPatientEvidence ? 'single-column' : ''}`}>
         {/* =========================================================================
             LEFT COLUMN: PATIENT-PROVIDED EVIDENCE (Rendered when evidence exists)
             ========================================================================= */}
@@ -553,7 +553,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       </div>
 
       {/* 7. Section 2: Clinical Timeline & Information Gaps Grid */}
-      <div className="summary-grid-layout">
+      <div className="summary-grid-layout scroll-reveal reveal-delay-4">
         {/* Clinical Timeline & Onset Progression */}
         <div className="card glass-card" style={{ marginBottom: 0 }}>
           <div className="card-header">
@@ -615,7 +615,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       </div>
 
       {/* 8. Section 3: Full-Width Priority Follow-up Questions Card */}
-      <div className="card glass-card" style={{ marginBottom: 0 }}>
+      <div className="card glass-card scroll-reveal reveal-delay-4" style={{ marginBottom: 0 }}>
         <div className="card-header">
           <h2 className="card-title" style={{ fontSize: '1rem', margin: 0 }}>
             <HelpCircle size={18} color="var(--teal)" aria-hidden="true" />
@@ -641,7 +641,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       {/* 7. Reviewer Sign-off if already reviewed */}
       {isReviewed && (
         <div
-          className="glass-card"
+          className="glass-card scroll-reveal reveal-delay-5"
           style={{
             background: 'rgba(53, 224, 193, 0.10)',
             border: '1px solid rgba(53, 224, 193, 0.35)',
@@ -670,7 +670,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       )}
 
       {/* 8. Bottom Action Command Bar */}
-      <div className="card glass-card" style={{ marginBottom: 0 }}>
+      <div className="card glass-card scroll-reveal reveal-delay-5" style={{ marginBottom: 0 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div className="action-bar-notice">
             <Info size={16} color="var(--teal)" aria-hidden="true" />

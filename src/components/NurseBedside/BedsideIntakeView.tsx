@@ -455,7 +455,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
       <CaseJourney currentStep="intake" compact />
 
       {/* 3. Workstation Header Bar */}
-      <div className="triage-case-header-bar glass-panel">
+      <div className="triage-case-header-bar glass-panel scroll-reveal reveal-delay-1">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge" style={{ borderColor: 'var(--teal)', color: 'var(--teal)' }}>
@@ -687,7 +687,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
               ========================================================================= */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* SECTION 1 — BEDSIDE VITALS */}
-          <div className="card glass-card" style={{ marginBottom: 0 }}>
+          <div className="card glass-card scroll-reveal reveal-delay-2" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Activity size={18} color="var(--mint)" />
@@ -888,7 +888,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                         style={{
                           fontSize: '0.65rem',
                           padding: '0.15rem 0.35rem',
-                          borderRadius: '4px',
+                          borderRadius: '8px',
                           border: tempUnit === 'F' ? '1px solid var(--champagne)' : '1px solid rgba(255,255,255,0.08)',
                           color: tempUnit === 'F' ? 'var(--champagne)' : 'var(--text-muted)',
                           background: tempUnit === 'F' ? 'rgba(226, 195, 130, 0.15)' : 'transparent',
@@ -903,7 +903,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                         style={{
                           fontSize: '0.65rem',
                           padding: '0.15rem 0.35rem',
-                          borderRadius: '4px',
+                          borderRadius: '8px',
                           border: tempUnit === 'C' ? '1px solid var(--champagne)' : '1px solid rgba(255,255,255,0.08)',
                           color: tempUnit === 'C' ? 'var(--champagne)' : 'var(--text-muted)',
                           background: tempUnit === 'C' ? 'rgba(226, 195, 130, 0.15)' : 'transparent',
@@ -1026,7 +1026,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           </div>
 
           {/* SECTION 2 — NURSE OBSERVATION */}
-          <div className="card glass-card" style={{ marginBottom: 0 }}>
+          <div className="card glass-card scroll-reveal reveal-delay-3" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <BadgeCheck size={18} color="var(--teal)" />
@@ -1269,7 +1269,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
             ========================================================================= */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* SECTION 3 — PATIENT INFORMATION VERIFICATION */}
-          <div className="card glass-card" style={{ marginBottom: 0 }}>
+          <div className="card glass-card scroll-reveal reveal-delay-2" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <ClipboardCheck size={18} color="var(--champagne)" />
@@ -1313,7 +1313,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                             style={{
                               fontSize: '0.68rem',
                               padding: '0.2rem 0.45rem',
-                              borderRadius: '4px',
+                              borderRadius: '8px',
                               border: item.status === 'patient_reported' ? '1px solid var(--champagne)' : '1px solid rgba(255, 255, 255, 0.08)',
                               background: item.status === 'patient_reported' ? 'rgba(226, 195, 130, 0.16)' : 'transparent',
                               color: item.status === 'patient_reported' ? 'var(--champagne)' : 'var(--text-muted)',
@@ -1330,7 +1330,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                             style={{
                               fontSize: '0.68rem',
                               padding: '0.2rem 0.45rem',
-                              borderRadius: '4px',
+                              borderRadius: '8px',
                               border: item.status === 'nurse_verified' ? '1px solid var(--mint)' : '1px solid rgba(255, 255, 255, 0.08)',
                               background: item.status === 'nurse_verified' ? 'rgba(53, 224, 193, 0.16)' : 'transparent',
                               color: item.status === 'nurse_verified' ? 'var(--mint)' : 'var(--text-muted)',
@@ -1348,7 +1348,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                             style={{
                               fontSize: '0.68rem',
                               padding: '0.2rem 0.45rem',
-                              borderRadius: '4px',
+                              borderRadius: '8px',
                               border: item.status === 'unable_to_verify' ? '1px solid rgba(248, 113, 113, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
                               background: item.status === 'unable_to_verify' ? 'rgba(239, 68, 68, 0.12)' : 'transparent',
                               color: item.status === 'unable_to_verify' ? 'var(--urgency-light)' : 'var(--text-muted)',
@@ -1361,7 +1361,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                         </div>
                       </div>
 
-                      <div style={{ fontSize: '0.80rem', color: 'var(--text-secondary)', fontStyle: 'italic', background: 'rgba(0,0,0,0.15)', padding: '0.35rem 0.6rem', borderRadius: '4px' }}>
+                      <div style={{ fontSize: '0.80rem', color: 'var(--text-secondary)', fontStyle: 'italic', background: 'rgba(0,0,0,0.15)', padding: '0.35rem 0.6rem', borderRadius: '8px' }}>
                         "{item.patientValue}"
                       </div>
                     </div>
@@ -1372,7 +1372,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           </div>
 
           {/* SECTION 4 — NURSE CLINICAL NOTES */}
-          <div className="card glass-card" style={{ marginBottom: 0 }}>
+          <div className="card glass-card scroll-reveal reveal-delay-3" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <FileText size={18} color="var(--mint)" />
@@ -1403,7 +1403,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           </div>
 
           {/* SECTION 5 — MEASUREMENT METADATA */}
-          <div className="card glass-card" style={{ marginBottom: 0, padding: '0.85rem 1rem' }}>
+          <div className="card glass-card scroll-reveal reveal-delay-4" style={{ marginBottom: 0, padding: '0.85rem 1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.6rem' }}>
               <Building2 size={16} color="var(--teal)" />
               <strong style={{ fontSize: '0.82rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-mono)' }}>
@@ -1451,7 +1451,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
 
           {/* BOTTOM ACTION AREA */}
           <div
-            className="glass-card"
+            className="glass-card scroll-reveal reveal-delay-4"
             style={{
               padding: '1rem',
               display: 'flex',

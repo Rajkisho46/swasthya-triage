@@ -121,7 +121,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
       <CaseJourney currentStep="reviewer" compact />
 
       {/* 3. Header Command Panel */}
-      <div className="triage-case-header-bar glass-panel">
+      <div className="triage-case-header-bar glass-panel scroll-reveal reveal-delay-1">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge">03 / MEDICAL REVIEW</div>
@@ -145,7 +145,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
       </div>
 
       {/* 4. Quick Stats Command Grid */}
-      <div className="reviewer-stats-grid">
+      <div className="reviewer-stats-grid scroll-reveal reveal-delay-2">
         {/* Stat 1: Pending Review */}
         <div className="stat-card-glass glass-card">
           <div className="stat-card-label">
@@ -198,7 +198,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
       </div>
 
       {/* 5. Filter & Search Command Console */}
-      <div className="reviewer-filter-bar glass-panel">
+      <div className="reviewer-filter-bar glass-panel scroll-reveal reveal-delay-3">
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.50rem', alignItems: 'center' }}>
           <span style={{ fontSize: '0.80rem', fontWeight: 700, color: 'var(--teal)', display: 'flex', alignItems: 'center', gap: '0.35rem', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-mono)' }}>
             <Filter size={14} /> Filter:
@@ -270,7 +270,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
       </div>
 
       {/* 6. Case Queue Workspace */}
-      <div className="card glass-card" style={{ padding: '0', overflow: 'hidden' }}>
+      <div className="card glass-card scroll-reveal reveal-delay-4" style={{ padding: '0', overflow: 'hidden' }}>
         <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid rgba(59, 74, 69, 0.35)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Users size={16} color="var(--teal)" />
@@ -660,7 +660,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
               Case ID: {deleteConfirmCase.caseId} &bull; Patient: {deleteConfirmCase.patientId}
             </div>
             {deleteError && (
-              <div style={{ color: 'var(--urgency-light)', fontSize: '0.80rem', marginBottom: '1rem', background: 'rgba(255,107,107,0.15)', padding: '0.5rem', borderRadius: '4px' }}>
+              <div style={{ color: 'var(--urgency-light)', fontSize: '0.80rem', marginBottom: '1rem', background: 'rgba(255,107,107,0.15)', padding: '0.5rem', borderRadius: '10px' }}>
                 {deleteError}
               </div>
             )}

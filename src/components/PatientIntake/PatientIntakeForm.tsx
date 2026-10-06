@@ -571,7 +571,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
       />
 
       {/* Screen Title & Command Center State Bar */}
-      <div className="intake-screen-header">
+      <div className="intake-screen-header scroll-reveal">
         <div className="intake-header-left">
           <span className="intake-step-badge">01 / PATIENT INTAKE</span>
           <h2 className="intake-title">Create Triage Case</h2>
@@ -586,7 +586,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
       </div>
 
       {/* Clinical Protocol Scenarios Quick-Fill Section */}
-      <div className="sample-loader-box">
+      <div className="sample-loader-box scroll-reveal reveal-delay-1">
         <div className="sample-loader-title">
           <Sparkles size={16} aria-hidden="true" />
           <span>Preloaded Clinical Protocol Samples</span>
@@ -629,7 +629,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         {/* Main 2-Column Split Workspace */}
         <div className="intake-grid-layout">
           {/* LEFT COLUMN: Patient Identity & Profile */}
-          <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem' }}>
+          <div className="glass-card scroll-reveal reveal-delay-2" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem' }}>
             <div className="card-header" style={{ marginBottom: '0.75rem', paddingBottom: '0.65rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <User size={18} color="#67E8D4" aria-hidden="true" />
@@ -650,7 +650,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                 fontSize: '0.76rem',
                 color: '#A3AEAC',
                 padding: '0.45rem 0.70rem',
-                borderRadius: '8px',
+                borderRadius: '10px',
                 marginBottom: '0.85rem',
                 border: '1px solid rgba(103, 232, 212, 0.16)',
                 background: 'rgba(103, 232, 212, 0.04)',
@@ -797,7 +797,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
           </div>
 
           {/* RIGHT COLUMN: Multimodal Ingestion Dock */}
-          <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem' }}>
+          <div className="glass-card scroll-reveal reveal-delay-3" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem' }}>
             <div className="card-header" style={{ marginBottom: '0.85rem', paddingBottom: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -944,7 +944,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     fontSize: '0.75rem',
                     color: '#A3AEAC',
                     padding: '0.45rem 0.70rem',
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     marginBottom: '0.75rem',
                     border: '1px solid rgba(226, 195, 130, 0.2)',
                     background: 'rgba(226, 195, 130, 0.05)',
@@ -1019,7 +1019,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                           color: '#F5F5F2',
                           background: 'rgba(0,0,0,0.4)',
                           padding: '0.2rem 0.6rem',
-                          borderRadius: '6px',
+                          borderRadius: '8px',
                         }}
                       >
                         00:{recordingSeconds < 10 ? `0${recordingSeconds}` : recordingSeconds}
@@ -1148,7 +1148,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                         <audio
                           controls
                           src={voiceData.audioBlobUrl}
-                          style={{ width: '100%', height: '36px', borderRadius: '8px' }}
+                          style={{ width: '100%', height: '36px', borderRadius: '10px' }}
                           aria-label="Play recorded patient voice note"
                         />
                       </div>
@@ -1191,7 +1191,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       gap: '0.45rem',
                       marginBottom: '0.85rem',
                       padding: '0.55rem 0.85rem',
-                      borderRadius: '8px',
+                      borderRadius: '10px',
                     }}
                     role="alert"
                   >
@@ -1243,7 +1243,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     fontSize: '0.75rem',
                     color: '#A3AEAC',
                     padding: '0.45rem 0.70rem',
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     marginBottom: '0.75rem',
                     border: '1px solid rgba(103, 232, 212, 0.2)',
                     background: 'rgba(103, 232, 212, 0.04)',
@@ -1380,7 +1380,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
 
         {/* Informed Consent & Contextual Safety Box */}
-        <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(226, 195, 130, 0.25)', borderRadius: '18px', padding: '1.35rem 1.5rem', marginBottom: '1.25rem' }}>
+        <div className="glass-card scroll-reveal reveal-delay-4" style={{ background: '#13181D', border: '1px solid rgba(226, 195, 130, 0.25)', borderRadius: '18px', padding: '1.35rem 1.5rem', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <ShieldCheck size={18} color="#67E8D4" aria-hidden="true" />
@@ -1410,7 +1410,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               background: '#182025',
               border: '1px solid rgba(255, 255, 255, 0.06)',
               padding: '0.75rem 1rem',
-              borderRadius: '10px',
+              borderRadius: '12px',
               marginBottom: '0.85rem',
               lineHeight: 1.50,
             }}
@@ -1452,7 +1452,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
 
         {errors.form && (
-          <div className="form-error" style={{ marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.65rem 0.95rem', borderRadius: '8px' }}>
+          <div className="form-error" style={{ marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.65rem 0.95rem', borderRadius: '10px' }}>
             <AlertCircle size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
             <span>{errors.form}</span>
           </div>

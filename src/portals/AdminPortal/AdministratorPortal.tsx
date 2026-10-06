@@ -29,12 +29,12 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
 
       {/* Administrator Liquid Glass Navigation */}
       <div
-        className="glass"
+        className="glass scroll-reveal"
         style={{
           display: 'flex',
           gap: '0.5rem',
           padding: '0.4rem 0.6rem',
-          borderRadius: '10px',
+          borderRadius: '12px',
           width: 'fit-content',
           flexWrap: 'wrap',
         }}
@@ -80,7 +80,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
 
       {/* Tab 2: System Governance & Telemetry */}
       {adminTab === 'overview' && (
-        <div className="glass-card" style={{ padding: '1.75rem', borderRadius: '14px' }}>
+        <div className="glass-card scroll-reveal reveal-delay-1" style={{ padding: '1.75rem', borderRadius: '18px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
               <div className="badge badge-champagne glass" style={{ fontSize: '0.72rem', marginBottom: '0.35rem' }}>
@@ -103,7 +103,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
-            <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '10px' }}>
+            <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '14px' }}>
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 <Database size={13} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
                 Active Cases in DB
@@ -116,7 +116,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
               </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '10px' }}>
+            <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '14px' }}>
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 <Lock size={13} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
                 RBAC Security Posture
@@ -130,7 +130,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
               </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '10px' }}>
+            <div className="glass-panel" style={{ padding: '1.15rem', borderRadius: '14px' }}>
               <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>
                 <Activity size={13} style={{ display: 'inline', marginRight: '4px', verticalAlign: '-1px' }} />
                 Safety Compliance Engine

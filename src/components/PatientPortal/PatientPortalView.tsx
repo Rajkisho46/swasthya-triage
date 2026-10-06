@@ -35,7 +35,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
       <SafetyBanner />
 
       {/* 2. Welcome Hero Section */}
-      <section className="patient-hero-card glass-card" aria-label="Patient Welcome Hub">
+      <section className="patient-hero-card glass-card scroll-reveal reveal-delay-1" aria-label="Patient Welcome Hub">
         <div className="patient-hero-content">
           <div className="patient-hero-badge-row">
             <span className="patient-portal-badge glass">
@@ -76,7 +76,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
       </section>
 
       {/* 3. Emergency Red-Flag Notice */}
-      <section className="patient-emergency-card" role="alert" aria-label="Emergency Red-Flag Notice">
+      <section className="patient-emergency-card scroll-reveal reveal-delay-2" role="alert" aria-label="Emergency Red-Flag Notice">
         <div className="patient-emergency-icon-wrapper" aria-hidden="true">
           <AlertCircle size={22} color="#FFB4AB" />
         </div>
@@ -91,7 +91,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
       </section>
 
       {/* 4. Your Triage Intake Records Section */}
-      <section className="patient-records-card" aria-label="Your Triage Intake Records">
+      <section className="patient-records-card scroll-reveal reveal-delay-3" aria-label="Your Triage Intake Records">
         <div className="patient-records-header">
           <div className="patient-records-title-group">
             <h2 className="patient-records-title">

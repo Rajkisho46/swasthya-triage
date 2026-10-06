@@ -8,7 +8,7 @@ interface SafetyBannerProps {
 export const SafetyBanner: React.FC<SafetyBannerProps> = ({ compact = false }) => {
   return (
     <aside
-      className={`safety-banner glass-card ${compact ? 'compact' : ''}`}
+      className={`safety-banner glass-card scroll-reveal ${compact ? 'compact' : ''}`}
       role="alert"
       aria-label="Institutional safety disclaimer"
     >

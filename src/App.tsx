@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { TriageCase } from './types/triage';
 import { caseService } from './services/caseService';
 import { clearAuditLogs } from './utils/audit';
+import { initScrollRevealObserver } from './utils/scrollReveal';
 import { Header } from './components/Layout/Header';
 import type { ActiveTab } from './components/Layout/Header';
 import { Footer } from './components/Layout/Footer';
@@ -17,6 +18,12 @@ function MainWorkspace() {
   const [cases, setCases] = useState<TriageCase[]>([]);
   const [activeCase, setActiveCase] = useState<TriageCase | null>(null);
   const [intakeResetKey, setIntakeResetKey] = useState<number>(0);
+
+  // Initialize global scroll reveal observer
+  useEffect(() => {
+    const cleanup = initScrollRevealObserver();
+    return cleanup;
+  }, []);
 
   // Privacy, Consent & Trust Center State
   const [isTrustCenterOpen, setIsTrustCenterOpen] = useState<boolean>(false);

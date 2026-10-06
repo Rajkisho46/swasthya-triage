@@ -242,7 +242,7 @@ export const AuditLogView: React.FC = () => {
       <CaseJourney currentStep="audit" compact />
 
       {/* 3. Audit Command Header */}
-      <div className="audit-header-panel glass-panel">
+      <div className="audit-header-panel glass-panel scroll-reveal reveal-delay-1">
         <div>
           <div className="intake-step-badge glass">04 / AUDIT TRAIL</div>
           <h1 className="intake-title" style={{ fontSize: '1.35rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -294,7 +294,7 @@ export const AuditLogView: React.FC = () => {
       </div>
 
       {/* 4. Institutional Audit Statistics Grid (Calculated strictly from state) */}
-      <div className="audit-stats-grid">
+      <div className="audit-stats-grid scroll-reveal reveal-delay-2">
         <div className="audit-stat-card glass-card accent-mint">
           <div className="stat-card-label">
             <Layers size={13} color="var(--teal)" />
@@ -341,7 +341,7 @@ export const AuditLogView: React.FC = () => {
       </div>
 
       {/* 5. Evidence Chain Visualization Panel */}
-      <div className="evidence-chain-panel glass-card">
+      <div className="evidence-chain-panel glass-card scroll-reveal reveal-delay-3">
         <div className="evidence-chain-panel-header">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -397,7 +397,7 @@ export const AuditLogView: React.FC = () => {
       </div>
 
       {/* 6. Command Filter Console */}
-      <div className="audit-command-bar glass-panel">
+      <div className="audit-command-bar glass-panel scroll-reveal reveal-delay-3">
         <div className="audit-search-box glass-input">
           <Search size={15} color="var(--text-muted)" />
           <input
@@ -456,7 +456,7 @@ export const AuditLogView: React.FC = () => {
       </div>
 
       {/* 7. Chronological Audit Timeline */}
-      <div className="audit-timeline-container glass-card">
+      <div className="audit-timeline-container glass-card scroll-reveal reveal-delay-4">
         <div className="audit-timeline-header">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

@@ -730,7 +730,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
               <div
                 style={{
                   padding: '6px 10px',
-                  borderRadius: '8px',
+                  borderRadius: '10px',
                   background: '#0B1214',
                   border: '1px solid rgba(255, 255, 255, 0.10)',
                   display: 'flex',
@@ -751,7 +751,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
                   alignItems: 'center',
                   gap: '6px',
                   padding: '5px 8px',
-                  borderRadius: '8px',
+                  borderRadius: '10px',
                   background: '#141C1E',
                   border: '1px solid rgba(255, 255, 255, 0.10)',
                 }}
@@ -1196,7 +1196,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
               <div
                 style={{
                   padding: '6px 10px',
-                  borderRadius: '8px',
+                  borderRadius: '10px',
                   background: '#0B1214',
                   border: '1px solid rgba(255, 255, 255, 0.10)',
                   display: 'flex',

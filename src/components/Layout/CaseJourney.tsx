@@ -141,7 +141,7 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
   });
 
   return (
-    <nav className={`case-journey-container glass-card ${compact ? 'compact' : ''}`} aria-label="Clinical Evidence Chain Stepper">
+    <nav className={`case-journey-container glass-card scroll-reveal reveal-delay-1 ${compact ? 'compact' : ''}`} aria-label="Clinical Evidence Chain Stepper">
       <div className="case-journey-header">
         <div className="case-journey-title">
           <span className="pulse-indicator-teal" aria-hidden="true" />
