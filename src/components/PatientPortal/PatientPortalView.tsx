@@ -81,9 +81,9 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
           <AlertCircle size={22} color="#FFB4AB" />
         </div>
         <div className="patient-emergency-text-content">
-          <div className="patient-emergency-heading">
+          <h2 className="patient-emergency-heading">
             Emergency Red-Flag Notice
-          </div>
+          </h2>
           <p className="patient-emergency-body">
             This system provides non-diagnostic clinical triage assistance. If you or the patient are experiencing severe chest pain, extreme breathlessness, sudden loss of consciousness, or heavy bleeding, please go immediately to the nearest Emergency Department or call emergency medical services.
           </p>
@@ -91,20 +91,20 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
       </section>
 
       {/* 4. Your Triage Intake Records Section */}
-      <section className="patient-records-card glass-card" aria-label="Triage Intake Records">
+      <section className="patient-records-card" aria-label="Your Triage Intake Records">
         <div className="patient-records-header">
-          <div>
+          <div className="patient-records-title-group">
             <h2 className="patient-records-title">
               Your Triage Intake Records
             </h2>
             <div className="patient-records-stats-row">
-              <span className="patient-stat-pill glass">
+              <span className="patient-stat-pill">
                 <span className="stat-dot stat-dot-teal" aria-hidden="true" />
-                Total Records: <strong>{cases.length}</strong>
+                <span>Total Records:</span> <strong>{cases.length}</strong>
               </span>
-              <span className="patient-stat-pill glass">
+              <span className="patient-stat-pill">
                 <span className="stat-dot stat-dot-champagne" aria-hidden="true" />
-                Clinical Reviews Pending: <strong>{pendingCount}</strong>
+                <span>Clinical Reviews Pending:</span> <strong>{pendingCount}</strong>
               </span>
             </div>
           </div>
@@ -113,12 +113,12 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
         {cases.length === 0 ? (
           /* Empty State */
           <div className="patient-records-empty-state">
-            <div className="patient-empty-icon-box glass" aria-hidden="true">
-              <HeartPulse size={36} color="var(--mint)" className="patient-pulse-anim" />
+            <div className="patient-empty-icon-box" aria-hidden="true">
+              <HeartPulse size={34} color="#5DFDDD" className="patient-pulse-anim" />
             </div>
             <h3 className="patient-empty-title">No intake cases recorded yet.</h3>
             <p className="patient-empty-subtitle">
-              Click &ldquo;New Symptom Check / Intake&rdquo; above to record symptoms or multimodal evidence.
+              Use &ldquo;New Symptom Check / Intake&rdquo; above to submit symptoms or multimodal evidence.
             </p>
           </div>
         ) : (
@@ -131,24 +131,24 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
               return (
                 <article
                   key={c.caseId}
-                  className={`patient-record-item glass-card ${isReviewed ? 'item-reviewed' : hasUrgency ? 'item-urgent' : ''}`}
+                  className={`patient-record-item ${isReviewed ? 'item-reviewed' : hasUrgency ? 'item-urgent' : ''}`}
                 >
                   <div className="patient-record-info">
                     <div className="patient-record-meta-row">
                       <span className="patient-record-case-id">
                         {c.caseId}
                       </span>
-                      <span className="patient-record-patient-id glass">
+                      <span className="patient-record-patient-id">
                         ID: {c.patientId}
                       </span>
                       {isReviewed ? (
-                        <span className="badge badge-teal glass patient-status-badge">
-                          <CheckCircle2 size={12} aria-hidden="true" />
-                          <span>Reviewed by Clinician ({c.reviewerDecision || 'Confirmed'})</span>
+                        <span className="patient-status-badge badge-reviewed">
+                          <CheckCircle2 size={13} aria-hidden="true" />
+                          <span>Reviewed &amp; Confirmed ({c.reviewerDecision || 'Confirmed'})</span>
                         </span>
                       ) : (
-                        <span className="badge badge-champagne glass patient-status-badge">
-                          <Clock size={12} aria-hidden="true" />
+                        <span className="patient-status-badge badge-pending">
+                          <Clock size={13} aria-hidden="true" />
                           <span>Awaiting Clinical Review</span>
                         </span>
                       )}
@@ -160,7 +160,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
 
                     <div className="patient-record-date-lang">
                       <span>Language: {c.preferredLanguage || 'English'}</span>
-                      <span className="dot-separator">&bull;</span>
+                      <span className="dot-separator" aria-hidden="true">&bull;</span>
                       <span>Date: {new Date(c.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                   </div>
@@ -168,12 +168,12 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
                   <button
                     type="button"
                     onClick={() => onViewSummary(c)}
-                    className="patient-view-summary-btn glass"
+                    className="patient-view-summary-btn"
                     aria-label={`View Triage Summary for Case ${c.caseId}`}
                   >
-                    <FileText size={15} color="var(--teal)" aria-hidden="true" />
+                    <FileText size={16} color="#5DFDDD" aria-hidden="true" />
                     <span>View Triage Summary</span>
-                    <ChevronRight size={14} aria-hidden="true" />
+                    <ChevronRight size={15} aria-hidden="true" />
                   </button>
                 </article>
               );

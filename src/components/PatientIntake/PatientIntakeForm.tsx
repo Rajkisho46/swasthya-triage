@@ -586,7 +586,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
       </div>
 
       {/* Clinical Protocol Scenarios Quick-Fill Section */}
-      <div className="sample-loader-box glass-card">
+      <div className="sample-loader-box">
         <div className="sample-loader-title">
           <Sparkles size={16} aria-hidden="true" />
           <span>Preloaded Clinical Protocol Samples</span>
@@ -598,14 +598,14 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             id="btn-primary-demo-quickfill"
             onClick={handleLoadPrimaryDemo}
             disabled={isProcessing}
-            className="btn btn-primary glass"
+            className="btn btn-primary"
             style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem', whiteSpace: 'normal', textAlign: 'left', width: '100%', lineHeight: 1.35 }}
             title="1-Click load full Multimodal Clinical Case (Hindi + Audio STT + OCR + Urgency)"
           >
             <Sparkles size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
             <span>★ 1-Click Clinical Sample: Multimodal Hindi + Voice STT + Chest Urgency</span>
           </button>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+          <span style={{ fontSize: '0.78rem', color: '#737E7D' }}>
             (Standard Clinical Protocol: 67y Male, Hindi voice + chest radiograph report)
           </span>
         </div>
@@ -615,7 +615,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             <button
               key={idx}
               type="button"
-              className="sample-chip-btn glass"
+              className="sample-chip-btn"
               onClick={() => handleApplyPreset(preset)}
               disabled={isProcessing}
             >
@@ -629,11 +629,11 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         {/* Main 2-Column Split Workspace */}
         <div className="intake-grid-layout">
           {/* LEFT COLUMN: Patient Identity & Profile */}
-          <div className="glass-card" style={{ padding: '1.25rem 1.35rem' }}>
-            <div className="card-header" style={{ marginBottom: '0.75rem', paddingBottom: '0.65rem' }}>
+          <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem' }}>
+            <div className="card-header" style={{ marginBottom: '0.75rem', paddingBottom: '0.65rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <User size={18} color="var(--mint)" aria-hidden="true" />
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
+                <User size={18} color="#67E8D4" aria-hidden="true" />
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#F5F5F2' }}>
                   PATIENT PROFILE
                 </h3>
               </div>
@@ -642,27 +642,27 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
             {/* Data Minimization Notice */}
             <div
-              className="data-minimization-banner glass"
+              className="data-minimization-banner"
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.45rem',
                 fontSize: '0.76rem',
-                color: 'var(--text-secondary)',
-                padding: '0.4rem 0.65rem',
-                borderRadius: 'var(--radius-sm)',
+                color: '#A3AEAC',
+                padding: '0.45rem 0.70rem',
+                borderRadius: '8px',
                 marginBottom: '0.85rem',
-                border: '1px solid rgba(53, 224, 193, 0.15)',
-                background: 'rgba(53, 224, 193, 0.04)',
+                border: '1px solid rgba(103, 232, 212, 0.16)',
+                background: 'rgba(103, 232, 212, 0.04)',
               }}
             >
-              <Lock size={12} color="var(--mint)" aria-hidden="true" style={{ flexShrink: 0 }} />
+              <Lock size={12} color="#67E8D4" aria-hidden="true" style={{ flexShrink: 0 }} />
               <span>Only information needed for this triage workflow is requested.</span>
             </div>
 
             {/* Profile Identity Card Display */}
-            <div className="profile-identity-card glass">
-              <div className="profile-avatar-initials glass" aria-hidden="true">
+            <div className="profile-identity-card">
+              <div className="profile-avatar-initials" aria-hidden="true">
                 {initials || 'PT'}
               </div>
               <div className="profile-details-group">
@@ -759,23 +759,23 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                 <option value="Regional (Kannada)">Regional (Kannada - ಕನ್ನಡ)</option>
               </select>
             </div>
-
-            {/* Processor Switcher */}
             <div
-              className="glass-card"
               style={{
-                marginTop: '1rem',
-                padding: '0.75rem 0.90rem',
+                marginTop: '1.15rem',
+                padding: '0.85rem 1rem',
+                background: '#182025',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '12px',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.45rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-secondary)' }}>
-                  <Cpu size={14} color="var(--mint)" aria-hidden="true" />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.50rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontSize: '0.78rem', fontWeight: 700, color: '#A3AEAC' }}>
+                  <Cpu size={14} color="#67E8D4" aria-hidden="true" />
                   <span style={{ textTransform: 'uppercase', letterSpacing: '0.04em' }}>Triage Engine Selection</span>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '0.50rem', flexWrap: 'wrap' }}>
                 {availableProcessors.map((p) => {
                   const mode = p.isAIBased ? 'ai_pluggable' : 'deterministic';
                   const isSelected = processorMode === mode;
@@ -784,12 +784,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       key={p.id}
                       type="button"
                       onClick={() => handleProcessorChange(mode)}
-                      className={`sample-chip-btn glass ${isSelected ? 'active' : ''}`}
-                      style={
-                        isSelected
-                          ? { backgroundColor: 'var(--teal)', color: 'var(--teal-dark)', borderColor: 'var(--mint)', fontWeight: 700 }
-                          : { fontSize: '0.78rem' }
-                      }
+                      className={`sample-chip-btn ${isSelected ? 'active' : ''}`}
                       title={p.description}
                     >
                       {isSelected && <Check size={12} style={{ display: 'inline', marginRight: '4px' }} />}
@@ -802,16 +797,16 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
           </div>
 
           {/* RIGHT COLUMN: Multimodal Ingestion Dock */}
-          <div className="glass-card" style={{ padding: '1.25rem 1.35rem' }}>
-            <div className="card-header" style={{ marginBottom: '0.85rem', paddingBottom: '0.75rem' }}>
+          <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem' }}>
+            <div className="card-header" style={{ marginBottom: '0.85rem', paddingBottom: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <FileSearch size={18} color="var(--mint)" aria-hidden="true" />
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
+                  <FileSearch size={18} color="#67E8D4" aria-hidden="true" />
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#F5F5F2' }}>
                     MULTIMODAL INPUT DOCK
                   </h3>
                 </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+                <div style={{ fontSize: '0.78rem', color: '#737E7D', marginTop: '0.2rem' }}>
                   Select available patient evidence capture pathways
                 </div>
               </div>
@@ -823,14 +818,14 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               {/* Pathway 1: Text */}
               <button
                 type="button"
-                className={`modality-card glass-card ${activeInputMode === 'text' ? 'active' : ''}`}
+                className={`modality-card ${activeInputMode === 'text' ? 'active' : ''}`}
                 onClick={() => setActiveInputMode('text')}
                 aria-pressed={activeInputMode === 'text'}
                 aria-label="Select Text Narrative modality"
               >
                 <div className="modality-card-header">
                   <span className="modality-card-title">
-                    <FileText size={16} color="var(--mint)" aria-hidden="true" />
+                    <FileText size={16} color="#67E8D4" aria-hidden="true" />
                     <span>01 / Text</span>
                   </span>
                   <span className="badge badge-teal" style={{ fontSize: '0.65rem', padding: '0.1rem 0.4rem' }}>
@@ -838,9 +833,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   </span>
                 </div>
                 <p className="modality-card-sub">Structured input buffer for verbatim clinical statements.</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#737E7D' }}>
                   <span className="font-mono">{symptoms.length} chars</span>
-                  <span style={{ color: symptoms.trim() ? 'var(--mint)' : 'var(--text-muted)' }}>
+                  <span style={{ color: symptoms.trim() ? '#67E8D4' : '#737E7D' }}>
                     {symptoms.trim() ? 'Synced' : 'Empty'}
                   </span>
                 </div>
@@ -896,14 +891,14 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               {/* Pathway 3: Document OCR */}
               <button
                 type="button"
-                className={`modality-card glass-card ${activeInputMode === 'ocr' ? 'active' : ''}`}
+                className={`modality-card ${activeInputMode === 'ocr' ? 'active' : ''}`}
                 onClick={() => setActiveInputMode('ocr')}
                 aria-pressed={activeInputMode === 'ocr'}
                 aria-label="Select Document OCR modality"
               >
                 <div className="modality-card-header">
                   <span className="modality-card-title">
-                    <Upload size={16} color="var(--seafoam)" aria-hidden="true" />
+                    <Upload size={16} color="#3DB8AA" aria-hidden="true" />
                     <span>03 / OCR</span>
                   </span>
                   <span className="badge badge-blue" style={{ fontSize: '0.65rem', padding: '0.1rem 0.4rem' }}>
@@ -911,9 +906,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   </span>
                 </div>
                 <p className="modality-card-sub">Radiology & lab report document parser.</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#737E7D' }}>
                   <span className="font-mono">{ocrReports.length} attached</span>
-                  <span style={{ color: ocrReports.length > 0 ? 'var(--mint)' : 'var(--text-muted)' }}>
+                  <span style={{ color: ocrReports.length > 0 ? '#67E8D4' : '#737E7D' }}>
                     {ocrReports.length > 0 ? 'Parsed' : 'Ready'}
                   </span>
                 </div>
@@ -922,11 +917,11 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
             {/* Active Modality Auxiliary Controls */}
             {activeInputMode === 'voice' && (
-              <div className="modality-content-panel glass-card" id="voice-stt-panel" role="region" aria-label="Voice Input and Speech-to-Text Controls">
+              <div className="modality-content-panel" id="voice-stt-panel" role="region" aria-label="Voice Input and Speech-to-Text Controls">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                    <Mic size={16} color="var(--champagne)" aria-hidden="true" />
-                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--champagne)', letterSpacing: '0.03em' }}>
+                    <Mic size={16} color="#E2C382" aria-hidden="true" />
+                    <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#E2C382', letterSpacing: '0.03em' }}>
                       VOICE INPUT & SPEECH-TO-TEXT ENGINE
                     </span>
                   </div>
@@ -941,35 +936,35 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
                 {/* Pre-Recording Voice Consent Notice */}
                 <div
-                  className="voice-consent-notice glass"
+                  className="voice-consent-notice"
                   style={{
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '0.45rem',
                     fontSize: '0.75rem',
-                    color: 'var(--text-secondary)',
+                    color: '#A3AEAC',
                     padding: '0.45rem 0.70rem',
-                    borderRadius: 'var(--radius-sm)',
+                    borderRadius: '8px',
                     marginBottom: '0.75rem',
                     border: '1px solid rgba(226, 195, 130, 0.2)',
                     background: 'rgba(226, 195, 130, 0.05)',
                     lineHeight: 1.45,
                   }}
                 >
-                  <Info size={14} color="var(--champagne)" aria-hidden="true" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <Info size={14} color="#E2C382" aria-hidden="true" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div>
-                    <strong style={{ color: 'var(--champagne)' }}>Voice Processing Notice:</strong> Voice recording will be processed to create a text transcription for this triage workflow. Audio is processed via secure server-side pipeline and not retained for advertising or secondary training.
+                    <strong style={{ color: '#E2C382' }}>Voice Processing Notice:</strong> Voice recording will be processed to create a text transcription for this triage workflow. Audio is processed via secure server-side pipeline and not retained for advertising or secondary training.
                   </div>
                 </div>
 
                 {/* State 1: IDLE / READY FOR RECORDING */}
                 {!isRecording && !isTranscribingVoice && !voiceData && (
-                  <div className="voice-idle-box glass-card" style={{ padding: '1rem', marginBottom: '0.85rem', textAlign: 'center' }}>
+                  <div className="voice-idle-box" style={{ padding: '1rem', marginBottom: '0.85rem', textAlign: 'center' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.65rem' }}>
                       <button
                         type="button"
                         id="btn-record-voice"
-                        className="btn btn-primary glass voice-record-btn"
+                        className="voice-record-btn"
                         onClick={handleStartLiveRecording}
                         disabled={isProcessing}
                         aria-label="Start Voice Recording"
@@ -980,16 +975,18 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.6rem',
-                          backgroundColor: 'rgba(235, 180, 50, 0.15)',
-                          borderColor: 'var(--champagne)',
-                          color: 'var(--champagne)',
+                          borderRadius: '12px',
+                          backgroundColor: 'rgba(226, 195, 130, 0.12)',
+                          border: '1px solid #E2C382',
+                          color: '#E2C382',
                           cursor: 'pointer',
+                          fontWeight: 600,
                         }}
                       >
                         <Mic size={18} aria-hidden="true" />
                         <span>Start Voice Recording</span>
                       </button>
-                      <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
+                      <p style={{ fontSize: '0.78rem', color: '#A3AEAC', margin: 0, lineHeight: 1.4 }}>
                         Speak patient symptoms clearly in English, Hindi, or regional language. Captured audio will be processed via the STT pipeline.
                       </p>
                     </div>
@@ -999,18 +996,18 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                 {/* State 2: RECORDING */}
                 {isRecording && (
                   <div
-                    className="voice-recording-box glass-card"
+                    className="voice-recording-box"
                     style={{
                       padding: '1rem 1.15rem',
                       marginBottom: '0.85rem',
-                      borderColor: 'var(--urgency-high)',
-                      backgroundColor: 'rgba(255, 99, 132, 0.08)',
+                      borderColor: '#F2A6A0',
+                      backgroundColor: 'rgba(242, 166, 160, 0.08)',
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span className="pulse-indicator-red" aria-hidden="true" />
-                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--urgency-high)', letterSpacing: '0.04em' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#F2A6A0', letterSpacing: '0.04em' }}>
                           RECORDING IN PROGRESS
                         </span>
                       </div>
@@ -1019,17 +1016,17 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                         style={{
                           fontSize: '0.90rem',
                           fontWeight: 700,
-                          color: 'var(--text-primary)',
+                          color: '#F5F5F2',
                           background: 'rgba(0,0,0,0.4)',
                           padding: '0.2rem 0.6rem',
-                          borderRadius: 'var(--radius-sm)',
+                          borderRadius: '6px',
                         }}
                       >
                         00:{recordingSeconds < 10 ? `0${recordingSeconds}` : recordingSeconds}
                       </span>
                     </div>
 
-                    <div className="waveform-container glass" style={{ marginBottom: '0.85rem' }} aria-hidden="true">
+                    <div className="waveform-container" style={{ marginBottom: '0.85rem' }} aria-hidden="true">
                       <div className="waveform-bar" style={{ animationDuration: '0.4s' }} />
                       <div className="waveform-bar" style={{ animationDuration: '0.7s' }} />
                       <div className="waveform-bar" style={{ animationDuration: '0.3s' }} />
@@ -1045,15 +1042,16 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       <button
                         type="button"
                         id="btn-stop-recording"
-                        className="btn btn-primary glass"
+                        className="btn btn-primary"
                         onClick={handleStopLiveRecording}
                         aria-label="Stop and Transcribe Audio"
                         style={{
-                          minHeight: '44px',
+                          minHeight: '48px',
                           padding: '0.6rem 1.25rem',
-                          backgroundColor: 'var(--urgency-high)',
-                          borderColor: 'var(--urgency-high)',
-                          color: '#fff',
+                          backgroundColor: '#F2A6A0',
+                          borderColor: '#F2A6A0',
+                          color: '#0A0D10',
+                          fontWeight: 700,
                         }}
                       >
                         <Square size={16} fill="currentColor" aria-hidden="true" />
@@ -1062,10 +1060,10 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       <button
                         type="button"
                         id="btn-cancel-recording"
-                        className="btn btn-secondary glass"
+                        className="btn btn-secondary"
                         onClick={handleCancelLiveRecording}
                         aria-label="Cancel Recording"
-                        style={{ minHeight: '44px', padding: '0.6rem 1rem' }}
+                        style={{ minHeight: '48px', padding: '0.6rem 1rem' }}
                       >
                         Cancel
                       </button>
@@ -1085,13 +1083,14 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       flexDirection: 'column',
                       alignItems: 'center',
                       gap: '0.6rem',
+                      background: '#182025',
                     }}
                   >
-                    <RefreshCw size={24} className="spin-slow" color="var(--champagne)" aria-hidden="true" />
-                    <span style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--champagne)' }}>
+                    <RefreshCw size={24} className="spin-slow" color="#E2C382" aria-hidden="true" />
+                    <span style={{ fontSize: '0.86rem', fontWeight: 600, color: '#E2C382' }}>
                       Transcribing audio via Speech-to-Text Pipeline...
                     </span>
-                    <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                    <span style={{ fontSize: '0.76rem', color: '#737E7D' }}>
                       Extracting patient verbal narrative and preserving verbatim statement.
                     </span>
                   </div>
@@ -1099,14 +1098,14 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
                 {/* State 4 & 5: TRANSCRIBED & PLAYBACK */}
                 {voiceData && !isRecording && !isTranscribingVoice && (
-                  <div className="glass-card voice-transcription-card" style={{ padding: '0.85rem 1rem', marginBottom: '0.85rem' }}>
+                  <div className="voice-transcription-card" style={{ padding: '0.85rem 1rem', marginBottom: '0.85rem' }}>
                     <div
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         fontSize: '0.76rem',
-                        color: 'var(--champagne)',
+                        color: '#E2C382',
                         marginBottom: '0.45rem',
                         fontFamily: 'var(--font-mono)',
                         flexWrap: 'wrap',
@@ -1125,9 +1124,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                         </span>
                         <button
                           type="button"
-                          className="btn btn-secondary glass"
+                          className="btn btn-secondary"
                           onClick={() => setVoiceData(undefined)}
-                          style={{ padding: '0.15rem 0.5rem', fontSize: '0.70rem', color: 'var(--urgency-light)' }}
+                          style={{ padding: '0.15rem 0.5rem', fontSize: '0.70rem', color: '#F2A6A0' }}
                           title="Remove attached voice recording"
                           aria-label="Remove attached voice recording"
                         >
@@ -1136,20 +1135,20 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       </div>
                     </div>
 
-                    <p style={{ fontStyle: 'italic', fontSize: '0.88rem', color: 'var(--text-primary)', margin: 0, lineHeight: 1.45 }}>
+                    <p style={{ fontStyle: 'italic', fontSize: '0.88rem', color: '#F5F5F2', margin: 0, lineHeight: 1.45 }}>
                       "{voiceData.transcript}"
                     </p>
 
                     {/* Audio Playback if available */}
                     {voiceData.audioBlobUrl && (
                       <div style={{ marginTop: '0.65rem', paddingTop: '0.5rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+                        <div style={{ fontSize: '0.72rem', color: '#737E7D', marginBottom: '0.25rem' }}>
                           Recorded Audio Playback:
                         </div>
                         <audio
                           controls
                           src={voiceData.audioBlobUrl}
-                          style={{ width: '100%', height: '36px', borderRadius: 'var(--radius-sm)' }}
+                          style={{ width: '100%', height: '36px', borderRadius: '8px' }}
                           aria-label="Play recorded patient voice note"
                         />
                       </div>
@@ -1159,7 +1158,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     <div style={{ marginTop: '0.6rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                       <button
                         type="button"
-                        className="btn btn-secondary glass"
+                        className="btn btn-secondary"
                         onClick={() => {
                           setSymptoms((prev) => (prev ? `${prev}\n${voiceData.transcript}` : voiceData.transcript));
                         }}
@@ -1170,7 +1169,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       </button>
                       <button
                         type="button"
-                        className="btn btn-secondary glass"
+                        className="btn btn-secondary"
                         onClick={handleStartLiveRecording}
                         style={{ padding: '0.25rem 0.6rem', fontSize: '0.74rem' }}
                         title="Re-record audio note"
@@ -1192,7 +1191,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       gap: '0.45rem',
                       marginBottom: '0.85rem',
                       padding: '0.55rem 0.85rem',
-                      borderRadius: 'var(--radius-sm)',
+                      borderRadius: '8px',
                     }}
                     role="alert"
                   >
@@ -1203,7 +1202,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
                 {/* Preloaded Clinical Scenarios Section */}
                 <div style={{ marginTop: '0.65rem' }}>
-                  <div style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.45rem' }}>
+                  <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#737E7D', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.45rem' }}>
                     Or Select Clinical Voice Sample:
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
@@ -1211,7 +1210,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       <button
                         key={sample.id}
                         type="button"
-                        className="sample-chip-btn glass"
+                        className="sample-chip-btn"
                         onClick={() => handleSelectVoiceSample(sample.id)}
                         disabled={isProcessing || isRecording || isTranscribingVoice}
                         style={{ minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}
@@ -1226,9 +1225,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             )}
 
             {activeInputMode === 'ocr' && (
-              <div className="modality-content-panel glass-card">
+              <div className="modality-content-panel">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.60rem' }}>
-                  <span style={{ fontSize: '0.80rem', fontWeight: 700, color: 'var(--seafoam)' }}>
+                  <span style={{ fontSize: '0.80rem', fontWeight: 700, color: '#67E8D4' }}>
                     CLINICAL MEDICAL DOCUMENT OCR ATTACHMENTS
                   </span>
                   <span className="provenance-tag ai">CLINICAL OCR</span>
@@ -1236,24 +1235,24 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
                 {/* Pre-Upload OCR Consent Notice */}
                 <div
-                  className="ocr-consent-notice glass"
+                  className="ocr-consent-notice"
                   style={{
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '0.45rem',
                     fontSize: '0.75rem',
-                    color: 'var(--text-secondary)',
+                    color: '#A3AEAC',
                     padding: '0.45rem 0.70rem',
-                    borderRadius: 'var(--radius-sm)',
+                    borderRadius: '8px',
                     marginBottom: '0.75rem',
-                    border: '1px solid rgba(93, 253, 221, 0.2)',
-                    background: 'rgba(93, 253, 221, 0.04)',
+                    border: '1px solid rgba(103, 232, 212, 0.2)',
+                    background: 'rgba(103, 232, 212, 0.04)',
                     lineHeight: 1.45,
                   }}
                 >
-                  <Info size={14} color="var(--seafoam)" aria-hidden="true" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <Info size={14} color="#67E8D4" aria-hidden="true" style={{ flexShrink: 0, marginTop: '2px' }} />
                   <div>
-                    <strong style={{ color: 'var(--seafoam)' }}>Document Processing Notice:</strong> Uploaded medical documents may be processed to extract text and structured information for this triage workflow. OCR extractions are provisional and subject to qualified clinician verification.
+                    <strong style={{ color: '#67E8D4' }}>Document Processing Notice:</strong> Uploaded medical documents may be processed to extract text and structured information for this triage workflow. OCR extractions are provisional and subject to qualified clinician verification.
                   </div>
                 </div>
 
@@ -1262,7 +1261,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     <button
                       key={report.id}
                       type="button"
-                      className="sample-chip-btn glass"
+                      className="sample-chip-btn"
                       onClick={() => handleAddOCRReport(report.id)}
                       disabled={isProcessing}
                     >
@@ -1287,9 +1286,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                 {ocrReports.length > 0 && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                     {ocrReports.map((r, idx) => (
-                      <div key={idx} className="glass-card" style={{ padding: '0.60rem 0.75rem' }}>
+                      <div key={idx} style={{ background: '#182025', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '10px', padding: '0.60rem 0.75rem' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.80rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                          <span style={{ fontSize: '0.80rem', fontWeight: 600, color: '#F5F5F2' }}>
                             {r.fileName}
                           </span>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
@@ -1298,9 +1297,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                             </span>
                             <button
                               type="button"
-                              className="btn btn-secondary glass"
+                              className="btn btn-secondary"
                               onClick={() => setOcrReports((prev) => prev.filter((_, i) => i !== idx))}
-                              style={{ padding: '0.15rem 0.5rem', fontSize: '0.70rem', color: 'var(--urgency-light)' }}
+                              style={{ padding: '0.15rem 0.5rem', fontSize: '0.70rem', color: '#F2A6A0' }}
                               title="Remove document"
                             >
                               Remove
@@ -1310,7 +1309,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                         <p
                           style={{
                             fontSize: '0.74rem',
-                            color: 'var(--text-secondary)',
+                            color: '#A3AEAC',
                             fontFamily: 'var(--font-mono)',
                             margin: '0.3rem 0 0 0',
                           }}
@@ -1333,16 +1332,16 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
 
         {/* FULL WIDTH: Patient Narrative Editor */}
-        <div className="glass-card" style={{ padding: '1.25rem 1.35rem', marginBottom: '1.25rem' }}>
-          <div className="card-header" style={{ marginBottom: '0.85rem', paddingBottom: '0.75rem' }}>
+        <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '18px', padding: '1.35rem 1.5rem', marginBottom: '1.25rem' }}>
+          <div className="card-header" style={{ marginBottom: '0.85rem', paddingBottom: '0.75rem', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <FileText size={18} color="var(--mint)" aria-hidden="true" />
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: 'var(--text-primary)' }}>
+                <FileText size={18} color="#67E8D4" aria-hidden="true" />
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0, color: '#F5F5F2' }}>
                   PATIENT NARRATIVE & CLINICAL STATEMENT
                 </h3>
               </div>
-              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '0.78rem', color: '#737E7D', marginTop: '0.2rem' }}>
                 Verbatim observations reported by patient.
               </div>
             </div>
@@ -1366,7 +1365,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               <span className="form-help">
                 Multilingual text is preserved verbatim and normalized for medical reviewer evaluation.
               </span>
-              <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: '0.74rem', color: '#737E7D', fontFamily: 'var(--font-mono)' }}>
                 {symptoms.length} characters &bull; {symptoms.trim() ? symptoms.trim().split(/\s+/).length : 0} words
               </span>
             </div>
@@ -1381,20 +1380,20 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
 
         {/* Informed Consent & Contextual Safety Box */}
-        <div className="glass-card" style={{ padding: '1.25rem 1.35rem', marginBottom: '1.25rem', border: '1px solid rgba(53, 224, 193, 0.25)' }}>
+        <div className="glass-card" style={{ background: '#13181D', border: '1px solid rgba(226, 195, 130, 0.25)', borderRadius: '18px', padding: '1.35rem 1.5rem', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <ShieldCheck size={18} color="var(--mint)" aria-hidden="true" />
-              <strong style={{ fontSize: '0.92rem', color: 'var(--text-primary)' }}>
+              <ShieldCheck size={18} color="#67E8D4" aria-hidden="true" />
+              <strong style={{ fontSize: '0.92rem', color: '#F5F5F2' }}>
                 INFORMED PATIENT / GUARDIAN CONSENT
               </strong>
             </div>
             {onOpenTrustCenter && (
               <button
                 type="button"
-                className="btn btn-secondary glass"
+                className="btn btn-secondary"
                 onClick={() => onOpenTrustCenter('consent')}
-                style={{ fontSize: '0.74rem', padding: '0.2rem 0.55rem' }}
+                style={{ fontSize: '0.74rem', padding: '0.25rem 0.60rem' }}
                 title="View itemized data categories and DPDP-oriented notice"
               >
                 <Info size={12} style={{ marginRight: '3px' }} aria-hidden="true" />
@@ -1407,15 +1406,16 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             className="consent-itemized-summary"
             style={{
               fontSize: '0.78rem',
-              color: 'var(--text-secondary)',
-              background: 'rgba(0, 0, 0, 0.25)',
-              padding: '0.65rem 0.85rem',
-              borderRadius: 'var(--radius-sm)',
+              color: '#A3AEAC',
+              background: '#182025',
+              border: '1px solid rgba(255, 255, 255, 0.06)',
+              padding: '0.75rem 1rem',
+              borderRadius: '10px',
               marginBottom: '0.85rem',
-              lineHeight: 1.45,
+              lineHeight: 1.50,
             }}
           >
-            <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>
+            <div style={{ fontWeight: 600, color: '#F5F5F2', marginBottom: '0.30rem' }}>
               Summary of Processing:
             </div>
             <ul style={{ margin: 0, paddingLeft: '1.15rem' }}>
@@ -1426,7 +1426,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             </ul>
           </div>
 
-          <div className="checkbox-container glass" style={{ alignItems: 'flex-start' }}>
+          <div className="checkbox-container" style={{ alignItems: 'flex-start', background: '#182025', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '12px', padding: '0.85rem 1rem' }}>
             <input
               type="checkbox"
               id="consent-checkbox"
@@ -1435,10 +1435,10 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               aria-label="Confirm Patient / Guardian Informed Consent"
             />
             <div style={{ flex: 1 }}>
-              <label htmlFor="consent-checkbox" className="checkbox-label" style={{ fontWeight: 600, color: 'var(--text-primary)', cursor: 'pointer' }}>
-                <span style={{ color: 'var(--mint)' }}>Patient / Guardian Informed Consent Obtained</span> &bull; I confirm that informed consent has been obtained for this clinical triage intake. <span className="required" aria-hidden="true">*</span>
+              <label htmlFor="consent-checkbox" className="checkbox-label" style={{ fontWeight: 600, color: '#F5F5F2', cursor: 'pointer' }}>
+                <span style={{ color: '#67E8D4' }}>Patient / Guardian Informed Consent Obtained</span> &bull; I confirm that informed consent has been obtained for this clinical triage intake. <span className="required" aria-hidden="true">*</span>
               </label>
-              <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: '0.2rem', lineHeight: 1.35 }}>
+              <div style={{ fontSize: '0.76rem', color: '#737E7D', marginTop: '0.2rem', lineHeight: 1.35 }}>
                 Recorded in chronological in-memory audit log. Pre-checked consent is strictly prohibited.
               </div>
               {errors.consent && (
@@ -1452,14 +1452,14 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
 
         {errors.form && (
-          <div className="form-error" style={{ marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.65rem 0.95rem', borderRadius: 'var(--radius-sm)' }}>
+          <div className="form-error" style={{ marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.45rem', padding: '0.65rem 0.95rem', borderRadius: '8px' }}>
             <AlertCircle size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
             <span>{errors.form}</span>
           </div>
         )}
 
         {/* Primary Action Floating Bar */}
-        <div className="intake-action-bar glass-panel" style={{ padding: '0.85rem 1.15rem', borderRadius: 'var(--radius-lg)' }}>
+        <div className="intake-action-bar">
           <div className="action-bar-notice">
             <span className="pulse-indicator-teal" aria-hidden="true" />
             <span>AI ASSISTS &bull; HUMAN CLINICIAN DECIDES</span>
@@ -1468,7 +1468,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             <button
               type="button"
-              className="btn btn-secondary glass"
+              className="btn btn-secondary"
               onClick={() => {
                 setSymptoms('');
                 setAge('');
@@ -1485,10 +1485,10 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
             <button
               type="submit"
-              className="btn btn-primary glass"
+              className="btn btn-primary"
               id="btn-submit-triage"
               disabled={isProcessing}
-              style={{ padding: '0.70rem 1.5rem', fontSize: '0.92rem' }}
+              style={{ padding: '0.75rem 1.75rem', fontSize: '0.92rem', minHeight: '48px' }}
             >
               <CheckSquare size={18} aria-hidden="true" />
               <span>{isProcessing ? 'Processing Triage...' : 'CREATE TRIAGE CASE'}</span>
