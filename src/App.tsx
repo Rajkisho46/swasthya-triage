@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { TriageCase } from './types/triage';
 import { caseService } from './services/caseService';
 import { clearAuditLogs } from './utils/audit';
-import { initScrollRevealObserver } from './utils/scrollReveal';
+import { initScrollRevealObserver, refreshScrollReveal } from './utils/scrollReveal';
 import { Header } from './components/Layout/Header';
 import type { ActiveTab } from './components/Layout/Header';
 import { Footer } from './components/Layout/Footer';
@@ -24,6 +24,11 @@ function MainWorkspace() {
     const cleanup = initScrollRevealObserver();
     return cleanup;
   }, []);
+
+  // Refresh reveal observer whenever activeTab or auth state updates
+  useEffect(() => {
+    refreshScrollReveal();
+  }, [activeTab, isAuthenticated]);
 
   // Privacy, Consent & Trust Center State
   const [isTrustCenterOpen, setIsTrustCenterOpen] = useState<boolean>(false);
