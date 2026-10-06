@@ -11,78 +11,78 @@
 
   /* --- Liquid Glass Core Material System (Apple-Style Multi-Tier Hierarchy) --- */
   /* Level 0: Background Base & Canvas Mesh */
-  --liquid-bg: #0c1015;
-  --canvas: #0c1015;
-  --surface-lowest: #070a0e;
-  --surface-low: #12171e;
-  --surface: #181f28;
-  --surface-high: #222b37;
-  --surface-highest: #2d3847;
-  --surface-bright: #364455;
+  --liquid-bg: #050607;
+  --canvas: #050607;
+  --surface-lowest: #050607;
+  --surface-low: #080A0C;
+  --surface: #0D1114;
+  --surface-high: #111518;
+  --surface-highest: #14191D;
+  --surface-bright: #181D20;
 
   /* Level 1: App Header, Navigation Dock & Primary Workspace Glass */
-  --liquid-glass-l1-bg: rgba(16, 23, 31, 0.76);
+  --liquid-glass-l1-bg: rgba(13, 17, 20, 0.88);
   --liquid-glass-l1-blur: blur(24px) saturate(155%);
-  --liquid-glass-l1-border: 1px solid rgba(255, 255, 255, 0.10);
-  --liquid-glass-l1-shadow: 0 10px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(53, 224, 193, 0.10);
+  --liquid-glass-l1-border: 1px solid rgba(255, 255, 255, 0.07);
+  --liquid-glass-l1-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(255, 255, 255, 0.03);
 
   /* Level 2: Primary Cards, Journey Stepper & Table Containers */
-  --liquid-glass-l2-bg: rgba(20, 28, 38, 0.68);
-  --liquid-glass-l2-hover-bg: rgba(28, 38, 52, 0.78);
+  --liquid-glass-l2-bg: rgba(17, 21, 24, 0.85);
+  --liquid-glass-l2-hover-bg: rgba(20, 25, 29, 0.92);
   --liquid-glass-l2-blur: blur(18px) saturate(140%);
-  --liquid-glass-l2-border: 1px solid rgba(255, 255, 255, 0.09);
-  --liquid-glass-l2-border-hover: 1px solid rgba(93, 253, 221, 0.32);
-  --liquid-glass-l2-shadow: 0 12px 36px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.09);
-  --liquid-glass-l2-shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.52), 0 0 28px rgba(53, 224, 193, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --liquid-glass-l2-border: 1px solid rgba(255, 255, 255, 0.07);
+  --liquid-glass-l2-border-hover: 1px solid rgba(103, 232, 212, 0.28);
+  --liquid-glass-l2-shadow: 0 12px 36px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --liquid-glass-l2-shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.58), 0 0 24px rgba(103, 232, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
   /* Level 3: Nested Evidence Tiles, Form Groups, Timeline Cards, Stat Blocks */
-  --liquid-glass-l3-bg: rgba(22, 31, 42, 0.62);
-  --liquid-glass-l3-hover-bg: rgba(30, 42, 58, 0.74);
+  --liquid-glass-l3-bg: rgba(13, 17, 20, 0.78);
+  --liquid-glass-l3-hover-bg: rgba(17, 21, 24, 0.88);
   --liquid-glass-l3-blur: blur(14px) saturate(130%);
-  --liquid-glass-l3-border: 1px solid rgba(255, 255, 255, 0.08);
-  --liquid-glass-l3-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --liquid-glass-l3-border: 1px solid rgba(255, 255, 255, 0.06);
+  --liquid-glass-l3-shadow: 0 6px 20px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   /* Level 4: Interactive Floating Controls, Tabs, Badges, Buttons, Inputs */
-  --liquid-glass-l4-bg: rgba(12, 17, 24, 0.72);
-  --liquid-glass-l4-focus-bg: rgba(16, 23, 33, 0.90);
+  --liquid-glass-l4-bg: rgba(8, 10, 12, 0.85);
+  --liquid-glass-l4-focus-bg: rgba(13, 17, 20, 0.95);
   --liquid-glass-l4-blur: blur(12px) saturate(125%);
-  --liquid-glass-l4-border: 1px solid rgba(255, 255, 255, 0.10);
-  --liquid-glass-l4-border-focus: 1px solid rgba(93, 253, 221, 0.65);
-  --liquid-glass-l4-shadow-inset: inset 0 2px 6px rgba(0, 0, 0, 0.42);
-  --liquid-glass-l4-shadow-focus: 0 0 0 3px rgba(53, 224, 193, 0.24), 0 0 22px rgba(53, 224, 193, 0.20), inset 0 2px 6px rgba(0, 0, 0, 0.35);
+  --liquid-glass-l4-border: 1px solid rgba(255, 255, 255, 0.07);
+  --liquid-glass-l4-border-focus: 1px solid rgba(103, 232, 212, 0.65);
+  --liquid-glass-l4-shadow-inset: inset 0 2px 6px rgba(0, 0, 0, 0.50);
+  --liquid-glass-l4-shadow-focus: 0 0 0 3px rgba(103, 232, 212, 0.20), 0 0 20px rgba(103, 232, 212, 0.16), inset 0 2px 6px rgba(0, 0, 0, 0.40);
 
   /* Level 5: Floating Clinical Decision Modal Sheet & Overlay Backdrop */
-  --liquid-glass-l5-backdrop: rgba(5, 8, 12, 0.84);
+  --liquid-glass-l5-backdrop: rgba(3, 4, 5, 0.88);
   --liquid-glass-l5-backdrop-blur: blur(28px) saturate(160%);
-  --liquid-glass-l5-modal-bg: rgba(16, 23, 33, 0.94);
+  --liquid-glass-l5-modal-bg: rgba(13, 17, 20, 0.96);
   --liquid-glass-l5-modal-blur: blur(32px) saturate(170%);
-  --liquid-glass-l5-modal-border: 1px solid rgba(93, 253, 221, 0.30);
-  --liquid-glass-l5-modal-shadow: 0 32px 80px rgba(0, 0, 0, 0.78), 0 0 48px rgba(53, 224, 193, 0.20), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  --liquid-glass-l5-modal-border: 1px solid rgba(255, 255, 255, 0.08);
+  --liquid-glass-l5-modal-shadow: 0 32px 80px rgba(0, 0, 0, 0.85), 0 0 36px rgba(103, 232, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
   /* Level 6: Modal Controls & Action Toggles */
-  --liquid-glass-l6-bg: rgba(26, 36, 49, 0.85);
+  --liquid-glass-l6-bg: rgba(20, 25, 29, 0.88);
   --liquid-glass-l6-blur: blur(10px);
-  --liquid-glass-l6-border: 1px solid rgba(255, 255, 255, 0.12);
+  --liquid-glass-l6-border: 1px solid rgba(255, 255, 255, 0.08);
 
   /* Conceptual Liquid Material System Tokens */
   --liquid-surface: var(--liquid-glass-l2-bg);
   --liquid-surface-strong: var(--liquid-glass-l1-bg);
   --liquid-surface-soft: var(--liquid-glass-l3-bg);
-  --liquid-border: rgba(255, 255, 255, 0.09);
-  --liquid-border-strong: rgba(255, 255, 255, 0.15);
-  --liquid-highlight: rgba(255, 255, 255, 0.12);
-  --liquid-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --liquid-border: rgba(255, 255, 255, 0.07);
+  --liquid-border-strong: rgba(255, 255, 255, 0.12);
+  --liquid-highlight: rgba(255, 255, 255, 0.08);
+  --liquid-shadow: 0 12px 36px rgba(0, 0, 0, 0.48);
   --liquid-blur: blur(18px);
   --liquid-accent: var(--teal);
-  --liquid-specular-top: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.14) 30%, rgba(93, 253, 221, 0.16) 70%, transparent 100%);
-  --liquid-specular-intense: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.22) 35%, rgba(93, 253, 221, 0.25) 65%, transparent 100%);
+  --liquid-specular-top: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 30%, rgba(103, 232, 212, 0.10) 70%, transparent 100%);
+  --liquid-specular-intense: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.14) 35%, rgba(103, 232, 212, 0.16) 65%, transparent 100%);
 
   /* Ambient Mesh Lighting Tokens */
-  --glass-bg-canvas: #0c1015;
-  --glass-ambient-teal: radial-gradient(circle at 12% 18%, rgba(53, 224, 193, 0.10) 0%, transparent 45%);
-  --glass-ambient-champagne: radial-gradient(circle at 88% 22%, rgba(226, 195, 130, 0.08) 0%, transparent 50%);
-  --glass-ambient-mint: radial-gradient(circle at 48% 85%, rgba(93, 253, 221, 0.08) 0%, transparent 55%);
-  --glass-ambient-subtle: radial-gradient(circle at 75% 90%, rgba(147, 0, 10, 0.03) 0%, transparent 40%);
+  --glass-bg-canvas: #050607;
+  --glass-ambient-teal: radial-gradient(circle at 12% 18%, rgba(103, 232, 212, 0.02) 0%, transparent 45%);
+  --glass-ambient-champagne: radial-gradient(circle at 88% 22%, rgba(226, 195, 130, 0.02) 0%, transparent 50%);
+  --glass-ambient-mint: radial-gradient(circle at 48% 85%, rgba(103, 232, 212, 0.02) 0%, transparent 55%);
+  --glass-ambient-subtle: radial-gradient(circle at 75% 90%, rgba(242, 166, 160, 0.015) 0%, transparent 40%);
 
   /* Level Backward-Compatible Mappings */
   --surface-glass-subtle: var(--liquid-glass-l3-bg);
@@ -227,7 +227,7 @@
 
 html {
   font-family: var(--font-family);
-  background-color: var(--canvas);
+  background-color: #050607;
   color: var(--text-primary);
   line-height: 1.55;
   font-size: 15px;
@@ -237,16 +237,15 @@ html {
 }
 
 body {
-  background-color: var(--canvas);
+  background-color: #050607;
   color: var(--text-primary);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   background-image:
+    radial-gradient(circle at 50% 0%, #151A1D 0%, #0B0E10 42%, #050607 100%),
     var(--glass-ambient-teal),
-    var(--glass-ambient-champagne),
-    var(--glass-ambient-mint),
-    var(--glass-ambient-subtle);
+    var(--glass-ambient-champagne);
   background-attachment: fixed;
 }
 
@@ -372,11 +371,11 @@ samp {
 }
 
 .glass-header {
-  background: rgba(18, 25, 34, 0.82);
+  background: rgba(13, 17, 20, 0.88);
   backdrop-filter: var(--glass-blur-l2);
   -webkit-backdrop-filter: var(--glass-blur-l2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.40), inset 0 -1px 0 rgba(53, 224, 193, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .glass-modal {
@@ -420,16 +419,16 @@ samp {
    ========================================================================== */
 
 .app-header {
-  background: rgba(16, 23, 31, 0.82);
+  background: rgba(13, 17, 20, 0.88);
   backdrop-filter: var(--glass-blur-l2);
   -webkit-backdrop-filter: var(--glass-blur-l2);
   color: var(--text-primary);
   padding: 0.85rem 1.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 -1px 0 rgba(53, 224, 193, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .header-inner {
