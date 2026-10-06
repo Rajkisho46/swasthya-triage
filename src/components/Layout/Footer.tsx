@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = () => {
     <footer className="app-footer" role="contentinfo" aria-label="Institutional Footer & Governance">
       <div className="footer-inner">
         <div className="footer-left">
-          &copy; 2026 [ORGANIZATION NAME] &bull; Swasthya Triage v2.4 &bull; PHC Evaluation Environment
+          &copy; 2026 Swasthya Triage &bull; Primary Healthcare Clinical System &bull; PHC Facility Protocol
         </div>
 
         <div className="footer-links" aria-label="Privacy and Legal Information">

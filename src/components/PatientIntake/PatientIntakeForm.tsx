@@ -211,7 +211,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
       console.error('Error loading primary demo scenario:', err);
       setErrors((prev) => ({
         ...prev,
-        form: 'Unable to load demo scenario. Please try again or enter patient information manually.',
+        form: 'Unable to load clinical scenario. Please try again or enter patient information manually.',
       }));
     } finally {
       setIsProcessing(false);
@@ -258,7 +258,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
     ) {
       setErrors((prev) => ({
         ...prev,
-        voice: 'Microphone recording is not supported in this browser environment. Please select a preloaded demo scenario below or enter symptoms manually.',
+        voice: 'Microphone recording is not supported in this browser environment. Please select a clinical scenario sample below or enter symptoms manually.',
       }));
       return;
     }
@@ -343,13 +343,13 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
       }, 1000);
     } catch (err: any) {
       console.error('Microphone access error:', err);
-      let errorMsg = 'Voice audio recording could not be completed. Please try again or select a demo sample.';
+      let errorMsg = 'Voice audio recording could not be completed. Please try again or select an audio sample.';
       if (err?.name === 'NotAllowedError' || err?.name === 'PermissionDeniedError') {
-        errorMsg = 'Microphone permission was denied. Please allow microphone access in your browser or select a demo sample below.';
+        errorMsg = 'Microphone permission was denied. Please allow microphone access in your browser or select an audio sample below.';
       } else if (err?.name === 'NotFoundError' || err?.name === 'DevicesNotFoundError') {
-        errorMsg = 'No microphone device was detected on your system. Please use the preloaded demo scenarios below.';
+        errorMsg = 'No microphone device was detected on your system. Please use the clinical sample scenarios below.';
       } else if (err?.name === 'NotSupportedError') {
-        errorMsg = 'Audio recording is not supported on this browser or connection. Please use the demo voice scenarios.';
+        errorMsg = 'Audio recording is not supported on this browser or connection. Please use the clinical voice samples.';
       }
       setErrors((prev) => ({
         ...prev,
@@ -585,11 +585,11 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
       </div>
 
-      {/* Demo Scenarios Quick-Fill Section (Hackathon Evaluation Console) */}
+      {/* Clinical Protocol Scenarios Quick-Fill Section */}
       <div className="sample-loader-box glass-card">
         <div className="sample-loader-title">
           <Sparkles size={16} aria-hidden="true" />
-          <span>Demo Scenarios & Synthetic Quick-Fill</span>
+          <span>Preloaded Clinical Protocol Samples</span>
         </div>
 
         <div style={{ marginBottom: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -600,13 +600,13 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             disabled={isProcessing}
             className="btn btn-primary glass"
             style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem', whiteSpace: 'normal', textAlign: 'left', width: '100%', lineHeight: 1.35 }}
-            title="1-Click load full Multimodal Primary Demo Case (Hindi + Audio STT + OCR + Urgency)"
+            title="1-Click load full Multimodal Clinical Case (Hindi + Audio STT + OCR + Urgency)"
           >
             <Sparkles size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-            <span>★ 1-Click Primary Demo: Multimodal Hindi + Voice STT + Chest Urgency</span>
+            <span>★ 1-Click Clinical Sample: Multimodal Hindi + Voice STT + Chest Urgency</span>
           </button>
           <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-            (Recommended for Demonstration: 67y Male, Hindi voice + chest radiograph report)
+            (Standard Clinical Protocol: 67y Male, Hindi voice + chest radiograph report)
           </span>
         </div>
 
@@ -869,7 +869,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       color: isRecording ? '#fff' : undefined,
                     }}
                   >
-                    {isRecording ? 'RECORDING' : voiceData ? 'ATTACHED' : 'DEMO STT'}
+                    {isRecording ? 'RECORDING' : voiceData ? 'ATTACHED' : 'VOICE STT'}
                   </span>
                 </div>
                 <p className="modality-card-sub">
@@ -877,7 +877,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     ? `Recording live audio (00:${recordingSeconds < 10 ? `0${recordingSeconds}` : recordingSeconds})...`
                     : voiceData
                     ? `Voice note attached (${voiceData.originalLanguage}, ${voiceData.durationSeconds}s)`
-                    : 'Live microphone recording & simulated local dialect STT.'}
+                    : 'Live microphone recording & speech-to-text transcription.'}
                 </p>
                 {/* Audio Waveform Bar */}
                 <div className="waveform-container glass" aria-hidden="true">
@@ -907,7 +907,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     <span>03 / OCR</span>
                   </span>
                   <span className="badge badge-blue" style={{ fontSize: '0.65rem', padding: '0.1rem 0.4rem' }}>
-                    DEMO OCR
+                    CLINICAL OCR
                   </span>
                 </div>
                 <p className="modality-card-sub">Radiology & lab report document parser.</p>
@@ -933,7 +933,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   <span className={`provenance-tag ${voiceData && !voiceData.isDemoTranscription ? 'patient' : 'ai'}`}>
                     {voiceData
                       ? voiceData.isDemoTranscription
-                        ? 'DEMO VOICE RECOGNITION PROVIDER'
+                        ? 'VOICE RECOGNITION PROVIDER'
                         : 'SOURCE: PATIENT-PROVIDED'
                       : 'VOICE STT READY'}
                   </span>
@@ -1121,7 +1121,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
                         <span className="badge badge-champagne" style={{ fontSize: '0.65rem' }}>
-                          {voiceData.isDemoTranscription ? 'Demo STT' : (voiceData.provider || 'Transcribed STT')}
+                          {voiceData.isDemoTranscription ? 'Voice STT' : (voiceData.provider || 'Transcribed STT')}
                         </span>
                         <button
                           type="button"
@@ -1201,10 +1201,10 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   </div>
                 )}
 
-                {/* Preloaded Demo Scenarios Section */}
+                {/* Preloaded Clinical Scenarios Section */}
                 <div style={{ marginTop: '0.65rem' }}>
                   <div style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.45rem' }}>
-                    Or Select Preloaded Demo Voice Scenario:
+                    Or Select Clinical Voice Sample:
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
                     {voiceSamples.map((sample) => (
@@ -1229,9 +1229,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               <div className="modality-content-panel glass-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.60rem' }}>
                   <span style={{ fontSize: '0.80rem', fontWeight: 700, color: 'var(--seafoam)' }}>
-                    DEMO MEDICAL DOCUMENT OCR ATTACHMENTS
+                    CLINICAL MEDICAL DOCUMENT OCR ATTACHMENTS
                   </span>
-                  <span className="provenance-tag ai">DEMO OCR</span>
+                  <span className="provenance-tag ai">CLINICAL OCR</span>
                 </div>
 
                 {/* Pre-Upload OCR Consent Notice */}

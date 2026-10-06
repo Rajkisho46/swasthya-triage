@@ -275,17 +275,17 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Reset Demo Secondary Action (Separate from Logout) */}
+          {/* Reset Workspace Secondary Action (Separate from Logout) */}
           <button
             type="button"
             className="nav-btn nav-btn-utility glass"
             onClick={handleResetDemoClick}
-            title="Reload synthetic demonstration cases and reset audit log"
+            title="Reload cases and reset audit log"
             id="btn-reset-demo"
-            aria-label="Reset demonstration cases and audit log"
+            aria-label="Reset workspace and audit log"
           >
             <RotateCcw size={13} aria-hidden="true" />
-            <span>Reset Demo</span>
+            <span>Reset Workspace</span>
           </button>
 
           {/* Clearly Accessible Logout Action */}
@@ -459,7 +459,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={handleResetDemoClick}
               >
                 <RotateCcw size={16} color="var(--champagne)" aria-hidden="true" />
-                <span>Reset Demonstration Data</span>
+                <span>Reset Workspace State</span>
               </button>
 
               {currentUser && (

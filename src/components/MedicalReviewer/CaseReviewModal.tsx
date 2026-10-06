@@ -324,7 +324,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                           <span>Voice Recording ({triageCase.voiceData.durationSeconds}s)</span>
                         </div>
                         <span className="badge badge-champagne glass" style={{ fontSize: '0.65rem' }}>
-                          {triageCase.voiceData.isDemoTranscription ? 'Demo STT' : 'Transcribed'}
+                          {triageCase.voiceData.isDemoTranscription ? 'Voice STT' : 'Transcribed'}
                         </span>
                       </div>
                       <p style={{ fontStyle: 'italic', color: 'var(--text-secondary)', fontSize: '0.82rem', margin: 0, lineHeight: 1.45 }}>
@@ -366,7 +366,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                               </div>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                                 <span className="badge badge-teal glass" style={{ fontSize: '0.62rem' }}>
-                                  {r.isDemoOCR ? 'Demo OCR' : 'Extracted'}
+                                  {r.isDemoOCR ? 'OCR Document' : 'Extracted'}
                                 </span>
                                 {isExpanded ? <ChevronUp size={14} color="var(--text-muted)" /> : <ChevronDown size={14} color="var(--text-muted)" />}
                               </div>

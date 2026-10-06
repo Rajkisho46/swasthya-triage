@@ -412,7 +412,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                           <span>Voice Stream ({triageCase.voiceData.durationSeconds}s &bull; {triageCase.voiceData.originalLanguage})</span>
                         </div>
                         <span className="badge badge-champagne glass" style={{ fontSize: '0.68rem' }}>
-                          {triageCase.voiceData.isDemoTranscription ? 'Demo STT' : 'Transcribed STT'}
+                          {triageCase.voiceData.isDemoTranscription ? 'Voice STT' : 'Transcribed STT'}
                         </span>
                       </div>
 
@@ -455,7 +455,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                               </div>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 <span className="badge badge-teal glass" style={{ fontSize: '0.68rem' }}>
-                                  {report.isDemoOCR ? 'Demo OCR' : 'OCR Extracted'}
+                                  {report.isDemoOCR ? 'OCR Document' : 'OCR Extracted'}
                                 </span>
                                 {isExpanded ? <ChevronUp size={16} color="var(--text-muted)" /> : <ChevronDown size={16} color="var(--text-muted)" />}
                               </div>

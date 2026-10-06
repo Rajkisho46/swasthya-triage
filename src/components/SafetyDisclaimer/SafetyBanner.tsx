@@ -18,7 +18,7 @@ export const SafetyBanner: React.FC<SafetyBannerProps> = ({ compact = false }) =
           <ShieldAlert size={16} aria-hidden="true" style={{ color: 'var(--champagne)' }} />
           <span className="safety-tag">TRIAGE SUPPORT ONLY</span>
           <span className="safety-separator">/</span>
-          <span className="safety-sub">Educational & Institutional Evaluation Environment</span>
+          <span className="safety-sub">Institutional Clinical Protocol</span>
         </div>
         <div className="safety-node-tag">
           <span className="node-id glass">PHC FACILITY PROTOCOL</span>

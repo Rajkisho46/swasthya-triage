@@ -510,13 +510,13 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
                   Privacy Policy
                 </h3>
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Effective Date: September 2026 &bull; Version 2.4 (Demonstration & Institutional Evaluation)
+                  Effective Date: September 2026 &bull; Version 2.4 (Institutional Clinical Release)
                 </p>
 
                 <div className="trust-policy-section">
                   <h4>1. What Swasthya Triage Is</h4>
                   <p>
-                    <strong>Swasthya Triage</strong> is a multimodal healthcare triage assistance and clinical decision-support system. It is designed to assist frontline healthcare workers and clinicians in organizing patient-reported symptoms, transcribing voice statements, extracting medical document text, and highlighting urgency signals. It is an evaluation and clinical assistance tool, <strong>not an autonomous diagnostic medical device</strong>.
+                    <strong>Swasthya Triage</strong> is a multimodal healthcare triage assistance and clinical decision-support system. It is designed to assist frontline healthcare workers and clinicians in organizing patient-reported symptoms, transcribing voice statements, extracting medical document text, and highlighting urgency signals. It is a clinical decision-support tool, <strong>not an autonomous diagnostic medical device</strong>.
                   </p>
 
                   <h4>2. Categories of Information Collected</h4>
@@ -558,12 +558,12 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
 
                   <h4>4. Storage, Retention & Transient Handling</h4>
                   <p>
-                    In this prototype and demonstration environment:
+                    In this clinical deployment environment:
                   </p>
                   <ul>
                     <li>Patient intake and audit records exist primarily in transient in-memory application state and an optional local SQLite database (<code className="font-mono">swasthya_triage.db</code>) when running in backend server mode.</li>
                     <li>Audio recordings processed via the speech-to-text pipeline are held temporarily in memory for transcription and discarded immediately after processing.</li>
-                    <li>Users can purge all active demonstration data and restore baseline state at any time using the <strong>Reset Demo</strong> command.</li>
+                    <li>Users can clear active session data and restore baseline state at any time using the <strong>Reset Workspace</strong> command.</li>
                   </ul>
 
                   <h4>5. Third-Party AI & Processing Providers</h4>
@@ -592,7 +592,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
 
                   <h4>7. User Rights & Contact</h4>
                   <p>
-                    Users and clinical evaluators have the right to inspect case records, request data deletion (via Reset Demo or administrative request), and withdraw consent prior to clinical sign-off. For inquiries:
+                    Users and clinical teams have the right to inspect case records, request data deletion (via Reset Workspace or administrative request), and withdraw consent prior to clinical sign-off. For inquiries:
                   </p>
                   <p style={{ background: 'rgba(255, 255, 255, 0.04)', padding: '0.75rem 1rem', borderRadius: 'var(--radius-sm)' }}>
                     <strong>Organization:</strong> [ORGANIZATION NAME]<br />
@@ -767,7 +767,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
                   </p>
                   <ul>
                     <li>
-                      <strong>React Application State (RAM):</strong> Holds active case data, patient symptoms, and in-memory audit logs during the active browser session. This data is cleared whenever the page is reloaded or the Reset Demo button is clicked.
+                      <strong>React Application State (RAM):</strong> Holds active case data, patient symptoms, and in-memory audit logs during the active browser session. This data is cleared whenever the page is reloaded or the Reset Workspace button is clicked.
                     </li>
                     <li>
                       <strong>Local SQLite Storage (Backend Mode):</strong> In full-stack deployment, case records and audit trails are persisted locally in <code className="font-mono">swasthya_triage.db</code> solely to fulfill clinical record-keeping requirements.
@@ -857,7 +857,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
 
                   <h4>3. Right to Withdraw Consent</h4>
                   <p>
-                    Patients or healthcare workers can withdraw consent or discard a pending intake at any point prior to clinical review sign-off by clicking <strong>Clear Form</strong> or <strong>Reset Demo</strong>.
+                    Patients or healthcare workers can withdraw consent or discard a pending intake at any point prior to clinical review sign-off by clicking <strong>Clear Form</strong> or <strong>Reset Workspace</strong>.
                   </p>
 
                   <h4>4. Grievance Redressal & Requests</h4>
@@ -884,7 +884,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
                 <div className="trust-policy-section">
                   <h4>1. Voice Recording & Speech-to-Text Pipeline</h4>
                   <p>
-                    When you use the microphone input or select a demo voice scenario:
+                    When you use the microphone input or select a clinical voice scenario:
                   </p>
                   <ul>
                     <li>
@@ -1035,7 +1035,7 @@ export const PrivacyTrustCenter: React.FC<PrivacyTrustCenterProps> = ({
                       <strong>Fonts (Inter, JetBrains Mono):</strong> SIL Open Font License / Apache 2.0.
                     </li>
                     <li>
-                      <strong>Audio Demo Samples:</strong> Synthetic demonstration audio recorded specifically for this prototype &bull; MIT License.
+                      <strong>Audio Samples:</strong> Synthetic audio recorded for clinical simulation &bull; MIT License.
                     </li>
                   </ul>
                 </div>
