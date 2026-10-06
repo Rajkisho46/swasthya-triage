@@ -5332,3 +5332,613 @@ textarea:focus-visible {
   letter-spacing: 0.05em;
   font-weight: 500;
 }
+
+/* ==========================================================================
+   PART 1: PATIENT HOME / PATIENT DASHBOARD — DARK CLINICAL COMMAND CENTER
+   Palette: Graphite (#080D10, #0D1418, #10171B)
+   Accents: Mint (#5DFDDD), Teal (#20CFC0), Champagne (#E2C382), Emergency (#FFB4AB)
+   Text: Primary (#F4F7F7), Secondary (#A6B5B4), Muted (#718180)
+   ========================================================================== */
+
+.patient-portal-wrapper {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Segmented Navigation Dock --- */
+.patient-nav-dock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.40rem 0.55rem;
+  border-radius: 14px;
+  background: rgba(13, 20, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.patient-nav-dock::-webkit-scrollbar {
+  display: none;
+}
+
+.patient-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.50rem;
+  padding: 0.50rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #A6B5B4;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  min-height: 42px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.patient-nav-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  color: #F4F7F7;
+  border-color: rgba(93, 253, 221, 0.25);
+  transform: translateY(-1px);
+}
+
+.patient-nav-btn.active {
+  background: linear-gradient(135deg, #5DFDDD 0%, #20CFC0 100%);
+  color: #080D10 !important;
+  font-weight: 700;
+  border-color: rgba(255, 255, 255, 0.40);
+  box-shadow: 0 0 22px rgba(93, 253, 221, 0.38), 0 2px 8px rgba(0, 0, 0, 0.30);
+}
+
+.patient-nav-btn.active svg {
+  color: #080D10 !important;
+}
+
+/* --- Patient Stage & Container --- */
+.patient-home-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.patient-portal-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* --- Welcome Hero Section --- */
+.patient-hero-card {
+  background: linear-gradient(135deg, rgba(16, 23, 27, 0.90) 0%, rgba(13, 20, 24, 0.96) 100%);
+  border: 1px solid rgba(93, 253, 221, 0.16);
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.10), inset 0 -1px 0 rgba(93, 253, 221, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.patient-hero-content {
+  flex: 1 1 500px;
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.patient-hero-badge-row {
+  margin-bottom: 0.65rem;
+}
+
+.patient-portal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.26rem 0.70rem;
+  border-radius: 9999px;
+  background: rgba(226, 195, 130, 0.12);
+  border: 1px solid rgba(226, 195, 130, 0.32);
+  color: #E2C382;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+.patient-hero-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #F4F7F7;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.patient-hero-avatar-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(93, 253, 221, 0.12);
+  border: 1px solid rgba(93, 253, 221, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(93, 253, 221, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.patient-hero-description {
+  font-size: 0.92rem;
+  color: #A6B5B4;
+  margin: 0;
+  line-height: 1.55;
+  max-width: 680px;
+}
+
+.patient-hero-actions {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.patient-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, #5DFDDD 0%, #20CFC0 100%);
+  color: #080D10;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.65rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 28px rgba(93, 253, 221, 0.42), 0 4px 14px rgba(0, 0, 0, 0.35);
+  min-height: 48px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.patient-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 36px rgba(93, 253, 221, 0.60), 0 8px 20px rgba(0, 0, 0, 0.40);
+  background: linear-gradient(135deg, #71fee2 0%, #30dfd0 100%);
+}
+
+.patient-cta-btn:active {
+  transform: translateY(0);
+}
+
+.patient-hero-ambient-pulse {
+  position: absolute;
+  right: -15px;
+  bottom: -20px;
+  opacity: 0.04;
+  color: #5DFDDD;
+  pointer-events: none;
+  z-index: 1;
+  transform: rotate(-6deg);
+}
+
+/* --- Emergency Notice --- */
+.patient-emergency-card {
+  background: linear-gradient(135deg, rgba(42, 16, 18, 0.85) 0%, rgba(16, 23, 27, 0.92) 100%);
+  border: 1px solid rgba(255, 180, 171, 0.22);
+  border-left: 4px solid #FFB4AB;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 180, 171, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+
+.patient-emergency-icon-wrapper {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 180, 171, 0.12);
+  border: 1px solid rgba(255, 180, 171, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.patient-emergency-text-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.patient-emergency-heading {
+  color: #FFB4AB;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.30rem;
+  letter-spacing: 0.01em;
+}
+
+.patient-emergency-body {
+  color: #A6B5B4;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --- Your Triage Intake Records --- */
+.patient-records-card {
+  background: rgba(16, 23, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.patient-records-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.patient-records-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #F4F7F7;
+  margin: 0 0 0.45rem 0;
+}
+
+.patient-records-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.patient-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  color: #A6B5B4;
+  background: rgba(13, 20, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.patient-stat-pill strong {
+  color: #F4F7F7;
+  font-weight: 700;
+}
+
+.stat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.stat-dot-teal {
+  background: #5DFDDD;
+  box-shadow: 0 0 8px #5DFDDD;
+}
+
+.stat-dot-champagne {
+  background: #E2C382;
+  box-shadow: 0 0 8px #E2C382;
+}
+
+/* Empty State */
+.patient-records-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+}
+
+.patient-empty-icon-box {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: rgba(93, 253, 221, 0.08);
+  border: 1px solid rgba(93, 253, 221, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 24px rgba(93, 253, 221, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.patient-pulse-anim {
+  animation: patientPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes patientPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(93, 253, 221, 0.6));
+  }
+}
+
+.patient-empty-title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #F4F7F7;
+  margin: 0 0 0.35rem 0;
+}
+
+.patient-empty-subtitle {
+  font-size: 0.85rem;
+  color: #718180;
+  margin: 0;
+  max-width: 440px;
+  line-height: 1.45;
+}
+
+/* Populated Records List */
+.patient-records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.patient-record-item {
+  padding: 1.20rem 1.45rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(13, 20, 24, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.patient-record-item:hover {
+  background: rgba(18, 26, 32, 0.85);
+  border-color: rgba(93, 253, 221, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(93, 253, 221, 0.10);
+}
+
+.patient-record-item.item-reviewed {
+  border-color: rgba(53, 224, 193, 0.30);
+}
+
+.patient-record-item.item-urgent {
+  border-color: rgba(255, 180, 171, 0.35);
+}
+
+.patient-record-info {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.patient-record-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.60rem;
+  margin-bottom: 0.40rem;
+  flex-wrap: wrap;
+}
+
+.patient-record-case-id {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #5DFDDD;
+  letter-spacing: 0.02em;
+}
+
+.patient-record-patient-id {
+  font-size: 0.70rem;
+  padding: 0.15rem 0.50rem;
+  border-radius: 6px;
+  color: #E2C382;
+  border: 1px solid rgba(226, 195, 130, 0.25);
+  background: rgba(226, 195, 130, 0.08);
+}
+
+.patient-status-badge {
+  font-size: 0.68rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.patient-record-symptoms {
+  margin: 0 0 0.45rem 0;
+  font-size: 0.86rem;
+  color: #A6B5B4;
+  line-height: 1.45;
+}
+
+.patient-record-date-lang {
+  font-size: 0.75rem;
+  color: #718180;
+  display: flex;
+  align-items: center;
+  gap: 0.40rem;
+  flex-wrap: wrap;
+}
+
+.dot-separator {
+  color: rgba(255, 255, 255, 0.20);
+}
+
+.patient-view-summary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.60rem 1rem;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #F4F7F7;
+  background: rgba(32, 207, 192, 0.10);
+  border: 1px solid rgba(32, 207, 192, 0.30);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 42px;
+  flex-shrink: 0;
+}
+
+.patient-view-summary-btn:hover {
+  background: rgba(32, 207, 192, 0.22);
+  border-color: #5DFDDD;
+  color: #5DFDDD;
+  box-shadow: 0 0 16px rgba(93, 253, 221, 0.25);
+}
+
+/* ==========================================================================
+   PATIENT HOME RESPONSIVE BREAKPOINTS (1920px down to 320px)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .patient-hero-card {
+    padding: 1.65rem 1.75rem;
+  }
+  .patient-records-card {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .patient-hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.35rem 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .patient-hero-actions {
+    width: 100%;
+  }
+
+  .patient-cta-btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 0.92rem;
+  }
+
+  .patient-hero-title {
+    font-size: 1.35rem;
+  }
+
+  .patient-records-card {
+    padding: 1.25rem 1.10rem;
+    border-radius: 16px;
+  }
+
+  .patient-nav-dock {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .patient-record-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.10rem 1rem;
+  }
+
+  .patient-view-summary-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 430px) {
+  .patient-hero-card {
+    padding: 1.15rem 1rem;
+    border-radius: 16px;
+  }
+
+  .patient-hero-title {
+    font-size: 1.20rem;
+  }
+
+  .patient-hero-avatar-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .patient-nav-btn {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.70rem;
+    min-height: 48px;
+  }
+
+  .patient-emergency-card {
+    padding: 1rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .patient-emergency-icon-wrapper {
+    width: 32px;
+    height: 32px;
+  }
+
+  .patient-emergency-heading {
+    font-size: 0.90rem;
+  }
+
+  .patient-emergency-body {
+    font-size: 0.82rem;
+  }
+
+  .patient-records-card {
+    padding: 1rem 0.85rem;
+  }
+}

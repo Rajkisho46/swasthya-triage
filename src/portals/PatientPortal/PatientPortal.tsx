@@ -56,70 +56,62 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
 
   return (
     <div className="portal-container patient-portal-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {/* Patient Specific Navigation */}
-      <div
-        className="glass"
-        style={{
-          display: 'flex',
-          gap: '0.5rem',
-          padding: '0.4rem 0.6rem',
-          borderRadius: '10px',
-          width: 'fit-content',
-          flexWrap: 'wrap',
-        }}
+      {/* Patient Specific Segmented Navigation Control */}
+      <nav
+        className="patient-nav-dock glass"
         role="navigation"
         aria-label="Patient Portal Navigation"
       >
         <button
           type="button"
-          className={`nav-btn glass ${patientTab === 'home' ? 'active' : ''}`}
+          className={`patient-nav-btn ${patientTab === 'home' ? 'active' : ''}`}
           onClick={() => setPatientTab('home')}
-          style={{ fontSize: '0.82rem', padding: '0.40rem 0.85rem' }}
           id="btn-nav-patient-home"
+          aria-current={patientTab === 'home' ? 'page' : undefined}
         >
-          <Home size={14} color="#60a5fa" style={{ marginRight: '4px' }} />
-          01 Patient Home
+          <Home size={15} aria-hidden="true" />
+          <span>01 Patient Home</span>
         </button>
 
         <button
           type="button"
-          className={`nav-btn glass ${patientTab === 'submit' ? 'active' : ''}`}
+          className={`patient-nav-btn ${patientTab === 'submit' ? 'active' : ''}`}
           onClick={() => setPatientTab('submit')}
-          style={{ fontSize: '0.82rem', padding: '0.40rem 0.85rem' }}
           id="btn-nav-patient-submit"
+          aria-current={patientTab === 'submit' ? 'page' : undefined}
         >
-          <PlusCircle size={14} color="var(--mint)" style={{ marginRight: '4px' }} />
-          02 Submit Symptoms
+          <PlusCircle size={15} aria-hidden="true" />
+          <span>02 Submit Symptoms</span>
         </button>
 
         <button
           type="button"
-          className={`nav-btn glass ${patientTab === 'cases' ? 'active' : ''}`}
+          className={`patient-nav-btn ${patientTab === 'cases' ? 'active' : ''}`}
           onClick={() => setPatientTab('cases')}
-          style={{ fontSize: '0.82rem', padding: '0.40rem 0.85rem' }}
           id="btn-nav-patient-cases"
+          aria-current={patientTab === 'cases' ? 'page' : undefined}
         >
-          <FolderHeart size={14} color="var(--champagne)" style={{ marginRight: '4px' }} />
-          03 My Cases ({patientCases.length})
+          <FolderHeart size={15} aria-hidden="true" />
+          <span>03 My Cases ({patientCases.length})</span>
         </button>
 
         {targetCase && (
           <button
             type="button"
-            className={`nav-btn glass ${patientTab === 'summary' ? 'active' : ''}`}
+            className={`patient-nav-btn ${patientTab === 'summary' ? 'active' : ''}`}
             onClick={() => setPatientTab('summary')}
-            style={{ fontSize: '0.82rem', padding: '0.40rem 0.85rem' }}
             id="btn-nav-patient-summary"
+            aria-current={patientTab === 'summary' ? 'page' : undefined}
           >
-            <FileText size={14} color="var(--teal)" style={{ marginRight: '4px' }} />
-            04 Case Summary ({targetCase.caseId})
+            <FileText size={15} aria-hidden="true" />
+            <span>04 Case Summary ({targetCase.caseId})</span>
           </button>
         )}
-      </div>
+      </nav>
 
       {/* 01 — PATIENT HOME */}
       {patientTab === 'home' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div className="patient-home-stage">
           <PatientPortalView
             cases={patientCases}
             onStartNewIntake={handleStartIntake}
