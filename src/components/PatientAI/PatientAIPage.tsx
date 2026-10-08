@@ -428,7 +428,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
 
       {/* 1. HEALTH AI INSTITUTIONAL HEADER */}
       <header
-        className="glass-card"
+        className="glass-card patient-ai-page-header"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -439,9 +439,12 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
           border: '1px solid rgba(255, 255, 255, 0.08)',
           flexWrap: 'wrap',
           gap: '0.75rem',
+          width: '100%',
+          maxWidth: '100%',
+          boxSizing: 'border-box',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div className="patient-ai-header-brand" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0, flexWrap: 'wrap' }}>
           <div
             style={{
               width: '38px',
@@ -453,12 +456,13 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
               alignItems: 'center',
               justifyContent: 'center',
               boxShadow: '0 0 16px rgba(103, 232, 212, 0.08)',
+              flexShrink: 0,
             }}
           >
             <Bot size={20} color="var(--primary-mint, #67E8D4)" />
           </div>
 
-          <div>
+          <div style={{ minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
               <h1
                 style={{
@@ -474,13 +478,14 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
 
               {/* Mode Tabs */}
               <div
+                className="patient-ai-mode-tabs"
                 style={{
                   display: 'inline-flex',
                   background: 'rgba(0, 0, 0, 0.4)',
                   padding: '2px',
                   borderRadius: '8px',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  marginLeft: '0.5rem',
+                  maxWidth: '100%',
                 }}
               >
                 <button
@@ -499,6 +504,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     gap: '4px',
+                    whiteSpace: 'nowrap',
                   }}
                   id="tab-health-ai-report-analysis"
                 >
@@ -522,6 +528,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     gap: '4px',
+                    whiteSpace: 'nowrap',
                   }}
                   id="tab-health-ai-conversation"
                 >
@@ -548,7 +555,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
         </div>
 
         {/* Header Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+        <div className="patient-ai-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
           <button
             type="button"
             onClick={handleReset}
@@ -590,7 +597,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
               type="button"
               onClick={() => setIsMobileContextOpen(!isMobileContextOpen)}
               className="btn btn-secondary glass patient-ai-mobile-context-toggle"
-              style={{ fontSize: '0.74rem', padding: '0.38rem 0.70rem', display: 'none', alignItems: 'center', gap: '4px' }}
+              style={{ fontSize: '0.74rem', padding: '0.38rem 0.70rem', alignItems: 'center', gap: '4px' }}
             >
               <Activity size={14} color="var(--primary-mint, #67E8D4)" />
               <span>Context</span>
@@ -846,30 +853,9 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
         </div>
       ) : (
         /* CONVERSATION MODE */
-        <div
-          className="patient-ai-workspace-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) 320px',
-            gap: '1rem',
-            flex: 1,
-            alignItems: 'stretch',
-          }}
-        >
+        <div className="patient-ai-workspace-grid">
           {/* LEFT / PRIMARY: CONVERSATION AREA + MULTIMODAL INPUT */}
-          <main
-            className="glass-card patient-ai-conversation-container"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: '16px',
-              background: 'linear-gradient(165deg, #141A1D 0%, #101517 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.45)',
-              overflow: 'hidden',
-              minHeight: '540px',
-            }}
-          >
+          <main className="glass-card patient-ai-conversation-container">
             <PatientAIConversation
               messages={messages}
               isLoading={isLoading}
@@ -918,7 +904,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
 
       {/* MOBILE COLLAPSIBLE HEALTH CONTEXT DRAWER */}
       {isMobileContextOpen && activeMode === 'conversation' && (
-        <div className="patient-ai-mobile-context-drawer" style={{ display: 'none' }}>
+        <div className="patient-ai-mobile-context-drawer">
           <PatientAIContextPanel
             messages={messages}
             healthContext={healthContext}

@@ -252,6 +252,7 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
             disabled={isLoading}
             style={{
               flex: 1,
+              minWidth: 0,
               background: 'transparent',
               border: 'none',
               outline: 'none',

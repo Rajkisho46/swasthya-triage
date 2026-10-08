@@ -232,7 +232,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
             </h3>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.65rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '0.65rem', width: '100%', maxWidth: '100%' }}>
             {cleanKeyFindings.map((finding, idx) => (
               <div
                 key={idx}
@@ -292,7 +292,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
             <span>No laboratory parameters were flagged outside expected reference ranges on this document.</span>
           </div>
         ) : (
-          <div style={{ overflowX: 'auto' }}>
+          <div style={{ overflowX: 'auto', maxWidth: '100%', width: '100%', WebkitOverflowScrolling: 'touch' }}>
             <table
               style={{
                 width: '100%',
@@ -393,7 +393,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
           </div>
 
           {showNormalValues && (
-            <div style={{ marginTop: '0.85rem', overflowX: 'auto' }}>
+            <div style={{ marginTop: '0.85rem', overflowX: 'auto', maxWidth: '100%', width: '100%', WebkitOverflowScrolling: 'touch' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.80rem', textAlign: 'left' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', color: 'var(--text-secondary, #B5BFBC)' }}>
@@ -471,8 +471,10 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
           gap: '1rem',
+          width: '100%',
+          maxWidth: '100%',
         }}
       >
         {/* Recommended Next Steps */}

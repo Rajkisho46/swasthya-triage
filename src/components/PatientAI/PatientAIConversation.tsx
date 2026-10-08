@@ -136,9 +136,10 @@ export const PatientAIConversation: React.FC<PatientAIConversationProps> = ({
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(140px, 100%), 1fr))',
               gap: '0.65rem',
               width: '100%',
+              maxWidth: '100%',
               marginTop: '0.5rem',
             }}
           >

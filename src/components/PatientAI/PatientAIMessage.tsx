@@ -122,7 +122,8 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
       <div
         className={`patient-ai-bubble ${isUser ? 'user-bubble' : 'assistant-bubble'}`}
         style={{
-          maxWidth: isUser ? '82%' : '90%',
+          maxWidth: isUser ? '85%' : '92%',
+          minWidth: 0,
           padding: isUser ? '0.80rem 1.05rem' : '0.95rem 1.15rem',
           borderRadius: isUser ? '16px 4px 16px 16px' : '4px 16px 16px 16px',
           background: isUser
@@ -135,6 +136,8 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
           fontWeight: 400,
           fontSize: '0.86rem',
           lineHeight: 1.55,
+          overflowWrap: 'anywhere',
+          wordBreak: 'break-word',
           boxShadow: isUser
             ? '0 4px 16px rgba(0, 0, 0, 0.35)'
             : '0 4px 16px rgba(0, 0, 0, 0.30)',
@@ -150,7 +153,9 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
         )}
 
         {/* Message Content */}
-        <div style={{ whiteSpace: 'pre-line' }}>{isUser ? msg.content : sanitizeHealthAIResponse(msg.content)}</div>
+        <div style={{ whiteSpace: 'pre-line', overflowWrap: 'anywhere', wordBreak: 'break-word' }}>
+          {isUser ? msg.content : sanitizeHealthAIResponse(msg.content)}
+        </div>
 
         {/* Restrained Urgency Emergency Warning Card */}
         {msg.urgencyDetected && (

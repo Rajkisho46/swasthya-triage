@@ -6639,6 +6639,9 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .patient-health-ai-page-workspace {
@@ -6647,6 +6650,37 @@ textarea:focus-visible {
   gap: 0.85rem;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-ai-page-header {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-ai-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.patient-ai-mode-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+}
+
+.patient-ai-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
 .patient-ai-workspace-grid {
@@ -6654,7 +6688,10 @@ textarea:focus-visible {
   grid-template-columns: minmax(0, 1fr) 320px;
   gap: 1rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   align-items: stretch;
+  box-sizing: border-box;
 }
 
 .patient-ai-conversation-container {
@@ -6667,17 +6704,49 @@ textarea:focus-visible {
   overflow: hidden;
   min-height: 540px;
   max-height: calc(100vh - 220px);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-ai-desktop-context-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-ai-mobile-context-toggle {
+  display: none !important;
+}
+
+.patient-ai-mobile-context-drawer {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  margin-bottom: 0.75rem;
+  animation: slideUpFade 0.22s ease-out;
 }
 
 .patient-ai-conversation-stream {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 1.15rem;
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(103, 232, 212, 0.20) transparent;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .patient-ai-conversation-stream::-webkit-scrollbar {
@@ -6689,8 +6758,49 @@ textarea:focus-visible {
   border-radius: 3px;
 }
 
+.patient-ai-message-row {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 .patient-ai-bubble {
   transition: transform 0.18s ease, box-shadow 0.18s ease;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  box-sizing: border-box;
+  max-width: 90%;
+  min-width: 0;
+}
+
+.patient-ai-input-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+
+.patient-ai-input-bar {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-ai-report-dashboard {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.patient-ai-report-analysis-workspace {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .quick-action-button:hover {
@@ -6704,6 +6814,115 @@ textarea:focus-visible {
   background: rgba(103, 232, 212, 0.12) !important;
   border-color: rgba(103, 232, 212, 0.35) !important;
   transform: translateY(-1px);
+}
+
+/* --- Mobile / Tablet Media Queries for Health AI (<= 768px) --- */
+@media (max-width: 768px) {
+  .patient-ai-workspace-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 0.75rem;
+  }
+
+  .patient-ai-conversation-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 480px;
+    height: auto;
+    max-height: none;
+    border-radius: 14px;
+  }
+
+  .patient-ai-desktop-context-column {
+    display: none !important;
+  }
+
+  .patient-ai-mobile-context-toggle {
+    display: inline-flex !important;
+  }
+
+  .patient-ai-mobile-context-drawer {
+    display: block !important;
+  }
+
+  .patient-ai-page-header {
+    padding: 0.75rem 0.90rem !important;
+    gap: 0.65rem !important;
+  }
+
+  .patient-ai-header-brand {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .patient-ai-header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.35rem;
+  }
+}
+
+/* --- Small Phone Media Queries (<= 480px) --- */
+@media (max-width: 480px) {
+  .patient-ai-page-header {
+    padding: 0.65rem 0.65rem !important;
+    border-radius: 14px !important;
+  }
+
+  .patient-ai-header-brand h1 {
+    font-size: 1rem !important;
+  }
+
+  .patient-ai-mode-tabs button {
+    font-size: 0.68rem !important;
+    padding: 2px 7px !important;
+  }
+
+  .patient-ai-header-actions button {
+    font-size: 0.70rem !important;
+    padding: 0.32rem 0.55rem !important;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .patient-ai-conversation-container {
+    min-height: 420px;
+    border-radius: 12px;
+  }
+
+  .patient-ai-conversation-stream {
+    padding: 0.75rem 0.60rem !important;
+    gap: 0.85rem !important;
+  }
+
+  .patient-ai-bubble {
+    max-width: 96% !important;
+    padding: 0.70rem 0.85rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  .patient-ai-input-container {
+    padding: 0.45rem 0.45rem !important;
+    padding-bottom: max(0.45rem, env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .patient-ai-input-bar {
+    padding: 0.20rem 0.30rem !important;
+    gap: 0.20rem !important;
+    min-height: 44px !important;
+    border-radius: 11px !important;
+  }
+
+  .patient-ai-input-bar button {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+  }
 }
 
 @keyframes fadeInUp {
