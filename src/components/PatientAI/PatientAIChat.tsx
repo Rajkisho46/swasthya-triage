@@ -39,7 +39,8 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
   // Load conversation on mount
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem(storageKey);
+      const saved = (typeof window !== 'undefined' && window.localStorage?.getItem(storageKey)) ||
+        (typeof window !== 'undefined' && window.sessionStorage?.getItem(storageKey));
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -55,9 +56,16 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
   useEffect(() => {
     try {
       if (messages.length > 0) {
-        sessionStorage.setItem(storageKey, JSON.stringify(messages));
+        const serialized = JSON.stringify(messages);
+        if (typeof window !== 'undefined') {
+          window.localStorage?.setItem(storageKey, serialized);
+          window.sessionStorage?.setItem(storageKey, serialized);
+        }
       } else {
-        sessionStorage.removeItem(storageKey);
+        if (typeof window !== 'undefined') {
+          window.localStorage?.removeItem(storageKey);
+          window.sessionStorage?.removeItem(storageKey);
+        }
       }
     } catch (e) {
       console.warn('[PatientAIChat] Failed to save session messages:', e);
@@ -67,7 +75,10 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
   const handleReset = () => {
     setMessages([]);
     try {
-      sessionStorage.removeItem(storageKey);
+      if (typeof window !== 'undefined') {
+        window.localStorage?.removeItem(storageKey);
+        window.sessionStorage?.removeItem(storageKey);
+      }
     } catch (e) {
       // ignore
     }

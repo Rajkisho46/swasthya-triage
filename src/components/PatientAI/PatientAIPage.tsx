@@ -106,13 +106,36 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const activeSessionKey = `swasthya_patient_ai_active_${currentUser?.userId || 'anon'}`;
 
+  const getStoredActiveSession = (key: string): string | null => {
+    if (typeof window === 'undefined') return null;
+    try {
+      return window.localStorage?.getItem(key) || window.sessionStorage?.getItem(key) || null;
+    } catch {
+      return null;
+    }
+  };
+
+  const setStoredActiveSession = (key: string, id: string): void => {
+    if (typeof window === 'undefined') return;
+    try {
+      window.localStorage?.setItem(key, id);
+    } catch {
+      // ignore
+    }
+    try {
+      window.sessionStorage?.setItem(key, id);
+    } catch {
+      // ignore
+    }
+  };
+
   // Initialize or resume persistent server conversation on mount
   useEffect(() => {
     let isMounted = true;
 
     async function initSession() {
       try {
-        const cachedId = sessionStorage.getItem(activeSessionKey);
+        const cachedId = getStoredActiveSession(activeSessionKey);
         if (cachedId) {
           setActiveConversationId(cachedId);
           const details = await patientChatClient.getConversationDetails(cachedId);
@@ -132,7 +155,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
           if (convs && convs.length > 0) {
             const latest = convs[0];
             setActiveConversationId(latest.id);
-            sessionStorage.setItem(activeSessionKey, latest.id);
+            setStoredActiveSession(activeSessionKey, latest.id);
             const details = await patientChatClient.getConversationDetails(latest.id);
             if (isMounted) {
               if (details.messages) {
@@ -146,7 +169,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
             const created = await patientChatClient.createConversation();
             if (isMounted) {
               setActiveConversationId(created.id);
-              sessionStorage.setItem(activeSessionKey, created.id);
+              setStoredActiveSession(activeSessionKey, created.id);
               setHealthContext(null);
             }
           }
@@ -196,7 +219,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
       setIsLoading(true);
       const created = await patientChatClient.createConversation();
       setActiveConversationId(created.id);
-      sessionStorage.setItem(activeSessionKey, created.id);
+      setStoredActiveSession(activeSessionKey, created.id);
       setMessages([]);
       setHealthContext(null);
       setActiveReportAnalysis(null);
@@ -213,7 +236,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
     try {
       setIsLoading(true);
       setActiveConversationId(session.id);
-      sessionStorage.setItem(activeSessionKey, session.id);
+      setStoredActiveSession(activeSessionKey, session.id);
       const details = await patientChatClient.getConversationDetails(session.id);
       setMessages(details.messages || []);
       setHealthContext(details.healthContext || null);
@@ -254,7 +277,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
         const created = await patientChatClient.createConversation();
         convId = created.id;
         setActiveConversationId(convId);
-        sessionStorage.setItem(activeSessionKey, convId);
+        setStoredActiveSession(activeSessionKey, convId);
       }
 
       const result = await patientChatClient.analyzeMedicalReport(file, convId);
@@ -320,7 +343,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
         const created = await patientChatClient.createConversation();
         convId = created.id;
         setActiveConversationId(convId);
-        sessionStorage.setItem(activeSessionKey, convId);
+        setStoredActiveSession(activeSessionKey, convId);
       } catch {
         convId = `conv_${Date.now()}`;
       }

@@ -21,18 +21,61 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Synchronous initialization from persistent storage ensures 0 flash on page load
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => authClient.getStoredUser());
   const [token, setToken] = useState<string | null>(() => authClient.getStoredToken());
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    // Check if there is already an existing valid stored user session on refresh
+    // Background validation and profile refresh on application startup
     const stored = authClient.getStoredUser();
     const storedToken = authClient.getStoredToken();
+
     if (stored && storedToken) {
+      // Validate expiration
+      if (authClient.isTokenExpired(storedToken)) {
+        logout();
+        return;
+      }
+
       setCurrentUser(stored);
       setToken(storedToken);
+
+      // If authenticated as PATIENT, verify token validity with backend
+      if (stored.role === 'PATIENT') {
+        patientAuthService
+          .getMe()
+          .then((me) => {
+            if (me) {
+              startTransition(() => {
+                setCurrentUser((prev) =>
+                  prev
+                    ? {
+                        ...prev,
+                        displayName: me.fullName || prev.displayName,
+                        username: me.email || prev.username,
+                        userId: me.id || prev.userId,
+                      }
+                    : null
+                );
+              });
+            }
+          })
+          .catch((err) => {
+            // If backend rejects the token (HTTP 401 or 403), gracefully clear expired session
+            if (
+              err?.message &&
+              (err.message.includes('401') ||
+                err.message.includes('403') ||
+                err.message.includes('Access denied') ||
+                err.message.includes('Unauthorized'))
+            ) {
+              console.warn('[AuthContext] Persisted session rejected by server. Logging out.');
+              logout();
+            }
+          });
+      }
     }
   }, []);
 
@@ -140,6 +183,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = (): void => {
     authClient.clearSession();
+
+    // Clean up local patient cached keys on explicit logout
+    if (typeof window !== 'undefined') {
+      try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (k && (k.startsWith('swasthya_patient_ai_') || k.startsWith('swasthya_auth_'))) {
+            keysToRemove.push(k);
+          }
+        }
+        keysToRemove.forEach((k) => localStorage.removeItem(k));
+      } catch {
+        // ignore
+      }
+
+      try {
+        const sKeysToRemove: string[] = [];
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const k = sessionStorage.key(i);
+          if (k && (k.startsWith('swasthya_patient_ai_') || k.startsWith('swasthya_auth_'))) {
+            sKeysToRemove.push(k);
+          }
+        }
+        sKeysToRemove.forEach((k) => sessionStorage.removeItem(k));
+      } catch {
+        // ignore
+      }
+    }
+
     startTransition(() => {
       setCurrentUser(null);
       setToken(null);
