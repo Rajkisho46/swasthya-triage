@@ -215,13 +215,13 @@ export const PatientAIHistoryModal: React.FC<PatientAIHistoryModalProps> = ({
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: 'var(--text-muted, #64748b)',
+                      color: 'var(--text-muted, #94A3B8)',
                       cursor: 'pointer',
                       padding: '6px',
                       borderRadius: '6px',
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = '#ef4444')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = '#64748b')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted, #94A3B8)')}
                   >
                     <Trash2 size={14} />
                   </button>

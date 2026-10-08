@@ -422,7 +422,7 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#7F8A87',
+                  color: 'var(--text-secondary, #CBD5E1)',
                   cursor: 'pointer',
                 }}
               >

@@ -126,7 +126,7 @@ export const PatientAIQuickActions: React.FC<PatientAIQuickActionsProps> = ({
                 <Icon size={14} color={action.color} />
               </div>
               <span style={{ flex: 1, lineHeight: 1.25 }}>{action.label}</span>
-              <ChevronRight size={12} color="var(--text-secondary, #7F8A87)" style={{ opacity: 0.6 }} />
+              <ChevronRight size={12} color="var(--text-secondary, #CBD5E1)" style={{ opacity: 0.85 }} />
             </button>
           );
         })}

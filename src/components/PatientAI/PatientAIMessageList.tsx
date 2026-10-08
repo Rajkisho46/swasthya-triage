@@ -10,13 +10,13 @@ import {
   Mic,
 } from 'lucide-react';
 import type { ChatMessageItem } from '../../services/ai/patientChatClient';
-import { sanitizeHealthAIResponse, sanitizeHealthAIList } from '../../utils/sanitizeHealthAI';
+import { sanitizeHealthAIResponse } from '../../utils/sanitizeHealthAI';
 import { PatientAIAttachment } from './PatientAIAttachment';
 
 interface PatientAIMessageListProps {
   messages: ChatMessageItem[];
   isLoading: boolean;
-  onSelectFollowUp: (question: string) => void;
+  onSelectFollowUp?: (question: string) => void;
   onExecuteAction: (action: string, contextMessage?: ChatMessageItem) => void;
   preferredLanguage?: string;
 }
@@ -24,7 +24,6 @@ interface PatientAIMessageListProps {
 export const PatientAIMessageList: React.FC<PatientAIMessageListProps> = ({
   messages,
   isLoading,
-  onSelectFollowUp,
   onExecuteAction,
   preferredLanguage = 'English',
 }) => {
@@ -238,7 +237,7 @@ export const PatientAIMessageList: React.FC<PatientAIMessageListProps> = ({
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: isSpeaking ? 'var(--primary-mint, #67E8D4)' : 'var(--text-muted, #7F8A87)',
+                      color: isSpeaking ? 'var(--primary-mint, #67E8D4)' : 'var(--text-muted, #94A3B8)',
                       fontSize: '0.70rem',
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -255,52 +254,6 @@ export const PatientAIMessageList: React.FC<PatientAIMessageListProps> = ({
               )}
             </div>
 
-            {/* Follow-up Question Suggestions */}
-            {!isUser && msg.followUpQuestions && msg.followUpQuestions.length > 0 && (
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.35rem',
-                marginTop: '0.35rem',
-                maxWidth: '92%',
-              }}>
-                <div style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--text-secondary, #B5BFBC)' }}>
-                  Suggested answers / follow-ups:
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                  {sanitizeHealthAIList(msg.followUpQuestions).map((q, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => onSelectFollowUp(q)}
-                      className="patient-ai-followup-chip"
-                      style={{
-                        padding: '0.35rem 0.65rem',
-                        borderRadius: '10px',
-                        background: 'rgba(103, 232, 212, 0.08)',
-                        border: '1px solid rgba(103, 232, 212, 0.22)',
-                        color: 'var(--primary-mint, #67E8D4)',
-                        fontSize: '0.74rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        textAlign: 'left',
-                        transition: 'all 0.15s ease',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(103, 232, 212, 0.15)';
-                        e.currentTarget.style.borderColor = 'rgba(103, 232, 212, 0.4)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'rgba(103, 232, 212, 0.08)';
-                        e.currentTarget.style.borderColor = 'rgba(103, 232, 212, 0.22)';
-                      }}
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Smart Suggested Actions */}
             {!isUser && msg.suggestedActions && msg.suggestedActions.length > 0 && (

@@ -6,12 +6,11 @@ import {
   Volume2,
   VolumeX,
   Mic,
-  ArrowUpRight,
   FileSearch,
   PlusCircle,
 } from 'lucide-react';
 import type { ChatMessageItem } from '../../services/ai/patientChatClient';
-import { sanitizeHealthAIResponse, sanitizeHealthAIList } from '../../utils/sanitizeHealthAI';
+import { sanitizeHealthAIResponse } from '../../utils/sanitizeHealthAI';
 import { PatientAIAttachment } from './PatientAIAttachment';
 
 interface PatientAIMessageProps {
@@ -26,7 +25,6 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
   message: msg,
   isSpeaking,
   onReadAloud,
-  onSelectFollowUp,
   onExecuteAction,
 }) => {
   const isUser = msg.role === 'user';
@@ -75,13 +73,13 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
             </div>
             <span style={{ fontWeight: 700, color: 'var(--primary-mint, #67E8D4)' }}>Health AI</span>
             {timestampFormatted && (
-              <span style={{ color: 'var(--text-muted, #7F8A87)', fontSize: '0.65rem' }}>• {timestampFormatted}</span>
+              <span style={{ color: 'var(--text-muted, #94A3B8)', fontSize: '0.65rem' }}>• {timestampFormatted}</span>
             )}
           </>
         ) : (
           <>
             {timestampFormatted && (
-              <span style={{ color: 'var(--text-muted, #7F8A87)', fontSize: '0.65rem' }}>{timestampFormatted} •</span>
+              <span style={{ color: 'var(--text-muted, #94A3B8)', fontSize: '0.65rem' }}>{timestampFormatted} •</span>
             )}
             <span style={{ fontWeight: 600, color: '#F5F7F6' }}>You</span>
             {msg.voiceUsed && (
@@ -209,42 +207,6 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
           </div>
         )}
 
-        {/* Interactive Follow-up Question Chips */}
-        {msg.followUpQuestions && msg.followUpQuestions.length > 0 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginTop: '0.75rem' }}>
-            <div style={{ fontSize: '0.66rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--text-muted, #7F8A87)' }}>
-              Suggested responses
-            </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-              {sanitizeHealthAIList(msg.followUpQuestions).map((q, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => onSelectFollowUp && onSelectFollowUp(q)}
-                  className="quick-action-chip"
-                  style={{
-                    padding: '0.32rem 0.65rem',
-                    borderRadius: '8px',
-                    background: 'rgba(103, 232, 212, 0.08)',
-                    border: '1px solid rgba(103, 232, 212, 0.22)',
-                    color: 'var(--primary-mint, #67E8D4)',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    textAlign: 'left',
-                    transition: 'all 0.18s ease',
-                  }}
-                >
-                  <span>{q}</span>
-                  <ArrowUpRight size={11} />
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Quick Action Secondary Buttons below AI responses */}
         {!isUser && (
@@ -299,7 +261,7 @@ export const PatientAIMessage: React.FC<PatientAIMessageProps> = ({
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: isSpeaking ? 'var(--primary-mint, #67E8D4)' : 'var(--text-muted, #7F8A87)',
+                color: isSpeaking ? 'var(--primary-mint, #67E8D4)' : 'var(--text-muted, #94A3B8)',
                 fontSize: '0.68rem',
                 display: 'inline-flex',
                 alignItems: 'center',

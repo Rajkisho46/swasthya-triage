@@ -896,7 +896,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: resendCooldown > 0 ? '#737E7D' : '#67E8D4',
+                  color: resendCooldown > 0 ? 'var(--text-disabled, #64748B)' : '#67E8D4',
                   fontSize: '12px',
                   fontWeight: 600,
                   cursor: resendCooldown > 0 ? 'not-allowed' : 'pointer',
@@ -1196,7 +1196,7 @@ export const PatientAuthForm: React.FC<PatientAuthFormProps> = ({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: resendCooldown > 0 ? '#737E7D' : '#67E8D4',
+                  color: resendCooldown > 0 ? 'var(--text-disabled, #64748B)' : '#67E8D4',
                   fontSize: '12px',
                   fontWeight: 600,
                   cursor: resendCooldown > 0 ? 'not-allowed' : 'pointer',

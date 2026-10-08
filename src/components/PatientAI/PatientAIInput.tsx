@@ -148,14 +148,6 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
             minHeight: '48px',
             transition: 'border-color 0.2s, box-shadow 0.2s',
           }}
-          onFocus={(e) => {
-            e.currentTarget.style.borderColor = '#67E8D4';
-            e.currentTarget.style.boxShadow = '0 0 20px rgba(103, 232, 212, 0.08)';
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.10)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
         >
           {/* File Input (Hidden) */}
           <input
@@ -240,6 +232,7 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
           {/* Textarea Input */}
           <textarea
             ref={textareaRef}
+            className="patient-ai-input-textarea"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -289,7 +282,7 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
               color:
                 (inputText.trim() || stagedAttachment) && !isLoading && !isProcessingFile
                   ? '#080D10'
-                  : 'var(--text-muted, #7F8A87)',
+                  : 'var(--text-muted, #94A3B8)',
               cursor:
                 (inputText.trim() || stagedAttachment) && !isLoading && !isProcessingFile
                   ? 'pointer'
@@ -321,12 +314,12 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           fontSize: '0.66rem',
-          color: 'var(--text-muted, #7F8A87)',
+          color: 'var(--text-muted, #94A3B8)',
           padding: '0 4px',
         }}
       >
         <span>Healthcare guidance • Not a clinical diagnosis</span>
-        <span style={{ color: 'var(--text-secondary, #B5BFBC)' }}>Enter to send • Shift+Enter for newline</span>
+        <span style={{ color: 'var(--text-secondary, #CBD5E1)' }}>Enter to send • Shift+Enter for newline</span>
       </div>
     </div>
   );

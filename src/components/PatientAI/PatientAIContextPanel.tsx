@@ -246,7 +246,7 @@ export const PatientAIContextPanel: React.FC<PatientAIContextPanelProps> = ({
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
-            color: 'var(--text-muted, #7F8A87)',
+            color: 'var(--text-muted, #94A3B8)',
             marginBottom: '0.25rem',
           }}
         >
@@ -256,7 +256,7 @@ export const PatientAIContextPanel: React.FC<PatientAIContextPanelProps> = ({
           style={{
             fontSize: '0.86rem',
             fontWeight: 700,
-            color: chiefConcern ? 'var(--text-primary, #F5F7F6)' : 'var(--text-muted, #7F8A87)',
+            color: chiefConcern ? 'var(--text-primary, #F8FAFC)' : 'var(--text-muted, #94A3B8)',
           }}
         >
           {chiefConcern || 'Awaiting symptom description'}
@@ -278,7 +278,7 @@ export const PatientAIContextPanel: React.FC<PatientAIContextPanelProps> = ({
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
-            color: 'var(--text-muted, #7F8A87)',
+            color: 'var(--text-muted, #94A3B8)',
             marginBottom: '0.45rem',
           }}
         >
@@ -286,37 +286,37 @@ export const PatientAIContextPanel: React.FC<PatientAIContextPanelProps> = ({
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.76rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ color: 'var(--text-secondary, #AAB5B2)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ color: 'var(--text-secondary, #CBD5E1)', display: 'flex', alignItems: 'center', gap: '5px' }}>
               <Clock size={11} /> Duration
             </span>
-            <span style={{ fontWeight: 600, color: duration ? 'var(--text-primary, #F5F7F6)' : 'var(--text-muted, #7F8A87)' }}>
+            <span style={{ fontWeight: 600, color: duration ? 'var(--text-primary, #F8FAFC)' : 'var(--text-muted, #94A3B8)' }}>
               {duration || 'Not provided'}
             </span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ color: 'var(--text-secondary, #AAB5B2)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ color: 'var(--text-secondary, #CBD5E1)', display: 'flex', alignItems: 'center', gap: '5px' }}>
               <MapPin size={11} /> Location
             </span>
-            <span style={{ fontWeight: 600, color: location ? 'var(--text-primary, #F5F7F6)' : 'var(--text-muted, #7F8A87)' }}>
+            <span style={{ fontWeight: 600, color: location ? 'var(--text-primary, #F8FAFC)' : 'var(--text-muted, #94A3B8)' }}>
               {location || 'Not provided'}
             </span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ color: 'var(--text-secondary, #AAB5B2)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ color: 'var(--text-secondary, #CBD5E1)', display: 'flex', alignItems: 'center', gap: '5px' }}>
               <Flame size={11} /> Severity
             </span>
-            <span style={{ fontWeight: 600, color: severity ? 'var(--champagne, #E2C382)' : 'var(--text-muted, #7F8A87)' }}>
+            <span style={{ fontWeight: 600, color: severity ? 'var(--champagne, #E2C382)' : 'var(--text-muted, #94A3B8)' }}>
               {severity || 'Not provided'}
             </span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ color: 'var(--text-secondary, #AAB5B2)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ color: 'var(--text-secondary, #CBD5E1)', display: 'flex', alignItems: 'center', gap: '5px' }}>
               <PlusCircle size={11} /> Associated
             </span>
-            <span style={{ fontWeight: 600, color: associated ? 'var(--text-primary, #F5F7F6)' : 'var(--text-muted, #7F8A87)' }}>
+            <span style={{ fontWeight: 600, color: associated ? 'var(--text-primary, #F8FAFC)' : 'var(--text-muted, #94A3B8)' }}>
               {associated || 'Not provided'}
             </span>
           </div>
@@ -339,18 +339,18 @@ export const PatientAIContextPanel: React.FC<PatientAIContextPanelProps> = ({
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
-              color: 'var(--text-muted, #7F8A87)',
+              color: 'var(--text-muted, #94A3B8)',
             }}
           >
             ATTACHED DOCUMENTS
           </div>
-          <span style={{ fontSize: '0.62rem', color: 'var(--text-muted, #7F8A87)' }}>
+          <span style={{ fontSize: '0.62rem', color: 'var(--text-muted, #94A3B8)' }}>
             {allAttachments.length} file{allAttachments.length === 1 ? '' : 's'}
           </span>
         </div>
 
         {allAttachments.length === 0 ? (
-          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted, #7F8A87)', fontStyle: 'italic' }}>
+          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted, #94A3B8)', fontStyle: 'italic' }}>
             No medical documents attached yet.
           </div>
         ) : (
@@ -460,7 +460,7 @@ export const PatientAIContextPanel: React.FC<PatientAIContextPanelProps> = ({
       </div>
 
       {/* 5. SAFETY FOOTER */}
-      <div style={{ fontSize: '0.64rem', color: 'var(--text-muted, #7F8A87)', textAlign: 'center', lineHeight: 1.3 }}>
+      <div style={{ fontSize: '0.64rem', color: 'var(--text-muted, #94A3B8)', textAlign: 'center', lineHeight: 1.3 }}>
         <ShieldCheck
           size={11}
           style={{ display: 'inline', verticalAlign: 'middle', marginRight: '3px', color: 'var(--champagne, #E2C382)' }}

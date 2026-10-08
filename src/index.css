@@ -118,7 +118,7 @@
   /* --- Stitch Core Color System: Primary Mint & Teal --- */
   --mint: #67E8D4;
   --teal: #3DB8AA;
-  --teal-dark: #2B8077;
+  --teal-dark: #042521;
   --teal-container: #101517;
   --seafoam: #67E8D4;
   --primary-mint: #67E8D4;
@@ -129,7 +129,7 @@
   /* --- Stitch Core Color System: Secondary Warm Champagne --- */
   --champagne: #E2C382;
   --champagne-light: #FFDF9C;
-  --champagne-dark: #5B4611;
+  --champagne-dark: #382B08;
   --champagne-container: rgba(226, 195, 130, 0.14);
   --champagne-glow: rgba(226, 195, 130, 0.08);
 
@@ -149,12 +149,12 @@
   --success-bg: rgba(103, 232, 212, 0.12);
   --success-border: rgba(103, 232, 212, 0.30);
 
-  /* --- Text & Contrast --- */
-  --text-primary: #F5F7F6;
-  --text-secondary: #B5BFBC;
-  --text-muted: #7F8A87;
-  --text-disabled: #5C6563;
-  --text-inverse: #050708;
+  /* --- Text & Contrast (WCAG AA Compliant High Legibility Hierarchy) --- */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-disabled: #64748B;
+  --text-inverse: #042521;
 
   /* --- Borders --- */
   --border: rgba(255, 255, 255, 0.08);
@@ -1308,7 +1308,7 @@ samp {
 .form-input::placeholder,
 .form-textarea::placeholder {
   color: var(--text-muted);
-  opacity: 0.75;
+  opacity: 0.95;
 }
 
 .form-input:read-only {
@@ -1325,9 +1325,9 @@ samp {
 }
 
 .form-help {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  margin-top: 0.2rem;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
 }
 
 .form-error {
@@ -1409,7 +1409,7 @@ samp {
 /* Primary Teal/Mint Action Button */
 .btn-primary {
   background: linear-gradient(135deg, rgba(53, 224, 193, 0.95), rgba(93, 253, 221, 0.98));
-  color: var(--teal-dark);
+  color: #042521 !important;
   border: 1px solid rgba(255, 255, 255, 0.45);
   font-weight: 700;
   box-shadow: 0 4px 20px rgba(53, 224, 193, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45);
@@ -1417,25 +1417,31 @@ samp {
 
 .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, #5dfddd, #7afde4);
-  color: var(--teal-dark);
+  color: #042521 !important;
   box-shadow: 0 6px 30px rgba(93, 253, 221, 0.50), inset 0 1px 0 #ffffff;
   transform: translateY(-1px);
 }
 
+.btn-primary svg,
+.btn-primary:hover svg {
+  color: #042521 !important;
+  stroke: #042521 !important;
+}
+
 /* Secondary Graphite Glass Button */
 .btn-secondary {
-  background: rgba(22, 29, 38, 0.65);
+  background: rgba(22, 29, 38, 0.75);
   color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: var(--glass-blur-l4);
   -webkit-backdrop-filter: var(--glass-blur-l4);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: rgba(32, 42, 54, 0.80);
-  border-color: rgba(93, 253, 221, 0.40);
-  color: var(--mint);
+  background: rgba(32, 42, 54, 0.90);
+  border-color: rgba(93, 253, 221, 0.50);
+  color: #FFFFFF;
   box-shadow: 0 4px 18px rgba(53, 224, 193, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.14);
   transform: translateY(-1px);
 }
@@ -1443,31 +1449,35 @@ samp {
 /* Urgency / Destructive Action Button */
 .btn-danger {
   background: var(--urgency-bg);
-  color: var(--urgency-light);
+  color: #FFB4AB;
   border: 1px solid var(--urgency-border);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  font-weight: 700;
 }
 
 .btn-danger:hover:not(:disabled) {
-  background: rgba(255, 107, 107, 0.30);
+  background: rgba(255, 107, 107, 0.35);
+  color: #FFFFFF;
   box-shadow: 0 0 24px rgba(255, 107, 107, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
 /* Warning Champagne Button */
 .btn-warning {
-  background: rgba(226, 195, 130, 0.16);
-  color: var(--champagne);
-  border: 1px solid rgba(226, 195, 130, 0.38);
+  background: rgba(226, 195, 130, 0.18);
+  color: #FFDF9C;
+  border: 1px solid rgba(226, 195, 130, 0.45);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  font-weight: 700;
 }
 
 .btn-warning:hover:not(:disabled) {
-  background: rgba(226, 195, 130, 0.28);
+  background: rgba(226, 195, 130, 0.32);
+  color: #FFFFFF;
   box-shadow: 0 0 22px rgba(226, 195, 130, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.20);
   transform: translateY(-1px);
 }
@@ -1517,13 +1527,13 @@ samp {
 }
 
 .sample-chip-btn {
-  background: rgba(22, 29, 38, 0.70);
+  background: rgba(22, 29, 38, 0.80);
   color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 0.40rem 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -1533,15 +1543,15 @@ samp {
 }
 
 .sample-chip-btn:hover:not(:disabled) {
-  background: rgba(32, 42, 54, 0.85);
-  color: var(--mint);
-  border-color: rgba(93, 253, 221, 0.38);
+  background: rgba(32, 42, 54, 0.95);
+  color: #FFFFFF;
+  border-color: rgba(93, 253, 221, 0.50);
   box-shadow: 0 4px 14px rgba(53, 224, 193, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transform: translateY(-1px);
 }
 
 .sample-chip-btn.active {
-  background: rgba(53, 224, 193, 0.16);
+  background: rgba(53, 224, 193, 0.20);
   color: var(--mint);
   border-color: var(--teal);
   font-weight: 700;
@@ -1578,35 +1588,40 @@ samp {
 
 .badge-green,
 .badge-teal {
-  background: rgba(53, 224, 193, 0.12);
-  color: var(--teal);
-  border: 1px solid rgba(53, 224, 193, 0.30);
+  background: rgba(53, 224, 193, 0.14);
+  color: #67E8D4;
+  border: 1px solid rgba(53, 224, 193, 0.35);
+  font-weight: 700;
 }
 
 .badge-amber,
 .badge-champagne {
-  background: rgba(226, 195, 130, 0.12);
-  color: var(--champagne);
-  border: 1px solid rgba(226, 195, 130, 0.30);
+  background: rgba(226, 195, 130, 0.14);
+  color: #FFDF9C;
+  border: 1px solid rgba(226, 195, 130, 0.35);
+  font-weight: 700;
 }
 
 .badge-red,
 .badge-urgency {
   background: var(--urgency-bg);
-  color: var(--urgency-light);
+  color: #FFB4AB;
   border: 1px solid var(--urgency-border);
+  font-weight: 700;
 }
 
 .badge-gray {
-  background: rgba(30, 38, 48, 0.50);
-  color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(30, 38, 48, 0.65);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 700;
 }
 
 .badge-blue {
-  background: rgba(53, 224, 193, 0.12);
-  color: var(--seafoam);
-  border: 1px solid rgba(53, 224, 193, 0.30);
+  background: rgba(53, 224, 193, 0.14);
+  color: #67E8D4;
+  border: 1px solid rgba(53, 224, 193, 0.35);
+  font-weight: 700;
 }
 
 /* Provenance Tags (Mandatory Clinical Data Traceability) */
@@ -1634,33 +1649,33 @@ samp {
 }
 
 .provenance-tag.patient {
-  background: rgba(226, 195, 130, 0.12);
-  color: var(--champagne);
-  border-color: rgba(226, 195, 130, 0.30);
+  background: rgba(226, 195, 130, 0.14);
+  color: #FFDF9C;
+  border-color: rgba(226, 195, 130, 0.35);
 }
 
 .provenance-tag.ai {
-  background: rgba(53, 224, 193, 0.12);
-  color: var(--teal);
-  border-color: rgba(53, 224, 193, 0.30);
+  background: rgba(53, 224, 193, 0.14);
+  color: #67E8D4;
+  border-color: rgba(53, 224, 193, 0.35);
 }
 
 .provenance-tag.reviewer {
-  background: rgba(152, 246, 223, 0.12);
-  color: var(--seafoam);
-  border-color: rgba(152, 246, 223, 0.30);
+  background: rgba(152, 246, 223, 0.14);
+  color: #67E8D4;
+  border-color: rgba(152, 246, 223, 0.35);
 }
 
 .provenance-tag.system {
-  background: rgba(30, 40, 52, 0.50);
-  color: var(--text-secondary);
-  border-color: rgba(255, 255, 255, 0.10);
+  background: rgba(30, 40, 52, 0.65);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 .provenance-tag.multimodal {
-  background: rgba(226, 195, 130, 0.12);
-  color: var(--champagne-light);
-  border-color: rgba(226, 195, 130, 0.28);
+  background: rgba(226, 195, 130, 0.14);
+  color: #FFDF9C;
+  border-color: rgba(226, 195, 130, 0.35);
 }
 
 /* Extracted Symptoms Legend Chips (Compact Tag Appearance) */
@@ -2675,7 +2690,7 @@ samp {
 
 .profile-meta-text {
   font-size: 0.78rem;
-  color: #737E7D;
+  color: var(--text-secondary);
   margin-top: 0.15rem;
 }
 
@@ -2929,7 +2944,7 @@ samp {
 .action-bar-notice {
   font-size: 0.78rem;
   font-weight: 700;
-  color: #737E7D;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -5008,7 +5023,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 7px;
   font-size: 11.5px;
-  color: #737E7D;
+  color: var(--text-secondary);
   line-height: 1.3;
 }
 
@@ -5126,35 +5141,11 @@ textarea:focus-visible {
   }
 
   .glass-login-divider {
-    width: 100%;
-    height: 1px;
-    align-self: auto;
-    margin: 0;
+    display: none !important;
   }
 
   .glass-welcome-panel {
-    padding: 1.5rem 1.5rem 1.75rem 1.5rem;
-    gap: 1.25rem;
-    align-items: center;
-    text-align: center;
-  }
-
-  .glass-welcome-headline {
-    font-size: 30px;
-  }
-
-  .glass-welcome-desc {
-    max-width: 100%;
-    font-size: 13.5px;
-  }
-
-  .glass-btn-welcome-cta {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  .glass-welcome-compliance {
-    justify-content: center;
+    display: none !important;
   }
 }
 
@@ -5168,21 +5159,12 @@ textarea:focus-visible {
   }
 
   .glass-login-panel {
-    padding: 1.35rem 1.15rem 1rem 1.15rem;
+    padding: 1.35rem 1.15rem 1.15rem 1.15rem;
     gap: 0.85rem;
-  }
-
-  .glass-welcome-panel {
-    padding: 1.25rem 1.15rem 1.35rem 1.15rem;
-    gap: 1rem;
   }
 
   .glass-form-title {
     font-size: 22px;
-  }
-
-  .glass-welcome-headline {
-    font-size: 26px;
   }
 
   .glass-translucent-input {
@@ -5194,30 +5176,15 @@ textarea:focus-visible {
     height: 48px !important;
     min-height: 48px !important;
   }
-
-  .glass-btn-welcome-cta {
-    height: 48px !important;
-    min-height: 48px !important;
-    width: 100%;
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 360px) {
   .glass-login-panel {
-    padding: 1.15rem 0.85rem 0.85rem 0.85rem;
-  }
-
-  .glass-welcome-panel {
-    padding: 1rem 0.85rem 1.15rem 0.85rem;
+    padding: 1.15rem 0.85rem 1rem 0.85rem;
   }
 
   .glass-form-title {
     font-size: 20px;
-  }
-
-  .glass-welcome-headline {
-    font-size: 22px;
   }
 }
 
@@ -5231,11 +5198,7 @@ textarea:focus-visible {
   }
 
   .glass-login-panel {
-    padding: 1rem 0.75rem 0.75rem 0.75rem;
-  }
-
-  .glass-welcome-panel {
-    padding: 0.85rem 0.75rem 1rem 0.75rem;
+    padding: 1rem 0.75rem 0.85rem 0.75rem;
   }
 }
 
@@ -7294,6 +7257,27 @@ textarea:focus-visible {
   -webkit-overflow-scrolling: touch;
   padding-bottom: 0.5rem;
   scrollbar-width: thin;
+}
+
+/* Health AI Chat composer input focus styling: removes bright inner outline/rectangle while preserving glass theme */
+.patient-ai-input-container textarea,
+.patient-ai-input-container textarea:focus,
+.patient-ai-input-container textarea:focus-visible,
+.patient-ai-input-bar textarea,
+.patient-ai-input-bar textarea:focus,
+.patient-ai-input-bar textarea:focus-visible,
+.patient-ai-input-textarea,
+.patient-ai-input-textarea:focus,
+.patient-ai-input-textarea:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.patient-ai-input-bar:focus-within {
+  border-color: rgba(103, 232, 212, 0.35) !important;
+  box-shadow: 0 0 16px rgba(103, 232, 212, 0.08) !important;
 }
 
 /* ==========================================================================

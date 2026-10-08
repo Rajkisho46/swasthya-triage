@@ -611,7 +611,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
             <Sparkles size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
             <span>★ 1-Click Clinical Sample: Multimodal Hindi + Voice STT + Chest Urgency</span>
           </button>
-          <span style={{ fontSize: '0.78rem', color: '#737E7D' }}>
+          <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
             (Standard Clinical Protocol: 67y Male, Hindi voice + chest radiograph report)
           </span>
         </div>
@@ -812,7 +812,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     MULTIMODAL INPUT DOCK
                   </h3>
                 </div>
-                <div style={{ fontSize: '0.78rem', color: '#737E7D', marginTop: '0.2rem' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
                   Select available patient evidence capture pathways
                 </div>
               </div>
@@ -839,9 +839,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   </span>
                 </div>
                 <p className="modality-card-sub">Structured input buffer for verbatim clinical statements.</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#737E7D' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
                   <span className="font-mono">{symptoms.length} chars</span>
-                  <span style={{ color: symptoms.trim() ? '#67E8D4' : '#737E7D' }}>
+                  <span style={{ color: symptoms.trim() ? '#67E8D4' : 'var(--text-muted)' }}>
                     {symptoms.trim() ? 'Synced' : 'Empty'}
                   </span>
                 </div>
@@ -912,9 +912,9 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   </span>
                 </div>
                 <p className="modality-card-sub">Radiology & lab report document parser.</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#737E7D' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
                   <span className="font-mono">{ocrReports.length} attached</span>
-                  <span style={{ color: ocrReports.length > 0 ? '#67E8D4' : '#737E7D' }}>
+                  <span style={{ color: ocrReports.length > 0 ? '#67E8D4' : 'var(--text-muted)' }}>
                     {ocrReports.length > 0 ? 'Parsed' : 'Ready'}
                   </span>
                 </div>
@@ -1096,7 +1096,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     <span style={{ fontSize: '0.86rem', fontWeight: 600, color: '#E2C382' }}>
                       Transcribing audio via Speech-to-Text Pipeline...
                     </span>
-                    <span style={{ fontSize: '0.76rem', color: '#737E7D' }}>
+                    <span style={{ fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
                       Extracting patient verbal narrative and preserving verbatim statement.
                     </span>
                   </div>
@@ -1148,7 +1148,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     {/* Audio Playback if available */}
                     {voiceData.audioBlobUrl && (
                       <div style={{ marginTop: '0.65rem', paddingTop: '0.5rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                        <div style={{ fontSize: '0.72rem', color: '#737E7D', marginBottom: '0.25rem' }}>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
                           Recorded Audio Playback:
                         </div>
                         <audio
@@ -1208,7 +1208,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
 
                 {/* Preloaded Clinical Scenarios Section */}
                 <div style={{ marginTop: '0.65rem' }}>
-                  <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#737E7D', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.45rem' }}>
+                  <div style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.45rem' }}>
                     Or Select Clinical Voice Sample:
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
@@ -1347,7 +1347,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   PATIENT NARRATIVE & CLINICAL STATEMENT
                 </h3>
               </div>
-              <div style={{ fontSize: '0.78rem', color: '#737E7D', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
                 Verbatim observations reported by patient.
               </div>
             </div>
@@ -1371,7 +1371,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               <span className="form-help">
                 Multilingual text is preserved verbatim and normalized for medical reviewer evaluation.
               </span>
-              <span style={{ fontSize: '0.74rem', color: '#737E7D', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>
                 {symptoms.length} characters &bull; {symptoms.trim() ? symptoms.trim().split(/\s+/).length : 0} words
               </span>
             </div>
@@ -1444,7 +1444,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               <label htmlFor="consent-checkbox" className="checkbox-label" style={{ fontWeight: 600, color: '#F5F5F2', cursor: 'pointer' }}>
                 <span style={{ color: '#67E8D4' }}>Patient / Guardian Informed Consent Obtained</span> &bull; I confirm that informed consent has been obtained for this clinical triage intake. <span className="required" aria-hidden="true">*</span>
               </label>
-              <div style={{ fontSize: '0.76rem', color: '#737E7D', marginTop: '0.2rem', lineHeight: 1.35 }}>
+              <div style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginTop: '0.2rem', lineHeight: 1.35 }}>
                 Recorded in chronological in-memory audit log. Pre-checked consent is strictly prohibited.
               </div>
               {errors.consent && (
