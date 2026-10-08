@@ -208,7 +208,9 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       flexWrap: 'wrap',
-                      gap: '1rem',
+                      gap: '0.85rem',
+                      height: 'auto',
+                      minHeight: 'fit-content',
                       border: isReviewed
                         ? '1px solid rgba(53, 224, 193, 0.3)'
                         : hasUrgency
@@ -216,7 +218,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
                         : '1px solid rgba(255, 255, 255, 0.08)',
                     }}
                   >
-                    <div>
+                    <div style={{ flex: '1 1 280px', minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
                         <span style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>
                           {c.caseId}

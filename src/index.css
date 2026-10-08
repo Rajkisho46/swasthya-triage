@@ -6110,16 +6110,18 @@ textarea:focus-visible {
 }
 
 .patient-record-item {
-  padding: 1.25rem 1.50rem;
+  padding: 1.15rem 1.35rem;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 1rem;
   background: rgba(13, 20, 24, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  height: auto;
+  min-height: fit-content;
 }
 
 .patient-record-item:hover {
@@ -6138,15 +6140,19 @@ textarea:focus-visible {
 }
 
 .patient-record-info {
-  flex: 1 1 320px;
+  flex: 1 1 280px;
   min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .patient-record-meta-row {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.20rem;
   flex-wrap: wrap;
 }
 
@@ -6191,10 +6197,10 @@ textarea:focus-visible {
 }
 
 .patient-record-symptoms {
-  margin: 0 0 0.50rem 0;
+  margin: 0;
   font-size: 0.88rem;
   color: #A6B5B4;
-  line-height: 1.48;
+  line-height: 1.45;
 }
 
 .patient-record-date-lang {
@@ -6204,6 +6210,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 0.45rem;
   flex-wrap: wrap;
+  margin-top: 0.15rem;
 }
 
 .dot-separator {
@@ -6214,7 +6221,7 @@ textarea:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 0.50rem;
-  padding: 0.65rem 1.15rem;
+  padding: 0.55rem 1.10rem;
   border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -6223,7 +6230,8 @@ textarea:focus-visible {
   border: 1px solid rgba(32, 207, 192, 0.28);
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: 44px;
+  min-height: 42px;
+  height: auto;
   flex-shrink: 0;
 }
 
@@ -6341,14 +6349,26 @@ textarea:focus-visible {
 
   .patient-record-item {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 1.10rem 1rem;
+    align-items: stretch;
+    padding: 0.95rem 1rem;
+    gap: 0.70rem;
+    height: auto;
+    min-height: fit-content;
+  }
+
+  .patient-record-info {
+    flex: none;
+    width: 100%;
+    min-height: 0;
+    gap: 0.30rem;
   }
 
   .patient-view-summary-btn {
     width: 100%;
     justify-content: center;
-    min-height: 48px;
+    min-height: 44px;
+    height: auto;
+    padding: 0.55rem 0.90rem;
   }
 }
 
@@ -6463,9 +6483,18 @@ textarea:focus-visible {
   }
 
   .patient-record-item {
-    padding: 1rem 0.90rem;
-    gap: 0.90rem;
+    padding: 0.85rem 0.85rem;
+    gap: 0.60rem;
     border-radius: 12px;
+    height: auto;
+    min-height: fit-content;
+  }
+
+  .patient-record-info {
+    flex: none;
+    width: 100%;
+    min-height: 0;
+    gap: 0.25rem;
   }
 
   .patient-record-case-id {
@@ -6475,17 +6504,21 @@ textarea:focus-visible {
   .patient-record-symptoms {
     font-size: 0.82rem;
     line-height: 1.40;
+    margin: 0;
   }
 
   .patient-record-date-lang {
     font-size: 0.72rem;
+    margin-top: 0.10rem;
   }
 
   .patient-view-summary-btn {
     width: 100%;
-    min-height: 48px;
+    min-height: 42px;
+    height: auto;
     font-size: 0.84rem;
     justify-content: center;
+    padding: 0.50rem 0.80rem;
   }
 }
 

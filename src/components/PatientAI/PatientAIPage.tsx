@@ -13,7 +13,6 @@ import {
   Upload,
   CheckCircle2,
   MessageSquare,
-  FileCheck2,
   FileUp,
 } from 'lucide-react';
 import { PatientAIConversation } from './PatientAIConversation';
@@ -54,29 +53,6 @@ const ANALYSIS_STEPS = [
   'Identifying Laboratory Findings & Reference Ranges...',
   'Screening Urgency & Red-Flag Indicators...',
   'Preparing Patient-Friendly Clinical Guidance...',
-];
-
-const PRELOADED_SAMPLE_REPORTS = [
-  {
-    name: 'Complete Blood Count (CBC)',
-    category: 'Hematology',
-    text: 'COMPLETE BLOOD COUNT (CBC)\nHEMOGLOBIN: 10.2 g/dL (Ref: 13.0 - 17.0)\nWBC COUNT: 14,500 /uL (Ref: 4,000 - 11,000)\nPLATELET COUNT: 165,000 /uL (Ref: 150,000 - 450,000)\nRBC COUNT: 3.8 mil/uL (Ref: 4.5 - 5.9)\nNEUTROPHILS: 78 % (Ref: 40 - 70)\nLYMPHOCYTES: 18 % (Ref: 20 - 45)',
-  },
-  {
-    name: 'Comprehensive Metabolic Panel',
-    category: 'Biochemistry',
-    text: 'COMPREHENSIVE METABOLIC PANEL\nFASTING BLOOD GLUCOSE: 148 mg/dL (Ref: 70 - 99)\nSERUM CREATININE: 1.1 mg/dL (Ref: 0.7 - 1.3)\nBLOOD UREA NITROGEN (BUN): 18 mg/dL (Ref: 7 - 20)\nSODIUM: 140 mEq/L (Ref: 135 - 145)\nPOTASSIUM: 4.2 mEq/L (Ref: 3.5 - 5.0)\nTOTAL CHOLESTEROL: 228 mg/dL (Ref: < 200)\nTRIGLYCERIDES: 195 mg/dL (Ref: < 150)',
-  },
-  {
-    name: 'Resting ECG Report',
-    category: 'Cardiology',
-    text: 'RESTING ECG REPORT\nRhythm: Sinus Tachycardia\nHeart Rate: 108 bpm (Ref: 60 - 100)\nPR Interval: 142 ms (Ref: 120 - 200)\nQRS Duration: 88 ms (Ref: 80 - 120)\nST-T Changes: Non-specific ST depression in anterior leads\nImpression: Sinus tachycardia with mild non-specific ST changes. Clinical correlation advised.',
-  },
-  {
-    name: 'Chest Radiograph (X-Ray)',
-    category: 'Radiology',
-    text: 'CHEST RADIOGRAPH (PA VIEW)\nClinical History: Cough and fever for 4 days.\nFindings: Lungs demonstrate patchy airspace opacities in the right lower lobe consistent with consolidation/infiltrate. Cardiac silhouette is normal in size. Costophrenic angles are clear. No pneumothorax.\nImpression: Right lower lobe pneumonia / infiltrate. Clinical correlation and antibiotic management advised.',
-  },
 ];
 
 export const PatientAIPage: React.FC<PatientAIPageProps> = ({
@@ -310,13 +286,6 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
     } finally {
       setIsAnalyzingReport(false);
     }
-  };
-
-  const handleLoadSampleReport = async (sample: typeof PRELOADED_SAMPLE_REPORTS[0]) => {
-    const file = new File([sample.text], `${sample.name.replace(/\s+/g, '_').toLowerCase()}.txt`, {
-      type: 'text/plain',
-    });
-    handleUploadReportFile(file);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -726,59 +695,6 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                   <MessageSquare size={16} />
                   <span>Ask in AI Chat</span>
                 </button>
-              </div>
-
-              {/* Quick Sample Selector */}
-              <div
-                style={{
-                  marginTop: '0.5rem',
-                  paddingTop: '1rem',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-                  width: '100%',
-                  maxWidth: '680px',
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: '0.72rem',
-                    color: 'var(--champagne, #E2C382)',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
-                    display: 'block',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  Try Sample Reports:
-                </span>
-
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: '0.5rem',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {PRELOADED_SAMPLE_REPORTS.map((sample, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => handleLoadSampleReport(sample)}
-                      className="btn btn-secondary glass"
-                      style={{
-                        padding: '0.38rem 0.70rem',
-                        fontSize: '0.74rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                      }}
-                    >
-                      <FileCheck2 size={13} color="var(--primary-mint, #67E8D4)" />
-                      <span>{sample.name}</span>
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           )}
