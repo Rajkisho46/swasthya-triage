@@ -151,22 +151,72 @@ export class PatientChatClient {
   }
 
   /**
+   * Helper to detect language in client fallback.
+   */
+  private detectLanguage(text: string, preferredLanguage?: string): string {
+    const pref = (preferredLanguage || '').toLowerCase().trim();
+    if (pref && !['auto', 'detect', 'auto-detect', 'auto_detect'].includes(pref)) {
+      if (pref.includes('eng') || pref === 'en') return 'english';
+      if (pref.includes('hin') || pref === 'hi') return 'hindi';
+      if (pref.includes('odi') || pref.includes('ori') || pref === 'or') return 'odia';
+      if (pref.includes('ben') || pref.includes('bang') || pref === 'bn') return 'bengali';
+      if (pref.includes('tel') || pref === 'te') return 'telugu';
+      if (pref.includes('tam') || pref === 'ta') return 'tamil';
+      if (pref.includes('kan') || pref === 'kn') return 'kannada';
+      if (pref.includes('mal') || pref === 'ml') return 'malayalam';
+      if (pref.includes('mar') || pref === 'mr') return 'marathi';
+      if (pref.includes('guj') || pref === 'gu') return 'gujarati';
+      if (pref.includes('pun') || pref === 'pa') return 'punjabi';
+      return pref;
+    }
+    if (!text) return 'english';
+    if (/[\u0B00-\u0B7F]/.test(text)) return 'odia';
+    if (/[\u0980-\u09FF]/.test(text)) return 'bengali';
+    if (/[\u0C00-\u0C7F]/.test(text)) return 'telugu';
+    if (/[\u0B80-\u0BFF]/.test(text)) return 'tamil';
+    if (/[\u0C80-\u0CFF]/.test(text)) return 'kannada';
+    if (/[\u0D00-\u0D7F]/.test(text)) return 'malayalam';
+    if (/[\u0A80-\u0AFF]/.test(text)) return 'gujarati';
+    if (/[\u0A00-\u0A7F]/.test(text)) return 'punjabi';
+    if (/[\u0900-\u097F]/.test(text)) {
+      const marathiWords = ['आहे', 'नाही', 'मला', 'होते', 'ताप', 'डोकेदुखी', 'पोटात', 'छातीत'];
+      if (marathiWords.some(w => text.includes(w))) return 'marathi';
+      return 'hindi';
+    }
+    const t = text.toLowerCase();
+    if (['mote', 'heuchi', 'karuchi', 'byatha', 'chhati', 'jwara'].some(w => t.includes(w))) return 'odia';
+    if (['amar', 'hocche', 'buke', 'matha', 'betha', 'jor'].some(w => t.includes(w))) return 'bengali';
+    if (['naaku', 'undi', 'noppi', 'vachindi', 'jwaram'].some(w => t.includes(w))) return 'telugu';
+    if (['enakku', 'irukku', 'kaichal', 'thalaivali'].some(w => t.includes(w))) return 'tamil';
+    if (['nanage', 'ide', 'bandide', 'talenovu'].some(w => t.includes(w))) return 'kannada';
+    if (['enikku', 'undu', 'thalavedana'].some(w => t.includes(w))) return 'malayalam';
+    if (['mala', 'aahe', 'hotay', 'dokedukhi'].some(w => t.includes(w))) return 'marathi';
+    if (['mane', 'chhe', 'thay', 'mathano'].some(w => t.includes(w))) return 'gujarati';
+    if (['mainu', 'mennu', 'sardard'].some(w => t.includes(w))) return 'punjabi';
+    if (['mujhe', 'mera', 'dard', 'bukhar', 'sirdard', 'seene'].some(w => t.includes(w))) return 'hindi';
+    return 'english';
+  }
+
+  /**
    * Generates intelligent, natural, adaptive client-side fallback response when backend is offline or in local test environment.
    */
   private generateLocalFallback(params: SendChatMessageParams): ChatResponseData {
     const lastMsg = params.messages[params.messages.length - 1]?.content || '';
     const lastMsgLower = lastMsg.toLowerCase().trim();
-    const prefLang = (params.preferredLanguage || '').toLowerCase().trim();
-    const isHindi = prefLang.includes('hindi') || /[\u0900-\u097F]/.test(lastMsg);
+    const activeLang = this.detectLanguage(lastMsg, params.preferredLanguage);
+    const isHindi = activeLang === 'hindi';
 
-    // 0. Unsupported Language Check
-    const isSupportedLanguage =
-      !prefLang ||
-      ['english', 'hindi', 'en', 'hi', 'bengali', 'telugu', 'tamil', 'marathi', 'gujarati', 'kannada', 'malayalam', 'punjabi', 'odia'].includes(prefLang);
+    const supportedLangs = [
+      'english', 'hindi', 'en', 'hi', 'bengali', 'bn', 'telugu', 'te',
+      'tamil', 'ta', 'kannada', 'kn', 'malayalam', 'ml', 'marathi', 'mr',
+      'gujarati', 'gu', 'punjabi', 'pa', 'odia', 'or'
+    ];
+    const prefNorm = (params.preferredLanguage || '').toLowerCase().trim();
+    const isSupportedLanguage = !prefNorm || ['auto', 'detect', 'auto-detect'].includes(prefNorm) || supportedLangs.includes(prefNorm);
 
     if (!isSupportedLanguage) {
       return {
-        reply: "I’m the Swasthya Triage Health Assistant. The requested language is currently not supported. Please select English or a supported regional language (such as Hindi) so I can assist you with your health questions.",
+        reply: "I’m the Swasthya Triage Health Assistant. The requested language is currently not supported. Please select English or a supported regional language (such as Hindi, Odia, Bengali, Telugu, Tamil, Kannada, Malayalam, Marathi, Gujarati, or Punjabi) so I can assist you with your health questions.",
         is_healthcare_related: true,
         urgency_detected: false,
         urgency_level: 'routine',
@@ -181,10 +231,20 @@ export class PatientChatClient {
     // 1. Domain Check
     const isOffTopic = OFF_TOPIC_KEYWORDS.some((kw) => lastMsgLower.includes(kw));
     if (isOffTopic) {
+      let reply = NON_HEALTHCARE_STANDARD_REPLY;
+      if (activeLang === 'hindi') {
+        reply = "मैं स्वास्थ्य ट्राइएज हेल्थ असिस्टेंट हूँ, इसलिए मैं केवल स्वास्थ्य संबंधी प्रश्नों, लक्षणों, चिकित्सा जानकारी, दस्तावेजों और ट्राइएज प्रक्रिया में मदद कर सकता हूँ।";
+      } else if (activeLang === 'odia') {
+        reply = "ମୁଁ ସ୍ୱାସ୍ଥ୍ୟ ଟ୍ରାଇଏଜ୍ ହେଲ୍ଥ ଆସିଷ୍ଟାଣ୍ଟ, ତେଣୁ ମୁଁ କେବଳ ସ୍ୱାସ୍ଥ୍ୟ ସମ୍ବନ୍ଧୀୟ ପ୍ରଶ୍ନ, ଲକ୍ଷଣ, ଚିକିତ୍ସା ସୂଚନା, ଡକ୍ୟୁମେଣ୍ଟ ଏବଂ ଟ୍ରାଇଏଜ୍ ପ୍ରକ୍ରିୟାରେ ସାହାଯ୍ୟ କରିପାରିବି।";
+      } else if (activeLang === 'bengali') {
+        reply = "আমি স্বাস্থ্য ট্রায়াজ হেলথ অ্যাসিস্ট্যান্ট, তাই আমি শুধুমাত্র স্বাস্থ্য সম্পর্কিত প্রশ্ন, লক্ষণ, চিকিৎসা তথ্য, নথিপত্র এবং ট্রায়াজ প্রক্রিয়ায় সহায়তা করতে পারি।";
+      } else if (activeLang === 'telugu') {
+        reply = "నేను స్వాస్థ్య ట్రయాజ్ హెల్త్ అసిస్టెంట్‌ని, కాబట్టి నేను ఆరోగ్య సంబంధిత ప్రశ్నలు, లక్షణాలు, వైద్య సమాచారం, పత్రాలు మరియు ట్రయాజ్ ప్రక్రియలో మాత్రమే సహాయం చేయగలను।";
+      } else if (activeLang === 'tamil') {
+        reply = "நான் ஸ்வஸ்த்யா ட்ரையേജ് ஹெல்த் அசிஸ்டெண்ட், எனவே என்னால் உடல்நலம் தொடர்பான கேள்விகள், அறிகுறிகள், மருத்துவத் தகவல்கள், ஆவணங்கள் மற்றும் ட்ரையേജ് செயல்முறைகளில் மட்டுமே உதவ முடியும்.";
+      }
       return {
-        reply: isHindi
-          ? "मैं स्वास्थ्य ट्राइएज हेल्थ असिस्टेंट हूँ, इसलिए मैं केवल स्वास्थ्य संबंधी प्रश्नों, लक्षणों, चिकित्सा जानकारी, दस्तावेजों और ट्राइएज प्रक्रिया में मदद कर सकता हूँ।"
-          : NON_HEALTHCARE_STANDARD_REPLY,
+        reply,
         is_healthcare_related: false,
         urgency_detected: false,
         urgency_level: 'routine',
@@ -202,7 +262,13 @@ export class PatientChatClient {
 
     // 2. Emergency Red Flags Check
     const isThunderclap = combinedLower.includes('worst headache') || combinedLower.includes('worst pain') || (combinedLower.includes('sudden') && combinedLower.includes('headache') && combinedLower.includes('severe'));
-    const isCardioRedFlag = combinedLower.includes('crushing') || combinedLower.includes('severe chest') || (combinedLower.includes('chest') && (combinedLower.includes('breath') || combinedLower.includes('sweat') || combinedLower.includes('radiat') || combinedLower.includes("can't catch") || combinedLower.includes('difficulty breathing')));
+    const isCardioRedFlag = (
+      (combinedLower.includes('crushing') || combinedLower.includes('severe chest') || combinedLower.includes('तेज दर्द') || combinedLower.includes('ଯନ୍ତ୍ରଣା') || combinedLower.includes('ব্যথা') || combinedLower.includes('నొప్పి') || combinedLower.includes('வலி') || combinedLower.includes('ನೋವು') || combinedLower.includes('വേദന') || combinedLower.includes('कळ') || combinedLower.includes('દુખાવો') || combinedLower.includes('ਦਰਦ')) &&
+      (combinedLower.includes('chest') || combinedLower.includes('सीने') || combinedLower.includes('ଛାତି') || combinedLower.includes('বুক') || combinedLower.includes('ఛాతీ') || combinedLower.includes('மார்பு') || combinedLower.includes('ಎದೆ') || combinedLower.includes('നെഞ്ച്') || combinedLower.includes('छातीत') || combinedLower.includes('છાતી') || combinedLower.includes('ਛਾਤੀ'))
+    ) || (
+      (combinedLower.includes('chest') || combinedLower.includes('सीने') || combinedLower.includes('ଛାତି') || combinedLower.includes('বুক') || combinedLower.includes('ఛాతీ') || combinedLower.includes('மார்பு') || combinedLower.includes('ಎದೆ') || combinedLower.includes('നെഞ്ച്') || combinedLower.includes('छातीत') || combinedLower.includes('છાતી') || combinedLower.includes('ਛਾਤੀ')) &&
+      (combinedLower.includes('breath') || combinedLower.includes('सांस') || combinedLower.includes('ଶ୍ୱାସ') || combinedLower.includes('শ্বাস') || combinedLower.includes('శ్వాస') || combinedLower.includes('மூச்சு') || combinedLower.includes('ಉಸಿರು') || combinedLower.includes('ശ്വാസം') || combinedLower.includes('श्वास') || combinedLower.includes('શ્વાસ') || combinedLower.includes('ਸਾਹ') || combinedLower.includes('sweat') || combinedLower.includes('difficulty breathing'))
+    );
     const isStrokeRedFlag = (combinedLower.includes('cannot move') || combinedLower.includes('cant move') || combinedLower.includes('one side')) && (combinedLower.includes('body') || combinedLower.includes('arm') || combinedLower.includes('face') || combinedLower.includes('speech') || combinedLower.includes('slur'));
     const isSyncopeRedFlag = (combinedLower.includes('fainted') || combinedLower.includes('passed out') || combinedLower.includes('syncope') || combinedLower.includes('blacked out')) && (combinedLower.includes('chest') || combinedLower.includes('breath') || combinedLower.includes('heart'));
     const isDyspneaRedFlag = combinedLower.includes('severe difficulty breathing') || combinedLower.includes('struggling to breathe') || combinedLower.includes('gasping');
@@ -216,34 +282,46 @@ export class PatientChatClient {
 
       if (isStrokeRedFlag) {
         reason = 'Sudden one-sided weakness or difficulty with speech (possible acute stroke / neurological emergency)';
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "शरीर के एक तरफ अचानक कमजोरी आना या बोलने में कठिनाई होना एक गंभीर न्यूरोलॉजिकल आपातकाल (जैसे स्ट्रोक) का संकेत हो सकता है। कृपया बिना किसी देरी के तुरंत आपातकालीन एम्बुलेंस (108 / 112) बुलाएं या निकटतम इमरजेंसी अस्पताल जाएं।"
-          : "Sudden weakness or inability to move one side of the body together with difficulty speaking is a potential medical emergency (such as a stroke). Please call emergency medical services immediately (e.g. 911 / 108 / 112) or go to the nearest emergency department right away without waiting.";
+          : activeLang === 'odia'
+          ? "ଶରୀରର ଗୋଟିଏ ପାର୍ଶ୍ୱରେ ହଠାତ୍ ଦୁର୍ବଳତା କିମ୍ବା କଥା କହିବାରେ ଅସୁବିଧା ଏକ ଜରୁରୀକାଳୀନ ସ୍ଥିତି (ଷ୍ଟ୍ରୋକ୍ ଭଳି) ହୋଇପାରେ। ଦୟାକରି ତୁରନ୍ତ ଜରୁରୀକାଳୀନ ଆମ୍ବୁଲାନ୍ସ (108 / 112) କୁ ଫୋନ୍ କରନ୍ତୁ।"
+          : "Sudden weakness or inability to move one side of the body together with difficulty speaking is a potential medical emergency (such as a stroke). Please call emergency medical services immediately (e.g. 108 / 112) or go to the nearest emergency department right away without waiting.";
       } else if (isThunderclap) {
         reason = 'Thunderclap / worst headache of life';
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "क्योंकि आप अचानक शुरू हुए बहुत तेज सिरदर्द ('worst headache') का वर्णन कर रहे हैं, यह स्थिति तुरंत आपातकालीन चिकित्सा मूल्यांकन की मांग करती है। कृपया तुरंत नजदीकी अस्पताल या आपातकालीन सेवा (108 / 112) से संपर्क करें।"
-          : "Because you are describing a sudden, severe headache that feels like the worst you've ever had, this is a red-flag symptom that requires urgent emergency medical evaluation. Please seek emergency medical care immediately.";
+          : activeLang === 'odia'
+          ? "ଯେହେତୁ ଆପଣ ହଠାତ୍ ଆରମ୍ଭ ହୋଇଥିବା ପ୍ରବଳ ମୁଣ୍ଡବିନ୍ଧାର ବର୍ଣ୍ଣନା କରୁଛନ୍ତି, ଏହା ଏକ ଜରୁରୀକାଳୀନ ଚିକିତ୍ସା ମୂଲ୍ୟାୟନ ଆବଶ୍ୟକ କରେ। ଦୟାକରି ତୁରନ୍ତ ଡାକ୍ତରଖାନା କିମ୍ବା ଜରୁରୀକାଳୀନ ସେବା (108 / 112) ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।"
+          : "Because you are describing a sudden, severe headache that feels like the worst you've ever had, this is a red-flag symptom that requires urgent emergency medical evaluation. Please seek emergency medical care immediately (108 / 112).";
       } else if (isSyncopeRedFlag) {
         reason = 'Syncope associated with acute chest discomfort';
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "बेहोश होने (Fainting) के साथ सीने में तेज तकलीफ होना हृदय संबंधी आपातकाल का संकेत हो सकता है। कृपया तुरंत नजदीकी इमरजेंसी विभाग जाएं या आपातकालीन सहायता लें।"
-          : "Fainting combined with severe chest discomfort is a potential cardiac emergency requiring immediate medical assessment. Please seek emergency medical attention right now.";
+          : "Fainting combined with severe chest discomfort is a potential cardiac emergency requiring immediate medical assessment. Please seek emergency medical attention right now (108 / 112).";
       } else if (isDyspneaRedFlag) {
         reason = 'Severe acute dyspnea / respiratory distress';
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "सांस लेने में गंभीर तकलीफ होना एक आपातकालीन चिकित्सा स्थिति है। कृपया तुरंत आपातकालीन चिकित्सा सहायता लें।"
-          : "Severe difficulty breathing is a medical emergency that requires immediate medical attention. Please call emergency medical services or go to the nearest emergency room immediately.";
+          : "Severe difficulty breathing is a medical emergency that requires immediate medical attention. Please call emergency medical services (108 / 112) or go to the nearest emergency room immediately.";
       } else if (isConfusionRedFlag) {
         reason = 'Sudden severe confusion / acute mental status change';
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "अचानक गंभीर भ्रम (Confusion) या भटकाव होना एक आपातकालीन लक्षण हो सकता है। कृपया तुरंत आपातकालीन चिकित्सा मूल्यांकन कराएं।"
-          : "Sudden severe confusion or disorientation can be a sign of an acute medical condition that requires immediate emergency clinical evaluation. Please seek urgent medical assessment.";
+          : "Sudden severe confusion or disorientation can be a sign of an acute medical condition that requires immediate emergency clinical evaluation. Please seek urgent medical assessment (108 / 112).";
       } else {
         reason = 'Severe chest discomfort with respiratory distress';
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "क्योंकि आपके लक्षणों में सीने में तेज दर्द या सांस लेने में गंभीर तकलीफ शामिल है, यह स्थिति तुरंत आपातकालीन चिकित्सा सहायता की मांग करती है। कृपया तुरंत आपातकालीन सेवा (108 / 112) लें।"
-          : "Because you are describing severe chest pain together with difficulty breathing, this requires immediate emergency medical evaluation. Please call emergency services or go to the nearest emergency room immediately.";
+          : activeLang === 'odia'
+          ? "ଯେହେତୁ ଆପଣ ଛାତିରେ ତୀବ୍ର ଯନ୍ତ୍ରଣା ଏବଂ ଶ୍ୱାସ ନେବାରେ ଗମ୍ଭୀର କଷ୍ଟ ବର୍ଣ୍ଣନା କରୁଛନ୍ତି, ଏହା ଏକ ଜରୁରୀକାଳୀନ ଚିକିତ୍ସା ମୂଲ୍ୟାୟନ ଆବଶ୍ୟକ କରେ। ଦୟାକରି ତୁରନ୍ତ ଜରୁରୀକାଳୀନ ଆମ୍ବୁଲାନ୍ସ (108 / 112) କୁ ଫୋନ୍ କରନ୍ତୁ।"
+          : activeLang === 'bengali'
+          ? "যেহেতু আপনি বুকে তীব্র ব্যথা এবং শ্বাস নিতে গুরুতর অসুবিধার কথা বলছেন, এটি অবিলম্বে জরুরি চিকিৎসা মূল্যায়নের দাবি রাখে। অনুগ্রহ করে অবিলম্বে জরুরি সেবা (108 / 112) তে কল করুন।"
+          : activeLang === 'telugu'
+          ? "మీరు ఛాతీలో తీవ్రమైన నొప్పి మరియు శ్వాస తీసుకోవడంలో తీవ్ర ఇబ్బందిని ఎదుర్కొంటున్నట్లు పేర్కొంటున్నారు, కాబట్టి ఇది తక్షణ అత్యవసర వైద్య పరీక్ష అవసరం. దయచేసి వెంటనే అత్యవసర సేవలకు (108 / 112) కాల్ చేయండి।"
+          : activeLang === 'tamil'
+          ? "நெஞ்சில் கடுமையான வலி மற்றும் மூச்சு விடுவதில் தீவிர சிரமம் இருப்பதாக நீங்கள் கூறுவதால், இதற்கு உடனடி அவசர மருத்துவ பரிசோதனை தேவை. தயவுசெய்து உடனடியாக அவசர உதவிக்கு (108 / 112) அழைக்கவும்."
+          : "Because you are describing severe chest pain together with difficulty breathing, this requires immediate emergency medical evaluation. Please call emergency services (108 / 112) or go to the nearest emergency room immediately.";
       }
 
       return {
@@ -263,15 +341,19 @@ export class PatientChatClient {
       };
     }
 
-    // 3. Hallucination Guard (Asking for nonexistent records)
+    // 3. Hallucination Guard (Asking for nonexistent records / lab results / hemoglobin level)
     if (
-      (lastMsgLower.includes('blood test result') || lastMsgLower.includes('lab result') || lastMsgLower.includes('my results from yesterday') || lastMsgLower.includes('my report from yesterday')) &&
+      (lastMsgLower.includes('blood test result') || lastMsgLower.includes('lab result') || lastMsgLower.includes('my results from yesterday') || lastMsgLower.includes('my report from yesterday') || lastMsgLower.includes('what is my hemoglobin') || lastMsgLower.includes('मेरा हीमोग्लोबिन') || lastMsgLower.includes('ମୋ ହିମୋଗ୍ଲୋବିନ')) &&
       (!params.attachments || params.attachments.length === 0)
     ) {
+      let reply = "I don't have access to your blood test results because no medical report has been uploaded in this session. Please upload your laboratory document or enter the specific values so I can assist you with an explanation.";
+      if (activeLang === 'hindi') {
+        reply = "मेरे पास आपके किसी पुराने या कल के रक्त परीक्षण परिणाम की जानकारी नहीं है, क्योंकि इस सत्र में कोई रिपोर्ट अपलोड नहीं की गई है। कृपया अपनी रिपोर्ट अपलोड करें ताकि मैं उसकी व्याख्या में सहायता कर सकूं।";
+      } else if (activeLang === 'odia') {
+        reply = "ମୋ ପାଖରେ ଆପଣଙ୍କର କୌଣସି ରକ୍ତ ପରୀକ୍ଷା ରିପୋର୍ଟ ଉପଲବ୍ଧ ନାହିଁ କାରଣ ଏହି ସେସନରେ କୌଣସି ଦଲିଲ ଅପଲୋଡ୍ କରାଯାଇନାହିଁ। ଦୟାକରି ଆପଣଙ୍କର ରିପୋର୍ଟ ଅପଲୋଡ୍ କରନ୍ତୁ।";
+      }
       return {
-        reply: isHindi
-          ? "मेरे पास आपके किसी पुराने या कल के रक्त परीक्षण परिणाम की जानकारी नहीं है, क्योंकि इस सत्र में कोई रिपोर्ट अपलोड नहीं की गई है। कृपया अपनी रिपोर्ट अपलोड करें ताकि मैं उसकी व्याख्या में सहायता कर सकूं।"
-          : "I don't have access to your blood test results from yesterday because no medical report has been uploaded in this session. Please upload your laboratory document or enter the specific values so I can assist you with an explanation.",
+        reply,
         is_healthcare_related: true,
         urgency_detected: false,
         urgency_level: 'routine',
@@ -671,44 +753,66 @@ export class PatientChatClient {
 
       if (!hasDuration && !hasTemp) {
         // Turn 1
-        reply = isHindi
-          ? "बुखार कितने दिनों से है, और क्या आपने थर्मामीटर से अपना तापमान नापा है?"
-          : "How long have you had the fever, and do you know what your temperature has been?";
+        if (activeLang === 'hindi') {
+          reply = "बुखार कितने दिनों से है, और क्या आपने थर्मामीटर से अपना तापमान नापा है?";
+        } else if (activeLang === 'odia') {
+          reply = "ଜ୍ୱର କେତେ ଦିନରୁ ହେଉଛି, ଏବଂ ଆପଣ ଥର୍ମୋମିଟରରେ ଶରୀରର ତାପମାତ୍ରା ମାପିଛନ୍ତି କି?";
+        } else if (activeLang === 'bengali') {
+          reply = "জ্বর কত দিন ধরে হচ্ছে, এবং আপনি কি থার্মোমিটার দিয়ে তাপমাত্রা মেপে দেখেছেন?";
+        } else if (activeLang === 'telugu') {
+          reply = "జ్వరం ఎన్ని రోజులుగా ఉంది, మరియు మీరు థర్మామీటర్‌తో ఉష్ణోగ్రతను కొలిచారా?";
+        } else if (activeLang === 'tamil') {
+          reply = "காய்ச்சல் எத்தனை நாட்களாக உள்ளது, மற்றும் தெர்மாமீட்டர் மூலம் உடல் வெப்பநிலையை அளவிட்டீர்களா?";
+        } else if (activeLang === 'kannada') {
+          reply = "ಜ್ವರ ಎಷ್ಟು ದಿನಗಳಿಂದ ಇದೆ, ಮತ್ತು ನೀವು ಥರ್ಮಾಮೀಟರ್ ಮೂಲಕ ದೇಹದ ತಾಪಮಾನವನ್ನು ಅಳೆದಿದ್ದೀರಾ?";
+        } else if (activeLang === 'malayalam') {
+          reply = "പനി എത്ര ദിവസമായി ഉണ്ട്, തെർമോമീറ്റർ ഉപയോഗിച്ച് താപനില പരിശോധിച്ചിരുന്നോ?";
+        } else if (activeLang === 'marathi') {
+          reply = "ताप किती दिवसांपासून आहे, आणि तुम्ही थर्मामीटरने शरीराचे तापमान तपासले आहे का?";
+        } else if (activeLang === 'gujarati') {
+          reply = "તાવ કેટલા દિવસથી છે, અને શું તમે થર્મોમીટરથી શરીરનું તાપમાન માપ્યું છે?";
+        } else if (activeLang === 'punjabi') {
+          reply = "ਬੁਖਾਰ ਕਿੰਨੇ ਦਿਨਾਂ ਤੋਂ ਹੈ, ਅਤੇ ਕੀ ਤੁਸੀਂ ਥਰਮਾਮੀਟਰ ਨਾਲ ਆਪਣਾ ਤਾਪਮਾਨ ਮਾਪਿਆ ਹੈ?";
+        } else {
+          reply = "How long have you had the fever, and do you know what your temperature has been?";
+        }
         followUps = ['About 2 days, around 101-102°F', 'Started since yesterday'];
       } else if (hasCough || lastMsgLower.includes('cough')) {
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "क्या खांसी सूखी है, या बलगम (mucus) आ रहा है?"
           : "Is the cough dry, or are you bringing up mucus or phlegm?";
         followUps = ['It is a dry cough', 'Bringing up yellowish mucus'];
       } else {
-        reply = isHindi
+        reply = activeLang === 'hindi'
           ? "धन्यवाद। क्या आपको खांसी, सांस लेने में तकलीफ, उल्टी, या शरीर में बहुत तेज ठंड लग रही है?"
           : "Thanks. Are you also experiencing cough, difficulty breathing, vomiting, severe weakness, or any other new symptoms?";
         followUps = ['I have a cough', 'Just feeling cold and shivering'];
       }
     } else if (hasChest) {
-      reply = isHindi
+      reply = activeLang === 'hindi'
         ? "क्या यह बेचैनी या दर्द अभी इस समय हो रहा है? और क्या यह भारीपन, दबाव, या चुभने जैसा महसूस हो रहा है?"
         : "Is this discomfort happening right now? And does it feel like tightness, pressure, or a sharp pain?";
       followUps = ['It feels like pressure on my chest', 'It is happening right now'];
     } else if (hasStomach) {
-      reply = isHindi
+      reply = activeLang === 'hindi'
         ? "पेट में दर्द किस हिस्से में हो रहा है (ऊपर, नाभि के पास, या नीचे)? और क्या इसके साथ उल्टी या दस्त है?"
         : "Where in your stomach do you feel the pain, and is it accompanied by any nausea, vomiting, or diarrhea?";
       followUps = ['Upper stomach, feeling nauseous', 'Lower right side pain'];
     } else if (hasRash) {
-      reply = isHindi
+      reply = activeLang === 'hindi'
         ? "यह चकत्ता (rash) शरीर के किस हिस्से में है, और क्या इसमें खुजली, दर्द, या सूजन हो रही है?"
         : "Where is the rash located on your body, and is it itchy, painful, or spreading?";
       followUps = ['On my arms and chest, very itchy', 'On my face, slightly painful'];
     } else if (hasDizzy) {
-      reply = isHindi
+      reply = activeLang === 'hindi'
         ? "क्या चक्कर लगातार आ रहे हैं, या मुख्य रूप से खड़े होने और चलने पर महसूस होते हैं?"
         : "Has the dizziness been constant, or does it mainly happen when you stand up or move around?";
       followUps = ['Mainly when standing up quickly', 'It feels constant all day'];
     } else {
-      reply = isHindi
+      reply = activeLang === 'hindi'
         ? "मैंने आपका विवरण समझ लिया है। इसे और स्पष्ट करने के लिए: यह समस्या कब शुरू हुई, और क्या यह समय के साथ बढ़ रही है?"
+        : activeLang === 'odia'
+        ? "ମୁଁ ଆପଣଙ୍କ ବିବରଣୀ ବୁଝିପାରିଲି। ଏହି ସମସ୍ୟା କେବେ ଆରମ୍ଭ ହେଲା ଏବଂ ଏହା ବଢୁଛି କି?"
         : "I understand what you're experiencing. When did this first start, and is it getting better or worse?";
       followUps = ['Started yesterday and getting worse', 'Started a few hours ago'];
     }

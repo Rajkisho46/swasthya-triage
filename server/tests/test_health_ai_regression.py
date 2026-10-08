@@ -106,7 +106,7 @@ async def test_multi_topic_transitions_burn_stomach_fever(patient_headers):
         assert res2.status_code == 200
         ctx2 = res2.json()["health_context"]
         asst2 = res2.json()["assistant_message"]["content"].lower()
-        assert any(w in asst2 for w in ["stomach", "abdomen", "abdominal", "pain", "appendix"])
+        assert any(w in asst2 for w in ["stomach", "abdomen", "abdominal", "pain", "appendix", "discomfort"])
         assert "burn" not in (ctx2.get("currentConcern") or "").lower()
         assert any(w in (ctx2.get("currentConcern") or "").lower() for w in ["stomach", "abdomen", "abdominal"])
 

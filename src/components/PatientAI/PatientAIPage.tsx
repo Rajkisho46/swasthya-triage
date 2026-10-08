@@ -20,6 +20,7 @@ import { PatientAIInput } from './PatientAIInput';
 import { PatientAIContextPanel } from './PatientAIContextPanel';
 import { PatientAIHistoryModal } from './PatientAIHistoryModal';
 import { PatientAIReportDashboard } from './PatientAIReportDashboard';
+import { PatientAILanguageSelector } from './PatientAILanguageSelector';
 import type { SavedChatSession } from './PatientAIHistoryModal';
 import type {
   ChatMessageItem,
@@ -65,6 +66,24 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessageItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(() => {
+    try {
+      return (typeof window !== 'undefined' && window.localStorage?.getItem('swasthya_patient_ai_lang_pref')) || preferredLanguage || 'auto';
+    } catch {
+      return preferredLanguage || 'auto';
+    }
+  });
+
+  const handleLanguageChange = (lang: string) => {
+    setSelectedLanguage(lang);
+    try {
+      if (typeof window !== 'undefined') {
+        window.localStorage?.setItem('swasthya_patient_ai_lang_pref', lang);
+      }
+    } catch (e) {
+      // ignore
+    }
+  };
 
   // Report Analysis State
   const [isAnalyzingReport, setIsAnalyzingReport] = useState<boolean>(false);
@@ -337,7 +356,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
         text,
         attachments,
         voiceUsed,
-        preferredLanguage
+        selectedLanguage
       );
 
       setMessages((prev) => [...prev, res.assistantMessage]);
@@ -378,7 +397,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
           : latestAiMsg?.structuredSymptoms?.reported_symptoms,
         chiefComplaint: activeReportAnalysis?.report_title || latestAiMsg?.structuredSymptoms?.chief_complaint,
         attachments: allAttachments,
-        preferredLanguage,
+        preferredLanguage: selectedLanguage,
         reportAnalysis: activeReportAnalysis || undefined,
       });
     }
@@ -548,6 +567,12 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
 
         {/* Header Action Controls */}
         <div className="patient-ai-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+          <PatientAILanguageSelector
+            value={selectedLanguage}
+            onChange={handleLanguageChange}
+            compact={true}
+          />
+
           <button
             type="button"
             onClick={handleReset}
@@ -816,14 +841,15 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                   fileInputRef.current?.click();
                 }
               }}
-              preferredLanguage={preferredLanguage}
+              preferredLanguage={selectedLanguage}
             />
 
             <PatientAIInput
               onSendMessage={handleSendMessage}
               onUploadReportFile={handleUploadReportFile}
               isLoading={isLoading || isAnalyzingReport}
-              preferredLanguage={preferredLanguage}
+              preferredLanguage={selectedLanguage}
+              onLanguageChange={handleLanguageChange}
             />
           </main>
 

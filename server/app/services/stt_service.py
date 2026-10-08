@@ -117,6 +117,35 @@ class MockSpeechToTextService(ISpeechToTextService):
         )
 
 
+def detect_transcription_language(text: str, default_lang: str = "auto") -> str:
+    if default_lang and default_lang.lower() not in ["auto", "none"]:
+        return default_lang
+    if not text:
+        return "English"
+    if re.search(r"[\u0B00-\u0B7F]", text):
+        return "Odia"
+    if re.search(r"[\u0980-\u09FF]", text):
+        return "Bengali"
+    if re.search(r"[\u0C00-\u0C7F]", text):
+        return "Telugu"
+    if re.search(r"[\u0B80-\u0BFF]", text):
+        return "Tamil"
+    if re.search(r"[\u0C80-\u0CFF]", text):
+        return "Kannada"
+    if re.search(r"[\u0D00-\u0D7F]", text):
+        return "Malayalam"
+    if re.search(r"[\u0A80-\u0AFF]", text):
+        return "Gujarati"
+    if re.search(r"[\u0A00-\u0A7F]", text):
+        return "Punjabi"
+    if re.search(r"[\u0900-\u097F]", text):
+        marathi_markers = ["आहे", "नाही", "मला", "होते", "ताप", "डोकेदुखी", "पोटात", "छातीत"]
+        if any(m in text for m in marathi_markers):
+            return "Marathi"
+        return "Hindi"
+    return "English"
+
+
 class GeminiSpeechToTextService(ISpeechToTextService):
     """
     Real Google Gemini Multimodal Audio Speech-to-Text Provider.
@@ -128,7 +157,7 @@ class GeminiSpeechToTextService(ISpeechToTextService):
         "TASK:\n"
         "Transcribe the spoken audio recording EXACTLY as spoken by the patient or speaker.\n\n"
         "MANDATORY CONSTRAINTS:\n"
-        "1. Transcribe strictly verbatim. Preserve exact words, hesitations, and language (e.g. Hindi, English, Hinglish, regional terms).\n"
+        "1. Transcribe strictly verbatim. Preserve exact words, hesitations, and language (e.g. Hindi, Odia, Bengali, Telugu, Tamil, Kannada, Malayalam, Marathi, Gujarati, Punjabi, English, Hinglish, regional terms).\n"
         "2. DO NOT summarize.\n"
         "3. DO NOT diagnose or infer medical conditions.\n"
         "4. DO NOT rewrite, correct, or normalize the patient's complaint into clinical medical terminology.\n"
@@ -195,8 +224,7 @@ class GeminiSpeechToTextService(ISpeechToTextService):
             if not cleaned:
                 raise RuntimeError("Empty transcription returned from Gemini STT provider")
 
-            # Detect language roughly
-            detected_lang = language if language and language.lower() != "auto" else ("Hindi" if re.search(r"[\u0900-\u097F]", cleaned) else "English")
+            detected_lang = detect_transcription_language(cleaned, language)
 
             return VoiceTranscriptionResponse(
                 success=True,
@@ -246,7 +274,7 @@ class WhisperSpeechToTextService(ISpeechToTextService):
             if not raw_text:
                 raise RuntimeError("Empty transcription returned from Whisper STT provider")
 
-            detected_lang = language if language and language.lower() != "auto" else ("Hindi" if re.search(r"[\u0900-\u097F]", raw_text) else "English")
+            detected_lang = detect_transcription_language(raw_text, language)
 
             return VoiceTranscriptionResponse(
                 success=True,

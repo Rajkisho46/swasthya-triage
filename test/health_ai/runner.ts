@@ -190,7 +190,7 @@ export async function runHealthAISuite(options: { mobileOnly?: boolean; baseUrl?
   }
 
   // Setup Test Patient Session
-  await setupTestPatientSession(backendBaseUrl);
+  const testSession = await setupTestPatientSession(backendBaseUrl);
   console.log('🔒 Test Patient Session configured (Dedicated synthetic identity)\n');
 
   for (const testCase of HEALTH_AI_DATASET) {
@@ -214,7 +214,7 @@ export async function runHealthAISuite(options: { mobileOnly?: boolean; baseUrl?
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authClient.getStoredToken() || ''}`,
+            'Authorization': `Bearer ${testSession?.token || authClient.getStoredToken() || ''}`,
           },
           body: JSON.stringify({
             messages: messagesToSend,

@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Send, Mic, Paperclip, Loader2 } from 'lucide-react';
 import { PatientAIAttachment } from './PatientAIAttachment';
 import { PatientAIVoice } from './PatientAIVoice';
+import { PatientAILanguageSelector } from './PatientAILanguageSelector';
 import type { ChatAttachmentItem } from '../../services/ai/patientChatClient';
 import { patientChatClient } from '../../services/ai/patientChatClient';
 
@@ -10,6 +11,7 @@ interface PatientAIInputProps {
   onUploadReportFile?: (file: File) => void;
   isLoading: boolean;
   preferredLanguage?: string;
+  onLanguageChange?: (lang: string) => void;
   onOpenVoiceDirectly?: boolean;
 }
 
@@ -17,7 +19,8 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
   onSendMessage,
   onUploadReportFile,
   isLoading,
-  preferredLanguage = 'English',
+  preferredLanguage = 'auto',
+  onLanguageChange,
 }) => {
   const [inputText, setInputText] = useState<string>('');
   const [isVoiceActive, setIsVoiceActive] = useState<boolean>(false);
@@ -239,6 +242,8 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
             placeholder={
               preferredLanguage.toLowerCase().includes('hindi')
                 ? 'अपने लक्षण या स्वास्थ्य प्रश्न लिखें...'
+                : preferredLanguage.toLowerCase().includes('odia')
+                ? 'ଆପଣଙ୍କର ଲକ୍ଷଣ ବା ପ୍ରଶ୍ନ ଲେଖନ୍ତୁ...'
                 : 'Describe your symptoms or ask a health question...'
             }
             rows={1}
@@ -307,7 +312,7 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
         </div>
       )}
 
-      {/* Safety Micro-Indicator */}
+      {/* Safety Micro-Indicator & Language Selector */}
       <div
         style={{
           display: 'flex',
@@ -316,10 +321,21 @@ export const PatientAIInput: React.FC<PatientAIInputProps> = ({
           fontSize: '0.66rem',
           color: 'var(--text-muted, #94A3B8)',
           padding: '0 4px',
+          gap: '0.5rem',
         }}
       >
-        <span>Healthcare guidance • Not a clinical diagnosis</span>
-        <span style={{ color: 'var(--text-secondary, #CBD5E1)' }}>Enter to send • Shift+Enter for newline</span>
+        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          Healthcare guidance • Not a clinical diagnosis
+        </span>
+        {onLanguageChange && (
+          <div style={{ flexShrink: 0 }}>
+            <PatientAILanguageSelector
+              selectedLanguage={preferredLanguage}
+              onSelectLanguage={onLanguageChange}
+              compact={true}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { runHealthAISuite } from './health_ai/runner';
+import { HEALTH_AI_DATASET } from './health_ai/dataset';
 
 test('SWASTHYA TRIAGE V16 — AUTOMATED HEALTH AI FUNCTIONAL TEST SUITE', async (t) => {
   await t.test('Execute complete Health AI functional suite across desktop & mobile', async () => {
@@ -14,8 +15,8 @@ test('SWASTHYA TRIAGE V16 — AUTOMATED HEALTH AI FUNCTIONAL TEST SUITE', async 
 
     assert.strictEqual(
       report.summary.uniqueQuestions,
-      32,
-      'Expected all 32 health questions (HA-001 through HA-032) to be tested.'
+      HEALTH_AI_DATASET.length,
+      `Expected all ${HEALTH_AI_DATASET.length} health questions to be tested.`
     );
 
     assert.ok(

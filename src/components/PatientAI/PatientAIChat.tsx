@@ -32,6 +32,24 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
   const [messages, setMessages] = useState<ChatMessageItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(() => {
+    try {
+      return (typeof window !== 'undefined' && window.localStorage?.getItem('swasthya_patient_ai_lang_pref')) || preferredLanguage || 'auto';
+    } catch {
+      return preferredLanguage || 'auto';
+    }
+  });
+
+  const handleLanguageChange = (lang: string) => {
+    setSelectedLanguage(lang);
+    try {
+      if (typeof window !== 'undefined') {
+        window.localStorage?.setItem('swasthya_patient_ai_lang_pref', lang);
+      }
+    } catch (e) {
+      // ignore
+    }
+  };
 
   // Storage key isolated per patient user
   const storageKey = `swasthya_patient_ai_chat_${currentUser?.userId || 'anon'}`;
@@ -124,7 +142,7 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
 
       const res = await patientChatClient.sendMessage({
         messages: historyPayload,
-        preferredLanguage,
+        preferredLanguage: selectedLanguage,
         patientId: currentUser?.userId || currentUser?.username,
         attachments: attachmentPayload,
       });
@@ -185,7 +203,7 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
           extractedSymptoms: contextMessage?.structuredSymptoms?.reported_symptoms,
           chiefComplaint: contextMessage?.structuredSymptoms?.chief_complaint,
           attachments: allAttachments,
-          preferredLanguage,
+          preferredLanguage: selectedLanguage,
         });
       }
       setIsOpen(false);
@@ -307,6 +325,8 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
               onResetConversation={handleReset}
               onOpenAbout={() => setIsAboutModalOpen(true)}
               messageCount={messages.length}
+              selectedLanguage={selectedLanguage}
+              onLanguageChange={handleLanguageChange}
             />
 
             {/* Conversation Body */}
@@ -368,7 +388,7 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
               <PatientAIMessageList
                 messages={messages}
                 isLoading={isLoading}
-                preferredLanguage={preferredLanguage}
+                preferredLanguage={selectedLanguage}
                 onSelectFollowUp={(q) => handleSendMessage(q)}
                 onExecuteAction={handleExecuteAction}
               />
@@ -378,7 +398,8 @@ export const PatientAIChat: React.FC<PatientAIChatProps> = ({
             <PatientAIInput
               onSendMessage={handleSendMessage}
               isLoading={isLoading}
-              preferredLanguage={preferredLanguage}
+              preferredLanguage={selectedLanguage}
+              onLanguageChange={handleLanguageChange}
             />
           </div>
         </aside>

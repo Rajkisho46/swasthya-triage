@@ -1,11 +1,15 @@
 import React from 'react';
 import { Bot, RotateCcw, X, ShieldAlert, Sparkles } from 'lucide-react';
+import { PatientAILanguageSelector } from './PatientAILanguageSelector';
 
 interface PatientAIHeaderProps {
   onClose: () => void;
   onResetConversation: () => void;
   onOpenAbout: () => void;
   messageCount: number;
+  preferredLanguage?: string;
+  selectedLanguage?: string;
+  onLanguageChange?: (lang: string) => void;
 }
 
 export const PatientAIHeader: React.FC<PatientAIHeaderProps> = ({
@@ -13,7 +17,11 @@ export const PatientAIHeader: React.FC<PatientAIHeaderProps> = ({
   onResetConversation,
   onOpenAbout,
   messageCount,
+  preferredLanguage = 'auto',
+  selectedLanguage,
+  onLanguageChange,
 }) => {
+  const currentLang = selectedLanguage || preferredLanguage || 'auto';
   return (
     <header className="patient-ai-header" style={{
       display: 'flex',
@@ -91,6 +99,14 @@ export const PatientAIHeader: React.FC<PatientAIHeaderProps> = ({
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+        {onLanguageChange && (
+          <PatientAILanguageSelector
+            selectedLanguage={currentLang}
+            onSelectLanguage={onLanguageChange}
+            compact={true}
+          />
+        )}
+
         <button
           type="button"
           onClick={onOpenAbout}
