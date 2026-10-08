@@ -79,7 +79,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
           aria-current={patientTab === 'home' ? 'page' : undefined}
         >
           <Home size={15} aria-hidden="true" />
-          <span>01 Patient Home</span>
+          <span>01 Home</span>
         </button>
 
         <button
@@ -101,7 +101,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
           aria-current={patientTab === 'submit' ? 'page' : undefined}
         >
           <PlusCircle size={15} aria-hidden="true" />
-          <span>03 Submit Symptoms</span>
+          <span>03 Intake</span>
         </button>
 
         <button
@@ -112,7 +112,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
           aria-current={patientTab === 'cases' ? 'page' : undefined}
         >
           <FolderHeart size={15} aria-hidden="true" />
-          <span>04 My Cases ({patientCases.length})</span>
+          <span>04 Cases ({patientCases.length})</span>
         </button>
 
         {targetCase && (
@@ -124,7 +124,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
             aria-current={patientTab === 'summary' ? 'page' : undefined}
           >
             <FileText size={15} aria-hidden="true" />
-            <span>05 Case Summary ({targetCase.caseId})</span>
+            <span>05 Summary</span>
           </button>
         )}
       </nav>

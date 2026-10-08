@@ -47,7 +47,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
     switch (level?.toLowerCase()) {
       case 'emergency':
         return {
-          label: 'EMERGENCY ATTENTION RECOMMENDED',
+          label: 'EMERGENCY ATTENTION REQUIRED',
           color: '#ef4444',
           bg: 'rgba(239, 68, 68, 0.15)',
           border: '1px solid rgba(239, 68, 68, 0.45)',
@@ -71,7 +71,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
         };
       default:
         return {
-          label: 'ROUTINE CLINICAL BASELINE',
+          label: 'ROUTINE BASELINE',
           color: 'var(--primary-mint, #67E8D4)',
           bg: 'rgba(103, 232, 212, 0.12)',
           border: '1px solid rgba(103, 232, 212, 0.35)',
@@ -655,7 +655,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
               }}
             >
               <Send size={15} />
-              <span>Submit for Nurse / Doctor Triage</span>
+              <span>Submit for Triage</span>
               <ArrowRight size={14} />
             </button>
           )}
@@ -675,7 +675,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
               }}
             >
               <MessageSquare size={15} />
-              <span>Ask Health AI about this Report</span>
+              <span>Ask in AI Chat</span>
             </button>
           )}
         </div>
@@ -694,7 +694,7 @@ export const PatientAIReportDashboard: React.FC<PatientAIReportDashboardProps> =
             }}
           >
             <RotateCcw size={14} />
-            <span>Upload Another Document</span>
+            <span>Upload Another</span>
           </button>
         )}
       </div>

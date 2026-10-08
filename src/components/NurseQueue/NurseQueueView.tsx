@@ -81,14 +81,14 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge" style={{ borderColor: 'var(--mint)', color: 'var(--mint)' }}>
-              NURSING TRIAGE & VITALS COMMAND
+              02 / NURSE TRIAGE
             </div>
             <h1 className="intake-title" style={{ fontSize: '1.35rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <HeartPulse size={24} color="var(--mint)" />
               <span>Nursing Clinical Queue</span>
             </h1>
             <p className="intake-subtitle">
-              Prioritize patient urgency, verify bedside vitals & prepare clinical notes for Doctor sign-off
+              Prioritize urgency & record bedside vitals.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                 className="btn btn-secondary glass"
                 style={{ fontSize: '0.80rem', padding: '0.45rem 0.85rem' }}
               >
-                + New Patient Intake
+                + New Intake
               </button>
             )}
           </div>
@@ -184,10 +184,10 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
           <div className="glass-card" style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--text-muted)' }}>
             <HeartPulse size={36} style={{ margin: '0 auto 0.75rem auto', opacity: 0.5, color: 'var(--mint)' }} />
             <p style={{ margin: 0, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '0.02em' }}>
-              NO CASES AWAITING NURSING TRIAGE
+              NO CASES IN QUEUE
             </p>
             <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.35rem' }}>
-              New patient cases submitted via Patient Intake will appear here for bedside assessment.
+              New patient cases will appear here for assessment.
             </span>
           </div>
         ) : (
@@ -232,7 +232,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                       )}
                     </div>
                     <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                      Age: {c.age ? `${c.age} Yrs` : 'Unspecified'} &bull; Gender: {c.gender || 'Unspecified'} &bull; Created: {formatDateTime(c.createdAt)}
+                      Age: {c.age ? `${c.age} Yrs` : 'N/A'} &bull; Gender: {c.gender || 'N/A'} &bull; Created: {formatDateTime(c.createdAt)}
                     </div>
                   </div>
 
@@ -253,7 +253,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                       style={{ fontSize: '0.80rem', padding: '0.45rem 0.85rem' }}
                     >
                       <FileCheck2 size={14} />
-                      <span>{isReviewed ? 'Re-Evaluate Vitals' : 'Process Nursing Triage'}</span>
+                      <span>{isReviewed ? 'Re-Evaluate' : 'Start Triage'}</span>
                     </button>
                   </div>
                 </div>

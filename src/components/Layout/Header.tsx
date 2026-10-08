@@ -362,7 +362,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <LayoutDashboard size={18} color="var(--mint)" aria-hidden="true" />
                   <div className="mobile-nav-btn-text">
                     <span className="mobile-nav-title">Patient Portal</span>
-                    <span className="mobile-nav-desc">Check symptoms & view cases</span>
+                    <span className="mobile-nav-desc">Symptom check & cases</span>
                   </div>
                 </button>
               )}
@@ -377,7 +377,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <HeartPulse size={18} color="var(--mint)" aria-hidden="true" />
                   <div className="mobile-nav-btn-text">
                     <span className="mobile-nav-title">Nursing Queue</span>
-                    <span className="mobile-nav-desc">Bedside triage & vitals assessment</span>
+                    <span className="mobile-nav-desc">Bedside triage & vitals</span>
                   </div>
                   {pendingCount > 0 && (
                     <span className="badge-count" style={{ marginLeft: 'auto' }}>
@@ -398,7 +398,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <ShieldAlert size={18} color="var(--teal)" aria-hidden="true" />
                     <div className="mobile-nav-btn-text">
                       <span className="mobile-nav-title">Review Queue</span>
-                      <span className="mobile-nav-desc">Clinical evaluation & decision</span>
+                      <span className="mobile-nav-desc">Clinical evaluation</span>
                     </div>
                     {pendingCount > 0 && (
                       <span className="badge-count" style={{ marginLeft: 'auto' }}>
@@ -416,7 +416,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <FileText size={18} color="var(--seafoam)" aria-hidden="true" />
                     <div className="mobile-nav-btn-text">
                       <span className="mobile-nav-title">Audit Trail</span>
-                      <span className="mobile-nav-desc">Traceable provenance logs</span>
+                      <span className="mobile-nav-desc">Traceable provenance</span>
                     </div>
                   </button>
                 </>
@@ -431,7 +431,7 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <FileText size={18} color="var(--mint)" aria-hidden="true" />
                   <div className="mobile-nav-btn-text">
-                    <span className="mobile-nav-title">Admin Governance & Audit</span>
+                    <span className="mobile-nav-title">Admin Governance</span>
                     <span className="mobile-nav-desc">System logs & oversight</span>
                   </div>
                 </button>

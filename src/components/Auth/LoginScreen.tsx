@@ -62,7 +62,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
           </>
         ),
         description:
-          'Authorized clinical provider gateway for real-time triage queues, medical reviewer decisions, and tamper-evident governance.',
+          'Authorized gateway for triage queues, reviewer decisions, and audit governance.',
         buttonText: 'Patient Portal',
         buttonAction: () => {
           setActivePortalTab('patient');
@@ -81,7 +81,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
           </>
         ),
         description:
-          'Already registered with Swasthya Triage? Sign in to view your ongoing clinical triage cases and medical records.',
+          'Sign in to access your clinical triage records.',
         buttonText: 'Sign In',
         buttonAction: () => setPatientMode('login'),
       };
@@ -97,7 +97,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
           </>
         ),
         description:
-          'Your health records are encrypted under ABDM and HIPAA standards with multi-factor identity verification.',
+          'Secure health record access with multi-factor verification.',
         buttonText: 'Back to Login',
         buttonAction: () => setPatientMode('login'),
       };
@@ -113,7 +113,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
         </>
       ),
       description:
-        'Welcome to Swasthya Triage. Secure healthcare access designed for patients and clinical teams.',
+        'AI-assisted triage & patient care portal.',
       buttonText: 'Create Account',
       buttonAction: () => setPatientMode('register'),
     };
@@ -136,7 +136,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onOpenTrustCenter }) =
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0px' }}>
             <span className="split-brand-logo-title">Swasthya Triage</span>
             <span style={{ fontSize: '11px', color: '#A3AEAC', letterSpacing: '0.02em' }}>
-              Multimodal Healthcare Triage Assistant
+              Healthcare Triage Assistant
             </span>
           </div>
         </div>

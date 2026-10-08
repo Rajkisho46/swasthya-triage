@@ -74,7 +74,7 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
       stepNum: '01',
       stageIndex: 1,
       label: 'Patient Intake',
-      sublabel: triageCase ? triageCase.patientId : (intakeState?.hasPatientInfo ? 'Captured' : 'Evidence Capture'),
+      sublabel: triageCase ? triageCase.patientId : (intakeState?.hasPatientInfo ? 'Captured' : 'Intake'),
       icon: UserPlus,
     },
     {
@@ -82,7 +82,7 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
       stepNum: '02',
       stageIndex: 2,
       label: 'Informed Consent',
-      sublabel: hasConsent ? 'Consent Confirmed' : 'Mandatory Record',
+      sublabel: hasConsent ? 'Confirmed' : 'Consent',
       icon: CheckCircle2,
     },
     {
@@ -90,7 +90,7 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
       stepNum: '03',
       stageIndex: 3,
       label: 'Multimodal Input',
-      sublabel: triageCase?.inputModalities ? triageCase.inputModalities.join(' + ') : (hasMultimodal ? 'Voice / OCR Attached' : 'Text / Voice / OCR'),
+      sublabel: triageCase?.inputModalities ? triageCase.inputModalities.join(' + ') : 'Multimodal',
       icon: FileSearch,
     },
     {
@@ -98,7 +98,7 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
       stepNum: '04',
       stageIndex: 4,
       label: 'AI Advisory',
-      sublabel: triageCase ? `${triageCase.extractedSymptoms.length} Symptoms Extracted` : 'Clinical Structuring',
+      sublabel: triageCase ? `${triageCase.extractedSymptoms.length} Symptoms` : 'AI Advisory',
       icon: Activity,
     },
     {
@@ -107,10 +107,10 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
       stageIndex: 5,
       label: 'Clinical Review',
       sublabel: isReviewed
-        ? (triageCase?.reviewerDecision ? `Signed (${triageCase.reviewerDecision})` : 'Verified & Signed')
+        ? (triageCase?.reviewerDecision ? `Signed (${triageCase.reviewerDecision})` : 'Signed')
         : activeStage === 5
-        ? 'In Review Queue'
-        : 'Clinician Evaluation',
+        ? 'In Review'
+        : 'Clinician Review',
       icon: ShieldAlert,
     },
   ];
@@ -153,7 +153,7 @@ export const CaseJourney: React.FC<CaseJourneyProps> = ({
           )}
         </div>
         <div className="case-journey-subtext">
-          Traceable Non-Diagnostic Workflow &bull; AI Assists, Human Clinician Decides
+          AI-Assisted &bull; Clinician Decides
         </div>
       </div>
 

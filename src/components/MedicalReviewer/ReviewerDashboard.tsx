@@ -130,16 +130,16 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
               <span>Clinical Review Command Center</span>
             </h1>
             <p className="intake-subtitle">
-              Human verification, evidence inspection & final clinical sign-off &bull; AI assists, clinician decides
+              AI-assisted evidence review & clinical sign-off.
             </p>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
             <div className="intake-status-pill glass">
               <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--mint)', boxShadow: '0 0 8px var(--mint)' }} />
-              <span>Review Queue Operational</span>
+              <span>Review Queue Active</span>
             </div>
-            <span className="provenance-tag reviewer glass">Role: CLINICAL REVIEWER</span>
+            <span className="provenance-tag reviewer glass">Role: REVIEWER</span>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
           <div className="stat-card-value" style={{ color: 'var(--champagne)' }}>
             {pendingCount.toString().padStart(2, '0')}
           </div>
-          <div className="stat-card-sub">Awaiting qualified clinician review</div>
+          <div className="stat-card-sub">Awaiting review</div>
         </div>
 
         {/* Stat 2: Urgency Signals */}
@@ -168,7 +168,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
             {highUrgencyCount.toString().padStart(2, '0')}
           </div>
           <div className="stat-card-sub">
-            {highUrgencyCount > 0 ? 'High priority review required' : 'No urgent pending cases'}
+            {highUrgencyCount > 0 ? 'Urgent review required' : 'No urgent cases'}
           </div>
         </div>
 
@@ -181,7 +181,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
           <div className="stat-card-value" style={{ color: 'var(--mint)' }}>
             {reviewedCount.toString().padStart(2, '0')}
           </div>
-          <div className="stat-card-sub">Human clinical sign-off recorded</div>
+          <div className="stat-card-sub">Sign-off recorded</div>
         </div>
 
         {/* Stat 4: Total Cases */}
@@ -193,7 +193,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
           <div className="stat-card-value" style={{ color: 'var(--seafoam)' }}>
             {cases.length.toString().padStart(2, '0')}
           </div>
-          <div className="stat-card-sub">Total active queue inventory</div>
+          <div className="stat-card-sub">Active queue</div>
         </div>
       </div>
 
@@ -442,7 +442,7 @@ export const ReviewerDashboard: React.FC<ReviewerDashboardProps> = ({
                               onClick={() => handleOpenReviewModal(c)}
                               id={`btn-review-${c.caseId}`}
                             >
-                              <span>{isReviewed ? 'Edit' : 'Review Case'}</span>
+                              <span>{isReviewed ? 'Edit' : 'Review'}</span>
                               <ExternalLink size={13} aria-hidden="true" />
                             </button>
                             {isReviewed && (

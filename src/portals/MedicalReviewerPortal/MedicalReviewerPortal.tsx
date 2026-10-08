@@ -70,7 +70,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
           id="btn-nav-reviewer-queue"
         >
           <ShieldAlert size={14} color="var(--teal)" style={{ marginRight: '4px' }} />
-          01 Review Queue {pendingCount > 0 ? `(${pendingCount})` : ''}
+          01 Queue {pendingCount > 0 ? `(${pendingCount})` : ''}
         </button>
 
         <button
@@ -83,7 +83,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
           title={!selectedCaseForNote && !activeCase ? 'Select a case from the Review Queue first' : 'Inspect clinical evidence and note'}
         >
           <ClipboardList size={14} color="var(--mint)" style={{ marginRight: '4px' }} />
-          02 Clinical Review {(selectedCaseForNote || activeCase) ? `(${(selectedCaseForNote || activeCase)?.caseId})` : ''}
+          02 Review Note
         </button>
 
         <button
@@ -94,7 +94,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
           id="btn-nav-audit-trail"
         >
           <FileText size={14} color="var(--seafoam)" style={{ marginRight: '4px' }} />
-          03 Audit Trail
+          03 Audit Log
         </button>
       </div>
 
@@ -124,7 +124,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <ShieldCheck size={18} color="var(--mint)" />
               <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                Evidence Review Note for Case: <strong style={{ color: 'var(--mint)', fontFamily: 'var(--font-mono)' }}>{(selectedCaseForNote || activeCase)?.caseId}</strong>
+                Evidence Note: <strong style={{ color: 'var(--mint)', fontFamily: 'var(--font-mono)' }}>{(selectedCaseForNote || activeCase)?.caseId}</strong>
               </span>
             </div>
             <button
@@ -133,7 +133,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
               onClick={() => setActiveTab('queue')}
               style={{ fontSize: '0.78rem', padding: '0.35rem 0.75rem' }}
             >
-              &larr; Return to Review Queue
+              &larr; Back to Queue
             </button>
           </div>
 

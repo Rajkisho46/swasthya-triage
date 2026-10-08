@@ -686,7 +686,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                     Human Clinical Decision
                   </h3>
                   <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
-                    Mandatory human-in-the-loop clinical disposition &bull; AI assists. Human clinician decides.
+                    Clinician makes final triage decision.
                   </div>
                 </div>
                 <span className="provenance-tag reviewer glass">Decision Authority</span>
@@ -708,7 +708,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                     <span>Routine Review</span>
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                    Standard general OPD queue. No immediate red flag urgency identified.
+                    Standard OPD queue. No red flags identified.
                   </div>
                 </button>
 
@@ -727,7 +727,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                     <span>Escalate</span>
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                    Priority internal evaluation, urgent vitals monitoring or immediate MO review.
+                    Priority internal evaluation or immediate MO review.
                   </div>
                 </button>
 
@@ -746,7 +746,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                     <span>Refer</span>
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
-                    Transfer or refer to secondary/tertiary hospital or emergency center.
+                    Transfer or refer to tertiary hospital or emergency center.
                   </div>
                 </button>
               </div>
@@ -772,7 +772,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', flexWrap: 'wrap' }}>
             <div style={{ marginRight: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
               <Sparkles size={13} color="var(--teal)" />
-              <span>{isAdmin ? 'Read-only administrative oversight mode.' : isNurse ? 'Observations recorded to clinical case timeline.' : 'Decision recorded to chronological audit trail.'}</span>
+              <span>{isAdmin ? 'Read-only administrative oversight.' : isNurse ? 'Observations recorded to timeline.' : 'Decision recorded to audit log.'}</span>
             </div>
 
             <div style={{ display: 'flex', gap: '0.65rem' }}>
@@ -799,7 +799,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                       id="btn-save-nurse-observations"
                     >
                       <CheckCircle2 size={16} />
-                      <span>Save Nursing Observations for Doctor &rarr;</span>
+                      <span>Save Observations</span>
                     </button>
                   ) : (
                     <button
@@ -809,7 +809,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                       id="btn-confirm-review"
                     >
                       <CheckCircle2 size={16} />
-                      <span>{isAlreadyReviewed ? 'Update Review Decision' : 'Confirm Clinical Review \u2192'}</span>
+                      <span>{isAlreadyReviewed ? 'Update Decision' : 'Confirm Decision'}</span>
                     </button>
                   )}
                 </>

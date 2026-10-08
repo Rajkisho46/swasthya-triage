@@ -572,7 +572,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                 flexWrap: 'wrap',
               }}
             >
-              <span>Instant report extraction &amp; clinical interpretation</span>
+              <span>Report Analysis &bull; AI Chat</span>
             </div>
           </div>
         </div>
@@ -652,7 +652,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
               onDragLeave={() => setIsDragOver(false)}
               onDrop={handleDrop}
               style={{
-                padding: '2.5rem 1.5rem',
+                padding: '2rem 1.25rem',
                 borderRadius: '18px',
                 background: isDragOver
                   ? '#141A1D'
@@ -663,15 +663,15 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                gap: '1.25rem',
+                gap: '1rem',
                 transition: 'all 0.2s ease',
               }}
             >
               <div
                 style={{
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: '18px',
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '16px',
                   background: 'radial-gradient(circle at 30% 30%, rgba(103, 232, 212, 0.18), rgba(61, 184, 170, 0.08))',
                   border: '1px solid rgba(103, 232, 212, 0.25)',
                   display: 'flex',
@@ -680,16 +680,15 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                   boxShadow: '0 0 20px rgba(103, 232, 212, 0.08)',
                 }}
               >
-                <FileUp size={32} color="var(--primary-mint, #67E8D4)" />
+                <FileUp size={28} color="var(--primary-mint, #67E8D4)" />
               </div>
 
-              <div style={{ maxWidth: '540px' }}>
-                <h2 style={{ fontSize: '1.35rem', fontWeight: 800, margin: 0, color: 'var(--text-primary, #F5F7F6)' }}>
-                  Upload Your Medical Report for Instant Analysis
+              <div style={{ maxWidth: '480px' }}>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: 'var(--text-primary, #F5F7F6)' }}>
+                  Upload Medical Report
                 </h2>
-                <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary, #B5BFBC)', marginTop: '0.4rem', lineHeight: 1.55 }}>
-                  Drop your <strong>PDF report</strong>, <strong>laboratory bloodwork</strong>, <strong>imaging scan</strong>, or <strong>document photo</strong>.
-                  Our real AI automatically extracts laboratory values, detects abnormalities against reference ranges, and prepares safe next-step guidance.
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary, #B5BFBC)', marginTop: '0.3rem', lineHeight: 1.4 }}>
+                  PDF &bull; Bloodwork &bull; Imaging
                 </p>
               </div>
 
@@ -700,8 +699,8 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                   className="btn btn-primary glass"
                   id="btn-upload-medical-report"
                   style={{
-                    padding: '0.65rem 1.4rem',
-                    fontSize: '0.88rem',
+                    padding: '0.60rem 1.25rem',
+                    fontSize: '0.86rem',
                     fontWeight: 800,
                     display: 'flex',
                     alignItems: 'center',
@@ -717,23 +716,23 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                   onClick={() => setActiveMode('conversation')}
                   className="btn btn-secondary glass"
                   style={{
-                    padding: '0.65rem 1.2rem',
-                    fontSize: '0.88rem',
+                    padding: '0.60rem 1.1rem',
+                    fontSize: '0.86rem',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '6px',
                   }}
                 >
                   <MessageSquare size={16} />
-                  <span>Or Ask a Health Question</span>
+                  <span>Ask in AI Chat</span>
                 </button>
               </div>
 
               {/* Quick Sample Selector */}
               <div
                 style={{
-                  marginTop: '1rem',
-                  paddingTop: '1.25rem',
+                  marginTop: '0.5rem',
+                  paddingTop: '1rem',
                   borderTop: '1px solid rgba(255, 255, 255, 0.08)',
                   width: '100%',
                   maxWidth: '680px',
@@ -741,16 +740,16 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
               >
                 <span
                   style={{
-                    fontSize: '0.74rem',
+                    fontSize: '0.72rem',
                     color: 'var(--champagne, #E2C382)',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.04em',
                     display: 'block',
-                    marginBottom: '0.65rem',
+                    marginBottom: '0.5rem',
                   }}
                 >
-                  ⚡ Try Instant Analysis with Preloaded Sample Clinical Reports:
+                  Try Sample Reports:
                 </span>
 
                 <div
@@ -768,7 +767,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                       onClick={() => handleLoadSampleReport(sample)}
                       className="btn btn-secondary glass"
                       style={{
-                        padding: '0.40rem 0.75rem',
+                        padding: '0.38rem 0.70rem',
                         fontSize: '0.74rem',
                         display: 'flex',
                         alignItems: 'center',
@@ -789,7 +788,7 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
             <div
               className="glass-card"
               style={{
-                padding: '3rem 1.5rem',
+                padding: '2.5rem 1.5rem',
                 borderRadius: '18px',
                 background: 'linear-gradient(150deg, #141A1D 0%, #101517 100%)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -797,13 +796,13 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                gap: '1.5rem',
+                gap: '1.25rem',
               }}
             >
               <div
                 style={{
-                  width: '60px',
-                  height: '60px',
+                  width: '52px',
+                  height: '52px',
                   borderRadius: '50%',
                   border: '3px solid rgba(103, 232, 212, 0.15)',
                   borderTopColor: 'var(--primary-mint, #67E8D4)',
@@ -812,11 +811,11 @@ export const PatientAIPage: React.FC<PatientAIPageProps> = ({
               />
 
               <div>
-                <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary, #F5F7F6)' }}>
-                  Analyzing your medical report...
+                <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary, #F5F7F6)' }}>
+                  Analyzing report...
                 </h3>
-                <p style={{ margin: '0.35rem 0 0 0', fontSize: '0.82rem', color: 'var(--text-secondary, #B5BFBC)' }}>
-                  Running OCR extraction, structured value parsing, and clinical interpretation.
+                <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.80rem', color: 'var(--text-secondary, #B5BFBC)' }}>
+                  Extracting text and structured clinical values.
                 </p>
               </div>
 

@@ -77,7 +77,7 @@ export const NursePortal: React.FC<NursePortalProps> = ({
           id="btn-nav-nurse-queue"
         >
           <HeartPulse size={14} color="var(--mint)" style={{ marginRight: '4px' }} />
-          01 Nursing Triage Queue {pendingCount > 0 ? `(${pendingCount})` : ''}
+          01 Triage Queue {pendingCount > 0 ? `(${pendingCount})` : ''}
         </button>
 
         <button
@@ -88,7 +88,7 @@ export const NursePortal: React.FC<NursePortalProps> = ({
           id="btn-nav-nurse-intake"
         >
           <Stethoscope size={14} color="var(--teal)" style={{ marginRight: '4px' }} />
-          02 Bedside Intake
+          02 Bedside Vitals
         </button>
 
         {targetCase && (
@@ -100,7 +100,7 @@ export const NursePortal: React.FC<NursePortalProps> = ({
             id="btn-nav-nurse-summary"
           >
             <FileText size={14} color="var(--champagne)" style={{ marginRight: '4px' }} />
-            03 Triage Evidence Note ({targetCase.caseId})
+            03 Evidence Note
           </button>
         )}
       </div>

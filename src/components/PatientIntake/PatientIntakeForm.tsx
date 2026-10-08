@@ -481,12 +481,12 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
           <span className="intake-step-badge">01 / PATIENT INTAKE</span>
           <h2 className="intake-title">Create Triage Case</h2>
           <p className="intake-subtitle">
-            Capture patient-provided information and multimodal evidence for structured triage review.
+            Capture symptoms and evidence for triage review.
           </p>
         </div>
         <div className="intake-status-pill">
           <span className="pulse-indicator-teal" aria-hidden="true" />
-          <span>Ready for Intake</span>
+          <span>Ready</span>
         </div>
       </div>
 
@@ -523,7 +523,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               }}
             >
               <Lock size={12} color="#67E8D4" aria-hidden="true" style={{ flexShrink: 0 }} />
-              <span>Only information needed for this triage workflow is requested.</span>
+              <span>Only data required for triage is collected.</span>
             </div>
 
             {/* Profile Identity Card Display */}
@@ -548,7 +548,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   )}
                 </div>
                 <span className="profile-meta-text">
-                  {age ? `${age} yrs` : 'Age unspecified'} &bull; {gender || 'Gender unspecified'} &bull; {preferredLanguage}
+                  {age ? `${age} yrs` : 'Age N/A'} &bull; {gender || 'Gender N/A'} &bull; {preferredLanguage}
                 </span>
               </div>
             </div>
@@ -566,7 +566,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                 readOnly
                 aria-label="Anonymized Patient Identifier"
               />
-              <span className="form-help">System-generated to protect patient privacy</span>
+              <span className="form-help">System-generated anonymous ID</span>
             </div>
 
             <div className="demographics-grid">
@@ -673,7 +673,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   </h3>
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
-                  Select available patient evidence capture pathways
+                  Select evidence capture method
                 </div>
               </div>
               <span className="provenance-tag multimodal">SOURCE: MULTIMODAL</span>
@@ -698,7 +698,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     {symptoms.trim() ? 'BUFFERED' : 'READY'}
                   </span>
                 </div>
-                <p className="modality-card-sub">Structured input buffer for verbatim clinical statements.</p>
+                <p className="modality-card-sub">Type symptoms manually.</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
                   <span className="font-mono">{symptoms.length} chars</span>
                   <span style={{ color: symptoms.trim() ? '#67E8D4' : 'var(--text-muted)' }}>
@@ -737,8 +737,8 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                   {isRecording
                     ? `Recording live audio (00:${recordingSeconds < 10 ? `0${recordingSeconds}` : recordingSeconds})...`
                     : voiceData
-                    ? `Voice note attached (${voiceData.originalLanguage}, ${voiceData.durationSeconds}s)`
-                    : 'Live microphone recording & speech-to-text transcription.'}
+                    ? `Voice attached (${voiceData.originalLanguage}, ${voiceData.durationSeconds}s)`
+                    : 'Record symptoms in any language.'}
                 </p>
                 {/* Audio Waveform Bar */}
                 <div className="waveform-container glass" aria-hidden="true">
@@ -771,7 +771,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
                     CLINICAL OCR
                   </span>
                 </div>
-                <p className="modality-card-sub">Radiology & lab report document parser.</p>
+                <p className="modality-card-sub">Upload lab reports or imaging.</p>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
                   <span className="font-mono">{ocrReports.length} attached</span>
                   <span style={{ color: ocrReports.length > 0 ? '#67E8D4' : 'var(--text-muted)' }}>
@@ -1328,7 +1328,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         <div className="intake-action-bar">
           <div className="action-bar-notice">
             <span className="pulse-indicator-teal" aria-hidden="true" />
-            <span>AI ASSISTS &bull; HUMAN CLINICIAN DECIDES</span>
+            <span>AI Assists &bull; Clinician Decides</span>
           </div>
 
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
@@ -1357,7 +1357,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
               style={{ padding: '0.75rem 1.75rem', fontSize: '0.92rem', minHeight: '48px' }}
             >
               <CheckSquare size={18} aria-hidden="true" />
-              <span>{isProcessing ? 'Processing Triage...' : 'CREATE TRIAGE CASE'}</span>
+              <span>{isProcessing ? 'Processing Triage...' : 'Create Triage Case'}</span>
               <ArrowRight size={16} aria-hidden="true" />
             </button>
           </div>

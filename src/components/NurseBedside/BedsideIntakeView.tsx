@@ -459,14 +459,14 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge" style={{ borderColor: 'var(--teal)', color: 'var(--teal)' }}>
-              02 / NURSE BEDSIDE ASSESSMENT
+              02 / BEDSIDE ASSESSMENT
             </div>
             <h1 className="intake-title" style={{ fontSize: '1.35rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <Stethoscope size={24} color="var(--mint)" />
-              <span>Bedside Vitals & Clinical Observation Console</span>
+              <span>Bedside Vitals & Observations</span>
             </h1>
             <p className="intake-subtitle">
-              Record real-time bedside measurements, structured observations & verify patient clinical history
+              Record bedside measurements & verify patient history.
             </p>
           </div>
 
@@ -490,12 +490,12 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
               >
                 {candidateCases.length === 0 ? (
                   <option value="" style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
-                    No cases awaiting bedside triage (0)
+                    No cases in queue (0)
                   </option>
                 ) : (
                   candidateCases.map((c) => (
                     <option key={c.caseId} value={c.caseId} style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
-                      {c.caseId} &bull; {c.patientId} ({c.age ? `${c.age}y` : 'Age N/A'}, {c.gender || 'Gen N/A'})
+                      {c.caseId} &bull; {c.patientId} ({c.age ? `${c.age}y` : 'N/A'}, {c.gender || 'N/A'})
                     </option>
                   ))
                 )}
@@ -510,7 +510,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                 style={{ fontSize: '0.80rem', padding: '0.40rem 0.85rem' }}
               >
                 <FileText size={14} />
-                <span>View Evidence Note</span>
+                <span>View Note</span>
               </button>
             )}
           </div>
@@ -528,35 +528,35 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
             }}
           >
             <div className="case-meta-item">
-              <span className="case-meta-label">Selected Case</span>
+              <span className="case-meta-label">CASE</span>
               <span className="case-meta-value" style={{ color: 'var(--mint)', fontFamily: 'var(--font-mono)' }}>
                 {currentCase.caseId}
               </span>
             </div>
 
             <div className="case-meta-item">
-              <span className="case-meta-label">Patient Identifier</span>
+              <span className="case-meta-label">PATIENT</span>
               <span className="case-meta-value" style={{ color: 'var(--champagne)' }}>
                 {currentCase.patientId}
               </span>
             </div>
 
             <div className="case-meta-item">
-              <span className="case-meta-label">Demographics</span>
+              <span className="case-meta-label">DEMOGRAPHICS</span>
               <span className="case-meta-value">
-                {currentCase.age ? `${currentCase.age} Yrs` : 'Age Unspecified'} &bull; {currentCase.gender || 'Unspecified'}
+                {currentCase.age ? `${currentCase.age} Yrs` : 'N/A'} &bull; {currentCase.gender || 'N/A'}
               </span>
             </div>
 
             <div className="case-meta-item">
-              <span className="case-meta-label">Reported Symptoms</span>
+              <span className="case-meta-label">SYMPTOMS</span>
               <span className="case-meta-value" style={{ fontSize: '0.80rem', maxWidth: '280px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {currentCase.extractedSymptoms.join(', ') || currentCase.rawSymptoms || 'Intake recorded'}
               </span>
             </div>
 
             <div className="case-meta-item">
-              <span className="case-meta-label">Intake Time</span>
+              <span className="case-meta-label">TIME</span>
               <span className="case-meta-value" style={{ fontSize: '0.78rem' }}>
                 {formatDateTime(currentCase.createdAt)}
               </span>
@@ -588,11 +588,11 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Info size={14} color="var(--mint)" />
             <span>
-              <strong>Clinical Workflow Provenance:</strong> Patient Intake (Patient Voice) &rarr; Consent &rarr; Multimodal Processing &rarr; <strong style={{ color: 'var(--mint)' }}>Bedside Intake (Nurse Measured/Observed)</strong> &rarr; AI Advisory &rarr; Clinical Review (Physician Decision)
+              Intake &rarr; Bedside Vitals &rarr; AI Advisory &rarr; Physician Review
             </span>
           </div>
           <span className="badge badge-teal glass" style={{ fontSize: '0.65rem' }}>
-            Source: NURSE MEASURED & OBSERVED
+            Source: NURSE OBSERVED
           </span>
         </div>
       </div>

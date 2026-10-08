@@ -244,20 +244,20 @@ export const AuditLogView: React.FC = () => {
       {/* 3. Audit Command Header */}
       <div className="audit-header-panel glass-panel scroll-reveal reveal-delay-1">
         <div>
-          <div className="intake-step-badge glass">04 / AUDIT TRAIL</div>
+          <div className="intake-step-badge glass">04 / AUDIT LOG</div>
           <h1 className="intake-title" style={{ fontSize: '1.35rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <FileText size={24} color="var(--teal)" />
-            <span>Clinical Evidence & Audit Command Center</span>
+            <span>Evidence & Audit Log</span>
           </h1>
           <p className="intake-subtitle">
-            Chronological in-memory audit trail of every case action &bull; Real-time audit event record
+            Chronological audit trail of case actions and provenance.
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
           <div className="intake-status-pill glass">
             <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--mint)', boxShadow: '0 0 8px var(--mint)' }} />
-            <span>Audit Ledger Operational</span>
+            <span>Ledger Active</span>
           </div>
 
           {!confirmClear ? (

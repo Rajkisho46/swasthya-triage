@@ -40,7 +40,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
           <div className="patient-hero-badge-row">
             <span className="patient-portal-badge glass">
               <span className="pulse-indicator-champagne" aria-hidden="true" />
-              PATIENT CITIZEN PORTAL
+              PATIENT PORTAL
             </span>
           </div>
 
@@ -52,7 +52,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
           </h1>
 
           <p className="patient-hero-description">
-            Track your clinical intake submissions, view structured symptom summaries, and review safety guidance.
+            Track your triage cases and doctor review status.
           </p>
         </div>
 
@@ -62,10 +62,10 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
             onClick={onStartNewIntake}
             className="patient-cta-btn"
             id="btn-patient-new-intake"
-            aria-label="Start New Symptom Check or Intake"
+            aria-label="Start New Symptom Check"
           >
             <PlusCircle size={20} aria-hidden="true" />
-            <span>New Symptom Check / Intake</span>
+            <span>New Symptom Check</span>
           </button>
         </div>
 
@@ -95,16 +95,16 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
         <div className="patient-records-header">
           <div className="patient-records-title-group">
             <h2 className="patient-records-title">
-              Your Triage Intake Records
+              Your Triage Records
             </h2>
             <div className="patient-records-stats-row">
               <span className="patient-stat-pill">
                 <span className="stat-dot stat-dot-teal" aria-hidden="true" />
-                <span>Total Records:</span> <strong>{cases.length}</strong>
+                <span>Total:</span> <strong>{cases.length}</strong>
               </span>
               <span className="patient-stat-pill">
                 <span className="stat-dot stat-dot-champagne" aria-hidden="true" />
-                <span>Clinical Reviews Pending:</span> <strong>{pendingCount}</strong>
+                <span>Pending Review:</span> <strong>{pendingCount}</strong>
               </span>
             </div>
           </div>
@@ -118,7 +118,7 @@ export const PatientPortalView: React.FC<PatientPortalProps> = ({
             </div>
             <h3 className="patient-empty-title">No intake cases recorded yet.</h3>
             <p className="patient-empty-subtitle">
-              Use &ldquo;New Symptom Check / Intake&rdquo; above to submit symptoms or multimodal evidence.
+              Use &ldquo;New Symptom Check&rdquo; above to submit symptoms.
             </p>
           </div>
         ) : (

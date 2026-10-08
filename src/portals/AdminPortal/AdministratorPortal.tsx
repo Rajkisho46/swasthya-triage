@@ -49,7 +49,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
           id="btn-nav-admin-audit"
         >
           <FileText size={14} color="var(--mint)" style={{ marginRight: '4px' }} />
-          01 Audit Trail & Provenance
+          01 Audit Log
         </button>
 
         <button
@@ -60,7 +60,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
           id="btn-nav-admin-overview"
         >
           <Cpu size={14} color="var(--teal)" style={{ marginRight: '4px' }} />
-          02 System Governance & Telemetry
+          02 Governance
         </button>
 
         <button
@@ -71,7 +71,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
           id="btn-nav-admin-oversight"
         >
           <ShieldAlert size={14} color="var(--champagne)" style={{ marginRight: '4px' }} />
-          03 Clinical Queue Oversight ({cases.length})
+          03 Queue Oversight ({cases.length})
         </button>
       </div>
 
@@ -98,7 +98,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
               id="btn-admin-launch-trust-center"
             >
               <ShieldCheck size={16} color="var(--mint)" />
-              <span>Launch Privacy & Trust Center</span>
+              <span>Trust Center</span>
             </button>
           </div>
 

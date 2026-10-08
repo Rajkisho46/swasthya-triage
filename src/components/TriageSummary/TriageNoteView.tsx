@@ -125,13 +125,13 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
       <div className="triage-case-header-bar glass-panel scroll-reveal reveal-delay-1">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <div className="intake-step-badge">03 / TRIAGE EVIDENCE NOTE</div>
+            <div className="intake-step-badge">03 / EVIDENCE NOTE</div>
             <h1 className="intake-title" style={{ fontSize: '1.35rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <FileCheck2 size={24} color={hasUrgency ? 'var(--urgency)' : 'var(--teal)'} />
-              <span>Structured Evidence Review & AI Advisory</span>
+              <span>Evidence Review & Advisory</span>
             </h1>
             <p className="intake-subtitle">
-              Synchronized patient narrative, multimodal evidence & objective AI advisory extraction
+              Multimodal evidence &bull; AI advisory
             </p>
           </div>
 
@@ -142,17 +142,17 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
               </span>
             ) : isAwaitingReview ? (
               <span className="badge badge-amber glass">
-                <Clock size={13} aria-hidden="true" /> Queued for Medical Review
+                <Clock size={13} aria-hidden="true" /> In Medical Queue
               </span>
             ) : (
               <span className="badge badge-teal glass" style={{ opacity: 0.9 }}>
-                <Stethoscope size={13} aria-hidden="true" /> Nurse Triage Draft
+                <Stethoscope size={13} aria-hidden="true" /> Nurse Draft
               </span>
             )}
 
             {hasUrgency ? (
               <span className="badge badge-red glass">
-                <ShieldAlert size={13} aria-hidden="true" /> Urgent Review Signal
+                <ShieldAlert size={13} aria-hidden="true" /> Urgent Priority
               </span>
             ) : (
               <span className="badge badge-teal glass" style={{ opacity: 0.85 }}>
@@ -167,7 +167,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                 onClick={onNavigateToReviewer}
               >
                 <ArrowRight size={15} aria-hidden="true" />
-                <span>Go to Reviewer Queue</span>
+                <span>Reviewer Queue</span>
               </button>
             )}
 
@@ -180,7 +180,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                 id="btn-send-review"
               >
                 <Send size={15} aria-hidden="true" />
-                <span>{isSubmitting ? 'Forwarding...' : 'Send for Medical Review \u2192'}</span>
+                <span>{isSubmitting ? 'Sending...' : 'Send for Review'}</span>
               </button>
             )}
           </div>
@@ -189,36 +189,36 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
         {/* Case Metadata Grid */}
         <div className="case-meta-grid glass">
           <div className="case-meta-item">
-            <span className="case-meta-label">Case Identifier</span>
+            <span className="case-meta-label">CASE</span>
             <span className="case-meta-value" style={{ color: 'var(--mint)' }}>{triageCase.caseId}</span>
           </div>
 
           <div className="case-meta-item">
-            <span className="case-meta-label">Patient Ref</span>
+            <span className="case-meta-label">PATIENT</span>
             <span className="case-meta-value" style={{ color: 'var(--champagne)' }}>{triageCase.patientId}</span>
           </div>
 
           <div className="case-meta-item">
-            <span className="case-meta-label">Demographics</span>
+            <span className="case-meta-label">DEMOGRAPHICS</span>
             <span className="case-meta-value">
-              {triageCase.age ? `${triageCase.age} Yrs` : 'Age N/A'} &bull; {triageCase.gender || 'Gender N/A'}
+              {triageCase.age ? `${triageCase.age} Yrs` : 'N/A'} &bull; {triageCase.gender || 'N/A'}
             </span>
           </div>
 
           <div className="case-meta-item">
-            <span className="case-meta-label">Language</span>
+            <span className="case-meta-label">LANGUAGE</span>
             <span className="case-meta-value">{triageCase.preferredLanguage || 'English'}</span>
           </div>
 
           <div className="case-meta-item">
-            <span className="case-meta-label">Processing Engine</span>
+            <span className="case-meta-label">ENGINE</span>
             <span className="case-meta-value" style={{ fontSize: '0.80rem' }}>
-              {triageCase.processorUsed || 'Deterministic V1'}
+              {triageCase.isFallbackUsed ? 'Deterministic fallback' : (triageCase.processorUsed || 'Deterministic')}
             </span>
           </div>
 
           <div className="case-meta-item">
-            <span className="case-meta-label">Modalities</span>
+            <span className="case-meta-label">MODALITIES</span>
             <div className="case-meta-tags">
               {triageCase.inputModalities?.map((m, i) => (
                 <span key={i} className="badge badge-blue glass" style={{ fontSize: '0.68rem', padding: '0.15rem 0.45rem' }}>
@@ -238,10 +238,10 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
               <ShieldAlert size={20} color="var(--urgency-light)" aria-hidden="true" />
               <div>
                 <h2 style={{ color: 'var(--urgency-light)', fontSize: '0.96rem', letterSpacing: '0.02em', margin: 0, fontWeight: 700 }}>
-                  Priority Review Signal Detected
+                  Priority Review Signal
                 </h2>
                 <div style={{ fontSize: '0.80rem', color: 'rgba(255, 180, 180, 0.85)', marginTop: '0.15rem' }}>
-                  Potential red flag clinical features extracted from patient narrative / multimodal evidence
+                  Potential red flags extracted from patient evidence
                 </div>
               </div>
             </div>
@@ -287,11 +287,11 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <ShieldCheck size={18} color="var(--teal)" aria-hidden="true" />
             <div>
-              <span style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                No urgency signals detected by extraction engine
+              <span style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '0.02em' }}>
+                NO URGENCY SIGNALS
               </span>
               <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', display: 'block' }}>
-                Standard routine queue allocation &bull; Non-diagnostic informational extraction
+                Routine &bull; Non-diagnostic
               </span>
             </div>
           </div>
@@ -674,7 +674,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <div className="action-bar-notice">
             <Info size={16} color="var(--teal)" aria-hidden="true" />
-            <span>AI ASSISTS &bull; HUMAN CLINICIAN DECIDES &bull; CHRONOLOGICAL IN-MEMORY AUDIT TRAIL</span>
+            <span>AI Assists &bull; Clinician Decides &bull; Audit Logged</span>
           </div>
 
           <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
@@ -685,7 +685,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                 onClick={onNavigateToReviewer}
               >
                 <ArrowRight size={15} aria-hidden="true" />
-                <span>Go to Reviewer Queue</span>
+                <span>Reviewer Queue</span>
               </button>
             )}
 
@@ -698,7 +698,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                 id="btn-send-review-bottom"
               >
                 <Send size={15} aria-hidden="true" />
-                <span>{isSubmitting ? 'Forwarding...' : 'Send for Medical Review \u2192'}</span>
+                <span>{isSubmitting ? 'Sending...' : 'Send for Review'}</span>
               </button>
             )}
           </div>
