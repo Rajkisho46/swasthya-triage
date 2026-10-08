@@ -2,7 +2,12 @@ import io
 import uuid
 import re
 from typing import Optional, List, Dict, Any
-import pypdf
+
+try:
+    import pypdf
+except ImportError:
+    pypdf = None
+
 from ..schemas.multimodal import OCRResponse, ExtractedLabValue
 
 class OCRService:
@@ -55,6 +60,8 @@ class OCRService:
     @classmethod
     def extract_text_from_pdf_bytes(cls, file_bytes: bytes) -> str:
         """Extracts text from PDF byte streams using pypdf."""
+        if pypdf is None:
+            return ""
         try:
             reader = pypdf.PdfReader(io.BytesIO(file_bytes))
             pages_text = []
