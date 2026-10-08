@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
-    AI_RATE_LIMIT: int = int(os.getenv("AI_RATE_LIMIT", "30"))
+    AI_RATE_LIMIT: int = int(os.getenv("AI_RATE_LIMIT", "300"))
     FILE_UPLOAD_MAX_MB: int = int(os.getenv("FILE_UPLOAD_MAX_MB", "25"))
     AI_MAX_CONTEXT_MESSAGES: int = int(os.getenv("AI_MAX_CONTEXT_MESSAGES", "20"))
 

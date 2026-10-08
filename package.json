@@ -8,6 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test": "npx tsx --test test/*.test.ts",
+    "test:health-ai": "npx tsx test/health_ai/runner.ts",
+    "test:health-ai:mobile": "npx tsx test/health_ai/runner.ts --mobile",
     "preview": "vite preview"
   },
   "dependencies": {
