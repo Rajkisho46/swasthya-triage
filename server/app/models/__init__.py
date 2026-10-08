@@ -7,6 +7,15 @@ from .bedside import BedsideAssessment
 
 from .patient_user import PatientUser
 from .otp import EmailVerificationToken
+from .health_ai import (
+    AIConversation,
+    AIMessage,
+    AIAttachment,
+    AIHealthContext,
+    AISafetyEvent,
+    AIUsageEvent,
+    AIFeedback
+)
 
 __all__ = [
     "Base",
@@ -20,5 +29,12 @@ __all__ = [
     "AuditEventModel",
     "BedsideAssessment",
     "PatientUser",
-    "EmailVerificationToken"
+    "EmailVerificationToken",
+    "AIConversation",
+    "AIMessage",
+    "AIAttachment",
+    "AIHealthContext",
+    "AISafetyEvent",
+    "AIUsageEvent",
+    "AIFeedback"
 ]

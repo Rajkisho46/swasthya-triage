@@ -17,14 +17,21 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours for demo ease
     
-    # AI Integration
+    # AI Integration (Multi-Provider: gemini, openai, anthropic)
+    AI_PROVIDER: str = os.getenv("AI_PROVIDER", "gemini")
+    AI_MODEL: str = os.getenv("AI_MODEL", os.getenv("AI_MODEL_NAME", "gemini-3.1-flash-lite"))
+    AI_MODEL_NAME: str = os.getenv("AI_MODEL_NAME", "gemini-3.1-flash-lite")
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    AI_MODEL_NAME: str = os.getenv("AI_MODEL_NAME", "gemini-1.5-flash")
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
+    AI_RATE_LIMIT: int = int(os.getenv("AI_RATE_LIMIT", "30"))
+    FILE_UPLOAD_MAX_MB: int = int(os.getenv("FILE_UPLOAD_MAX_MB", "25"))
+    AI_MAX_CONTEXT_MESSAGES: int = int(os.getenv("AI_MAX_CONTEXT_MESSAGES", "20"))
 
     # Speech-to-Text (STT) Configuration
     STT_PROVIDER: str = os.getenv("STT_PROVIDER", "gemini")  # "gemini", "groq", "openai", "mock"
     STT_API_KEY: str = os.getenv("STT_API_KEY", "")
-    STT_MODEL: str = os.getenv("STT_MODEL", "gemini-1.5-flash")
+    STT_MODEL: str = os.getenv("STT_MODEL", "gemini-3.1-flash-lite")
 
     MAX_AUDIO_SIZE_BYTES: int = 25 * 1024 * 1024  # 25 MB max audio upload size
     

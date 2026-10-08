@@ -11,56 +11,56 @@
 
   /* --- Liquid Glass Core Material System (Apple-Style Multi-Tier Hierarchy) --- */
   /* Level 0: Background Base & Canvas Mesh */
-  --liquid-bg: #050607;
-  --canvas: #050607;
-  --surface-lowest: #050607;
-  --surface-low: #080A0C;
-  --surface: #0D1114;
-  --surface-high: #111518;
-  --surface-highest: #14191D;
-  --surface-bright: #181D20;
+  --liquid-bg: #050708;
+  --canvas: #050708;
+  --surface-lowest: #050708;
+  --surface-low: #0A0E10;
+  --surface: #101517;
+  --surface-high: #141A1D;
+  --surface-highest: #181F22;
+  --surface-bright: #181F22;
 
   /* Level 1: App Header, Navigation Dock & Primary Workspace Glass */
-  --liquid-glass-l1-bg: rgba(13, 17, 20, 0.88);
+  --liquid-glass-l1-bg: rgba(16, 21, 23, 0.88);
   --liquid-glass-l1-blur: blur(24px) saturate(155%);
-  --liquid-glass-l1-border: 1px solid rgba(255, 255, 255, 0.07);
+  --liquid-glass-l1-border: 1px solid rgba(255, 255, 255, 0.08);
   --liquid-glass-l1-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(255, 255, 255, 0.03);
 
   /* Level 2: Primary Cards, Journey Stepper & Table Containers */
-  --liquid-glass-l2-bg: rgba(17, 21, 24, 0.85);
-  --liquid-glass-l2-hover-bg: rgba(20, 25, 29, 0.92);
+  --liquid-glass-l2-bg: rgba(20, 26, 29, 0.85);
+  --liquid-glass-l2-hover-bg: rgba(24, 31, 34, 0.92);
   --liquid-glass-l2-blur: blur(18px) saturate(140%);
-  --liquid-glass-l2-border: 1px solid rgba(255, 255, 255, 0.07);
-  --liquid-glass-l2-border-hover: 1px solid rgba(103, 232, 212, 0.28);
+  --liquid-glass-l2-border: 1px solid rgba(255, 255, 255, 0.08);
+  --liquid-glass-l2-border-hover: 1px solid rgba(255, 255, 255, 0.14);
   --liquid-glass-l2-shadow: 0 12px 36px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --liquid-glass-l2-shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.58), 0 0 24px rgba(103, 232, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --liquid-glass-l2-shadow-hover: 0 16px 42px rgba(0, 0, 0, 0.58), 0 0 20px rgba(103, 232, 212, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
   /* Level 3: Nested Evidence Tiles, Form Groups, Timeline Cards, Stat Blocks */
-  --liquid-glass-l3-bg: rgba(13, 17, 20, 0.78);
-  --liquid-glass-l3-hover-bg: rgba(17, 21, 24, 0.88);
+  --liquid-glass-l3-bg: rgba(16, 21, 23, 0.78);
+  --liquid-glass-l3-hover-bg: rgba(20, 26, 29, 0.88);
   --liquid-glass-l3-blur: blur(14px) saturate(130%);
-  --liquid-glass-l3-border: 1px solid rgba(255, 255, 255, 0.06);
+  --liquid-glass-l3-border: 1px solid rgba(255, 255, 255, 0.08);
   --liquid-glass-l3-shadow: 0 6px 20px rgba(0, 0, 0, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   /* Level 4: Interactive Floating Controls, Tabs, Badges, Buttons, Inputs */
-  --liquid-glass-l4-bg: rgba(8, 10, 12, 0.85);
-  --liquid-glass-l4-focus-bg: rgba(13, 17, 20, 0.95);
+  --liquid-glass-l4-bg: #101517;
+  --liquid-glass-l4-focus-bg: #141A1D;
   --liquid-glass-l4-blur: blur(12px) saturate(125%);
-  --liquid-glass-l4-border: 1px solid rgba(255, 255, 255, 0.07);
-  --liquid-glass-l4-border-focus: 1px solid rgba(103, 232, 212, 0.65);
+  --liquid-glass-l4-border: 1px solid rgba(255, 255, 255, 0.10);
+  --liquid-glass-l4-border-focus: 1px solid #67E8D4;
   --liquid-glass-l4-shadow-inset: inset 0 2px 6px rgba(0, 0, 0, 0.50);
-  --liquid-glass-l4-shadow-focus: 0 0 0 3px rgba(103, 232, 212, 0.20), 0 0 20px rgba(103, 232, 212, 0.16), inset 0 2px 6px rgba(0, 0, 0, 0.40);
+  --liquid-glass-l4-shadow-focus: 0 0 0 3px rgba(103, 232, 212, 0.15), 0 0 20px rgba(103, 232, 212, 0.08), inset 0 2px 6px rgba(0, 0, 0, 0.40);
 
   /* Level 5: Floating Clinical Decision Modal Sheet & Overlay Backdrop */
-  --liquid-glass-l5-backdrop: rgba(3, 4, 5, 0.88);
+  --liquid-glass-l5-backdrop: rgba(5, 7, 8, 0.88);
   --liquid-glass-l5-backdrop-blur: blur(28px) saturate(160%);
-  --liquid-glass-l5-modal-bg: rgba(13, 17, 20, 0.96);
+  --liquid-glass-l5-modal-bg: rgba(16, 21, 23, 0.96);
   --liquid-glass-l5-modal-blur: blur(32px) saturate(170%);
   --liquid-glass-l5-modal-border: 1px solid rgba(255, 255, 255, 0.08);
-  --liquid-glass-l5-modal-shadow: 0 32px 80px rgba(0, 0, 0, 0.85), 0 0 36px rgba(103, 232, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --liquid-glass-l5-modal-shadow: 0 32px 80px rgba(0, 0, 0, 0.85), 0 0 20px rgba(103, 232, 212, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.10);
 
   /* Level 6: Modal Controls & Action Toggles */
-  --liquid-glass-l6-bg: rgba(20, 25, 29, 0.88);
+  --liquid-glass-l6-bg: rgba(20, 26, 29, 0.88);
   --liquid-glass-l6-blur: blur(10px);
   --liquid-glass-l6-border: 1px solid rgba(255, 255, 255, 0.08);
 
@@ -68,21 +68,21 @@
   --liquid-surface: var(--liquid-glass-l2-bg);
   --liquid-surface-strong: var(--liquid-glass-l1-bg);
   --liquid-surface-soft: var(--liquid-glass-l3-bg);
-  --liquid-border: rgba(255, 255, 255, 0.07);
-  --liquid-border-strong: rgba(255, 255, 255, 0.12);
+  --liquid-border: rgba(255, 255, 255, 0.08);
+  --liquid-border-strong: rgba(255, 255, 255, 0.14);
   --liquid-highlight: rgba(255, 255, 255, 0.08);
   --liquid-shadow: 0 12px 36px rgba(0, 0, 0, 0.48);
   --liquid-blur: blur(18px);
-  --liquid-accent: var(--teal);
-  --liquid-specular-top: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 30%, rgba(103, 232, 212, 0.10) 70%, transparent 100%);
-  --liquid-specular-intense: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.14) 35%, rgba(103, 232, 212, 0.16) 65%, transparent 100%);
+  --liquid-accent: #67E8D4;
+  --liquid-specular-top: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 30%, rgba(103, 232, 212, 0.08) 70%, transparent 100%);
+  --liquid-specular-intense: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 35%, rgba(103, 232, 212, 0.12) 65%, transparent 100%);
 
   /* Ambient Mesh Lighting Tokens */
-  --glass-bg-canvas: #050607;
-  --glass-ambient-teal: radial-gradient(circle at 12% 18%, rgba(103, 232, 212, 0.02) 0%, transparent 45%);
-  --glass-ambient-champagne: radial-gradient(circle at 88% 22%, rgba(226, 195, 130, 0.02) 0%, transparent 50%);
-  --glass-ambient-mint: radial-gradient(circle at 48% 85%, rgba(103, 232, 212, 0.02) 0%, transparent 55%);
-  --glass-ambient-subtle: radial-gradient(circle at 75% 90%, rgba(242, 166, 160, 0.015) 0%, transparent 40%);
+  --glass-bg-canvas: #050708;
+  --glass-ambient-teal: radial-gradient(circle at 12% 18%, rgba(103, 232, 212, 0.015) 0%, transparent 45%);
+  --glass-ambient-champagne: radial-gradient(circle at 88% 22%, rgba(226, 195, 130, 0.015) 0%, transparent 50%);
+  --glass-ambient-mint: radial-gradient(circle at 48% 85%, rgba(103, 232, 212, 0.015) 0%, transparent 55%);
+  --glass-ambient-subtle: radial-gradient(circle at 75% 90%, rgba(242, 166, 160, 0.01) 0%, transparent 40%);
 
   /* Level Backward-Compatible Mappings */
   --surface-glass-subtle: var(--liquid-glass-l3-bg);
@@ -116,56 +116,58 @@
   --glass-shadow-modal: var(--liquid-glass-l5-modal-shadow);
 
   /* --- Stitch Core Color System: Primary Mint & Teal --- */
-  --mint: #5dfddd;
-  --teal: #35e0c1;
-  --teal-dark: #00382e;
-  --teal-container: #005f50;
-  --seafoam: #98f6df;
-  --primary-fixed-dim: #32debf;
-  --primary-glow: rgba(93, 253, 221, 0.25);
-  --primary-glow-sm: rgba(53, 224, 193, 0.16);
+  --mint: #67E8D4;
+  --teal: #3DB8AA;
+  --teal-dark: #2B8077;
+  --teal-container: #101517;
+  --seafoam: #67E8D4;
+  --primary-mint: #67E8D4;
+  --primary-fixed-dim: #3DB8AA;
+  --primary-glow: rgba(103, 232, 212, 0.08);
+  --primary-glow-sm: rgba(103, 232, 212, 0.05);
 
   /* --- Stitch Core Color System: Secondary Warm Champagne --- */
-  --champagne: #e2c382;
-  --champagne-light: #ffdf9c;
-  --champagne-dark: #5b4611;
+  --champagne: #E2C382;
+  --champagne-light: #FFDF9C;
+  --champagne-dark: #5B4611;
   --champagne-container: rgba(226, 195, 130, 0.14);
-  --champagne-glow: rgba(226, 195, 130, 0.22);
+  --champagne-glow: rgba(226, 195, 130, 0.08);
 
   /* --- Clinical Alert & System States --- */
-  --urgency: #ff6b6b;
-  --urgency-light: #ffb4ab;
-  --urgency-dark: #93000a;
+  --urgency: #FF6B6B;
+  --urgency-light: #FFB4AB;
+  --urgency-dark: #93000A;
   --urgency-bg: rgba(147, 0, 10, 0.24);
   --urgency-border: rgba(255, 107, 107, 0.45);
   --urgency-glow: rgba(255, 107, 107, 0.28);
 
-  --warning: #f3b562;
+  --warning: #F3B562;
   --warning-bg: rgba(243, 181, 98, 0.16);
   --warning-border: rgba(243, 181, 98, 0.38);
 
-  --success: #35e0c1;
-  --success-bg: rgba(53, 224, 193, 0.14);
-  --success-border: rgba(53, 224, 193, 0.32);
+  --success: #67E8D4;
+  --success-bg: rgba(103, 232, 212, 0.12);
+  --success-border: rgba(103, 232, 212, 0.30);
 
   /* --- Text & Contrast --- */
-  --text-primary: #e0e2ea;
-  --text-secondary: #bacac4;
-  --text-muted: #85948f;
-  --text-inverse: #00382e;
+  --text-primary: #F5F7F6;
+  --text-secondary: #B5BFBC;
+  --text-muted: #7F8A87;
+  --text-disabled: #5C6563;
+  --text-inverse: #050708;
 
   /* --- Borders --- */
-  --border: #3b4a45;
+  --border: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glass: rgba(93, 253, 221, 0.14);
-  --border-glow: rgba(53, 224, 193, 0.28);
-  --border-glow-champagne: rgba(226, 195, 130, 0.28);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(103, 232, 212, 0.20);
+  --border-glow-champagne: rgba(226, 195, 130, 0.20);
 
   /* --- Depth, Blur & Shadows --- */
   --shadow-glass: var(--glass-shadow-l3);
   --shadow-glass-lg: var(--glass-shadow-l2);
-  --shadow-glow-teal: 0 0 28px rgba(93, 253, 221, 0.28);
-  --shadow-glow-champagne: 0 0 24px rgba(226, 195, 130, 0.22);
+  --shadow-glow-teal: 0 0 20px rgba(103, 232, 212, 0.08);
+  --shadow-glow-champagne: 0 0 20px rgba(226, 195, 130, 0.08);
   --backdrop-blur: blur(20px);
   --backdrop-blur-sm: blur(12px);
 
@@ -188,25 +190,25 @@
   /* --- Backward-Compatibility Mappings for Existing Components --- */
   --bg-app: var(--canvas);
   --bg-surface: var(--surface-glass);
-  --bg-surface-secondary: rgba(22, 30, 40, 0.65);
-  --bg-surface-tertiary: rgba(30, 40, 54, 0.72);
+  --bg-surface-secondary: #141A1D;
+  --bg-surface-tertiary: #181F22;
   --border-color: var(--border-subtle);
-  --border-strong: var(--border);
-  --color-brand: var(--teal);
-  --color-brand-hover: var(--mint);
-  --color-brand-light: rgba(53, 224, 193, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --color-brand: var(--mint);
+  --color-brand-hover: var(--teal);
+  --color-brand-light: rgba(103, 232, 212, 0.08);
   --color-urgency-high: var(--urgency);
   --color-urgency-high-bg: var(--urgency-bg);
   --color-urgency-high-border: var(--urgency-border);
   --color-urgency-elevated: var(--warning);
   --color-urgency-elevated-bg: var(--warning-bg);
   --color-urgency-elevated-border: var(--warning-border);
-  --color-success: var(--teal);
+  --color-success: var(--mint);
   --color-success-bg: var(--success-bg);
   --color-success-border: var(--success-border);
-  --color-ai-badge: var(--teal);
-  --color-ai-badge-bg: rgba(53, 224, 193, 0.14);
-  --color-ai-badge-border: rgba(53, 224, 193, 0.28);
+  --color-ai-badge: var(--mint);
+  --color-ai-badge-bg: rgba(103, 232, 212, 0.08);
+  --color-ai-badge-border: rgba(103, 232, 212, 0.22);
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
   --shadow-md: var(--glass-shadow-l3);
   --shadow-lg: var(--glass-shadow-l2);
@@ -228,7 +230,7 @@
 
 html {
   font-family: var(--font-family);
-  background-color: #050607;
+  background-color: #050708;
   color: var(--text-primary);
   line-height: 1.55;
   font-size: 15px;
@@ -238,13 +240,13 @@ html {
 }
 
 body {
-  background-color: #050607;
+  background-color: #050708;
   color: var(--text-primary);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   background-image:
-    radial-gradient(circle at 50% 0%, #151A1D 0%, #0B0E10 42%, #050607 100%),
+    radial-gradient(circle at 50% 0%, #111719 0%, #0D1214 45%, #050708 100%),
     var(--glass-ambient-teal),
     var(--glass-ambient-champagne);
   background-attachment: fixed;
@@ -381,6 +383,7 @@ samp {
 
 /* Accessibility: Respect Reduced Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
+
   .scroll-reveal,
   .reveal,
   .fade-in,
@@ -2786,21 +2789,57 @@ samp {
   animation: waveformPulse 1.2s infinite ease-in-out alternate;
 }
 
-.waveform-bar:nth-child(1) { height: 25%; animation-delay: 0.1s; }
-.waveform-bar:nth-child(2) { height: 60%; animation-delay: 0.3s; }
-.waveform-bar:nth-child(3) { height: 40%; animation-delay: 0.2s; }
-.waveform-bar:nth-child(4) { height: 90%; animation-delay: 0.5s; }
-.waveform-bar:nth-child(5) { height: 70%; animation-delay: 0.4s; }
-.waveform-bar:nth-child(6) { height: 35%; animation-delay: 0.15s; }
-.waveform-bar:nth-child(7) { height: 80%; animation-delay: 0.45s; }
-.waveform-bar:nth-child(8) { height: 50%; animation-delay: 0.25s; }
-.waveform-bar:nth-child(9) { height: 65%; animation-delay: 0.35s; }
+.waveform-bar:nth-child(1) {
+  height: 25%;
+  animation-delay: 0.1s;
+}
+
+.waveform-bar:nth-child(2) {
+  height: 60%;
+  animation-delay: 0.3s;
+}
+
+.waveform-bar:nth-child(3) {
+  height: 40%;
+  animation-delay: 0.2s;
+}
+
+.waveform-bar:nth-child(4) {
+  height: 90%;
+  animation-delay: 0.5s;
+}
+
+.waveform-bar:nth-child(5) {
+  height: 70%;
+  animation-delay: 0.4s;
+}
+
+.waveform-bar:nth-child(6) {
+  height: 35%;
+  animation-delay: 0.15s;
+}
+
+.waveform-bar:nth-child(7) {
+  height: 80%;
+  animation-delay: 0.45s;
+}
+
+.waveform-bar:nth-child(8) {
+  height: 50%;
+  animation-delay: 0.25s;
+}
+
+.waveform-bar:nth-child(9) {
+  height: 65%;
+  animation-delay: 0.35s;
+}
 
 @keyframes waveformPulse {
   0% {
     transform: scaleY(0.4);
     opacity: 0.6;
   }
+
   100% {
     transform: scaleY(1);
     opacity: 1;
@@ -2862,8 +2901,13 @@ samp {
 }
 
 @keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Primary Floating Action Bar */
@@ -4807,187 +4851,392 @@ textarea:focus-visible {
   }
 }
 
-/* Split Main Grid */
-.split-login-main {
+/* ==========================================================================
+   GLASSY LOGIN FORM V2 — SWASTHYA TRIAGE REDESIGNED LOGIN CONTAINER
+   ========================================================================== */
+
+.glass-login-main-wrapper {
   flex: 1;
   width: 100%;
-  max-width: 1360px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 2rem 2.5rem 2rem;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 3.5rem;
+  justify-content: center;
   z-index: 5;
   box-sizing: border-box;
 }
 
-@media (max-width: 1024px) {
-  .split-login-main {
-    gap: 2rem;
-    padding: 1rem 1.5rem 2rem 1.5rem;
+.glass-login-container {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  background: rgba(18, 24, 29, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  display: grid;
+  grid-template-columns: 1.18fr auto 0.82fr;
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: glassLoginEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes glassLoginEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-@media (max-width: 960px) {
-  .split-login-main {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    justify-items: center;
-    padding: 0.75rem 1.25rem 2rem 1.25rem;
+@media (prefers-reduced-motion: reduce) {
+  .glass-login-container {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
-/* Left Brand Marketing Column */
-.split-brand-column {
+.glass-login-rim-light {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  right: 2rem;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(103, 232, 212, 0.45) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Left Form Panel */
+.glass-login-panel {
+  padding: 2.25rem 2.25rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 1.75rem;
-  max-width: 600px;
-  padding-right: 1rem;
+  gap: 1.15rem;
+  box-sizing: border-box;
+  z-index: 2;
+  position: relative;
 }
 
-@media (max-width: 960px) {
-  .split-brand-column {
-    display: none;
-  }
+/* Glass Divider */
+.glass-login-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 12px rgba(103, 232, 212, 0.04);
+  align-self: stretch;
+  position: relative;
 }
 
-.split-brand-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 9999px;
-  background: #141C1E;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #98A6A4;
-  width: fit-content;
-  backdrop-filter: blur(12px);
+/* Right Welcome Panel */
+.glass-welcome-panel {
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.025) 0%, rgba(103, 232, 212, 0.015) 100%);
+  box-sizing: border-box;
+  z-index: 2;
+  position: relative;
 }
 
-.mint-pulse-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 9999px;
-  background-color: #5DFDDD;
-  box-shadow: 0 0 8px #5DFDDD, 0 0 16px rgba(93, 253, 221, 0.4);
-  display: inline-block;
-  animation: pulseDot 2s infinite ease-in-out;
-}
-
-@keyframes pulseDot {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  50% {
-    transform: scale(1.2);
-    opacity: 0.75;
-  }
-}
-
-.split-hero-headline {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-  color: #F4F7F6;
+/* Titles and Typography */
+.glass-form-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #F5F5F2;
   margin: 0;
+  line-height: 1.15;
 }
 
-@media (max-width: 1200px) {
-  .split-hero-headline {
-    font-size: 40px;
-  }
-}
-
-.text-mint-accent {
-  color: #5DFDDD;
-  display: inline-block;
-}
-
-.split-hero-desc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #98A6A4;
+.glass-form-subtitle {
+  font-size: 13.5px;
+  color: #A3AEAC;
   margin: 0;
-  max-width: 480px;
+  line-height: 1.45;
   font-weight: 400;
 }
 
-.split-caps-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 0.25rem;
+.glass-welcome-headline {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #F5F5F2;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-.split-cap-item {
+.glass-welcome-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #A3AEAC;
+  margin: 0;
+  max-width: 320px;
+}
+
+.glass-welcome-pill {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: 9999px;
-  background: #141C1E;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  font-size: 11.5px;
-  font-weight: 600;
+  background: rgba(18, 24, 29, 0.70);
+  border: 1px solid rgba(103, 232, 212, 0.25);
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.06em;
-  color: #F4F7F6;
+  color: #67E8D4;
   text-transform: uppercase;
-  backdrop-filter: blur(8px);
+  width: fit-content;
 }
 
-.split-cap-check {
-  width: 16px;
-  height: 16px;
-  border-radius: 9999px;
-  background: rgba(93, 253, 221, 0.15);
+.glass-welcome-compliance {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  color: #737E7D;
+  line-height: 1.3;
+}
+
+/* Welcome Button */
+.glass-btn-welcome-cta {
+  width: fit-content;
+  min-width: 170px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  border-radius: 12px;
+  background: rgba(103, 232, 212, 0.08);
+  border: 1px solid rgba(103, 232, 212, 0.35);
+  color: #67E8D4;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.glass-btn-welcome-cta:hover {
+  background: rgba(103, 232, 212, 0.18);
+  border-color: #67E8D4;
+  color: #67E8D4;
+  box-shadow: 0 0 24px rgba(103, 232, 212, 0.25);
+  transform: translateY(-1px);
+}
+
+.glass-btn-welcome-cta:active {
+  transform: scale(0.99);
+}
+
+/* Translucent Inputs */
+.glass-translucent-input {
+  background: rgba(11, 18, 20, 0.70) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  color: #F5F5F2 !important;
+  border-radius: 12px !important;
+  height: 50px !important;
+  min-height: 48px !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+.glass-translucent-input:focus {
+  background: rgba(11, 18, 20, 0.85) !important;
+  border-color: #67E8D4 !important;
+  box-shadow: 0 0 0 3px rgba(103, 232, 212, 0.18), inset 0 1px 3px rgba(0, 0, 0, 0.35) !important;
+  outline: none !important;
+}
+
+/* Primary Button */
+.glass-btn-primary {
+  width: 100%;
+  height: 50px;
+  min-height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #67E8D4 0%, #3DB8AA 100%);
+  color: #00382E;
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #5DFDDD;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(103, 232, 212, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  letter-spacing: 0.02em;
 }
 
-.split-compliance-note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: #98A6A4;
-  margin-top: 0.5rem;
+.glass-btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 28px rgba(103, 232, 212, 0.40);
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
-/* Mobile Brand Header Bar (shown only when left hero is collapsed) */
-.mobile-brand-banner {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 6px;
-  margin-bottom: 0.5rem;
+.glass-btn-primary:active:not(:disabled) {
+  transform: scale(0.99);
 }
 
-@media (max-width: 960px) {
-  .mobile-brand-banner {
-    display: flex;
+.glass-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE BREAKPOINTS (860px down to 320px)
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .glass-login-main-wrapper {
+    padding: 1rem 1rem 2rem 1rem;
+  }
+
+  .glass-login-container {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    border-radius: 20px;
+  }
+
+  .glass-login-panel {
+    padding: 1.75rem 1.5rem 1.25rem 1.5rem;
+  }
+
+  .glass-login-divider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+    margin: 0;
+  }
+
+  .glass-welcome-panel {
+    padding: 1.5rem 1.5rem 1.75rem 1.5rem;
+    gap: 1.25rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .glass-welcome-headline {
+    font-size: 30px;
+  }
+
+  .glass-welcome-desc {
+    max-width: 100%;
+    font-size: 13.5px;
+  }
+
+  .glass-btn-welcome-cta {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .glass-welcome-compliance {
+    justify-content: center;
   }
 }
 
-/* Right Authentication Card Container */
-.split-card-column {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+@media (max-width: 480px) {
+  .glass-login-main-wrapper {
+    padding: 0.75rem 0.75rem 1.5rem 0.75rem;
+  }
+
+  .glass-login-container {
+    border-radius: 18px;
+  }
+
+  .glass-login-panel {
+    padding: 1.35rem 1.15rem 1rem 1.15rem;
+    gap: 0.85rem;
+  }
+
+  .glass-welcome-panel {
+    padding: 1.25rem 1.15rem 1.35rem 1.15rem;
+    gap: 1rem;
+  }
+
+  .glass-form-title {
+    font-size: 22px;
+  }
+
+  .glass-welcome-headline {
+    font-size: 26px;
+  }
+
+  .glass-translucent-input {
+    height: 48px !important;
+    min-height: 48px !important;
+  }
+
+  .glass-btn-primary {
+    height: 48px !important;
+    min-height: 48px !important;
+  }
+
+  .glass-btn-welcome-cta {
+    height: 48px !important;
+    min-height: 48px !important;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .glass-login-panel {
+    padding: 1.15rem 0.85rem 0.85rem 0.85rem;
+  }
+
+  .glass-welcome-panel {
+    padding: 1rem 0.85rem 1.15rem 0.85rem;
+  }
+
+  .glass-form-title {
+    font-size: 20px;
+  }
+
+  .glass-welcome-headline {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 320px) {
+  .glass-login-main-wrapper {
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+  }
+
+  .glass-login-container {
+    border-radius: 16px;
+  }
+
+  .glass-login-panel {
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
+  }
+
+  .glass-welcome-panel {
+    padding: 0.85rem 0.75rem 1rem 0.75rem;
+  }
 }
 
 .stitch-auth-container {
@@ -5861,10 +6110,13 @@ textarea:focus-visible {
 }
 
 @keyframes patientPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.85;
   }
+
   50% {
     transform: scale(1.10);
     opacity: 1;
@@ -6028,6 +6280,7 @@ textarea:focus-visible {
   .patient-hero-card {
     padding: 1.65rem 1.75rem;
   }
+
   .patient-records-card {
     padding: 1.5rem 1.5rem;
   }
@@ -6376,5 +6629,697 @@ textarea:focus-visible {
 
   .patient-records-title {
     font-size: 0.96rem;
+  }
+}
+
+/* ============================================================
+   PATIENT HEALTH AI — DEDICATED WORKSPACE STYLES
+   ============================================================ */
+.patient-health-ai-stage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.patient-health-ai-page-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.patient-ai-workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+.patient-ai-conversation-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: linear-gradient(165deg, #141A1D 0%, #101517 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  min-height: 540px;
+  max-height: calc(100vh - 220px);
+}
+
+.patient-ai-conversation-stream {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(103, 232, 212, 0.20) transparent;
+}
+
+.patient-ai-conversation-stream::-webkit-scrollbar {
+  width: 6px;
+}
+
+.patient-ai-conversation-stream::-webkit-scrollbar-thumb {
+  background: rgba(103, 232, 212, 0.20);
+  border-radius: 3px;
+}
+
+.patient-ai-bubble {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.quick-action-button:hover {
+  background: rgba(103, 232, 212, 0.08) !important;
+  border-color: rgba(103, 232, 212, 0.35) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(103, 232, 212, 0.08);
+}
+
+.quick-action-chip:hover {
+  background: rgba(103, 232, 212, 0.12) !important;
+  border-color: rgba(103, 232, 212, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .patient-ai-message-row,
+  .quick-action-button,
+  .quick-action-chip {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   HEADER MOBILE NAVIGATION & DRAWER SYSTEM
+   ========================================================================== */
+
+.header-mobile-toggle-wrapper {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-mobile-role-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.mobile-menu-toggle-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--mint);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.mobile-menu-toggle-btn:hover {
+  background: rgba(103, 232, 212, 0.12);
+  border-color: rgba(103, 232, 212, 0.35);
+}
+
+.header-mobile-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 8, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 998;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.header-mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(340px, 88vw);
+  background: linear-gradient(165deg, #181F22 0%, #101517 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+  z-index: 999;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.85);
+  animation: slideLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.mobile-drawer-user-info {
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-user-profile-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(103, 232, 212, 0.12);
+  border: 1px solid rgba(103, 232, 212, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mobile-user-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mobile-user-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-user-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.mobile-user-phc {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+.mobile-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-drawer-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: #141A1D;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  touch-action: manipulation;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-drawer-nav-btn:hover {
+  background: #181F22;
+  border-color: rgba(103, 232, 212, 0.3);
+}
+
+.mobile-drawer-nav-btn.active {
+  background: rgba(103, 232, 212, 0.12);
+  border-color: #67E8D4;
+  color: var(--mint);
+  font-weight: 700;
+}
+
+.mobile-nav-btn-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mobile-nav-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.mobile-nav-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.mobile-drawer-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.25rem 0;
+}
+
+.mobile-drawer-utilities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.mobile-drawer-util-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-size: 0.80rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  touch-action: manipulation;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-logout-btn {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* ==========================================================================
+   MEDICAL REVIEWER CASE QUEUE & MODAL RESPONSIVE
+   ========================================================================== */
+
+.reviewer-desktop-table {
+  display: block;
+}
+
+.reviewer-mobile-cards {
+  display: none;
+}
+
+.reviewer-case-card {
+  background: var(--surface-glass-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.reviewer-case-card.urgent {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: linear-gradient(165deg, rgba(239, 68, 68, 0.06), #141A1D);
+}
+
+.reviewer-case-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.reviewer-case-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.reviewer-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.reviewer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Modal Overlay & Clinical Review Modal Container */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 8, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: linear-gradient(160deg, #181F22 0%, #101517 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.clinical-review-modal {
+  max-width: 1200px;
+  width: 95vw;
+}
+
+.clinical-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.35rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(20, 26, 29, 0.95);
+  flex-shrink: 0;
+}
+
+.clinical-review-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 0.95rem 1.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(16, 21, 23, 0.95);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+/* Evidence Chain Horizontal Track Safety */
+.evidence-chain-track {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+}
+
+/* ==========================================================================
+   BREAKPOINTS: <= 960px & <= 900px
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .patient-ai-workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-ai-desktop-context-column {
+    display: none !important;
+  }
+
+  .patient-ai-mobile-context-toggle {
+    display: inline-flex !important;
+  }
+
+  .patient-ai-mobile-context-drawer {
+    display: block !important;
+    margin-top: 0.5rem;
+    animation: fadeInUp 0.2s ease-in-out;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-header {
+    padding: 0.65rem 1rem;
+  }
+
+  .header-actions-desktop,
+  .header-status-desktop {
+    display: none !important;
+  }
+
+  .header-mobile-toggle-wrapper {
+    display: flex !important;
+  }
+
+  .main-content {
+    padding: 1rem 0.85rem 1.5rem 0.85rem;
+  }
+
+  .reviewer-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .reviewer-desktop-table {
+    display: none !important;
+  }
+
+  .reviewer-mobile-cards {
+    display: flex !important;
+  }
+
+  .reviewer-comparison-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .clinical-review-modal {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+  }
+
+  .modal-overlay {
+    padding: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINTS: <= 640px
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .brand-name {
+    font-size: 0.95rem;
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+
+  .facility-pill {
+    display: none;
+  }
+
+  .title-icon-box {
+    padding: 0.35rem;
+  }
+
+  .triage-case-header-bar {
+    padding: 1rem;
+  }
+
+  .intake-title {
+    font-size: 1.15rem !important;
+  }
+
+  .stat-card-glass {
+    padding: 0.85rem 1rem;
+  }
+
+  .stat-card-value {
+    font-size: 1.6rem !important;
+  }
+
+  .evidence-chain-track {
+    padding: 0.5rem 0.25rem;
+    gap: 0.25rem;
+  }
+
+  .evidence-chain-step {
+    min-width: 130px;
+    padding: 0.5rem 0.65rem;
+  }
+
+  .evidence-chain-arrow {
+    display: none;
+  }
+
+  .patient-ai-conversation-container {
+    min-height: 480px;
+    max-height: calc(100vh - 190px);
+  }
+
+  .patient-ai-conversation-stream {
+    padding: 0.80rem;
+    gap: 0.90rem;
+  }
+
+  .quick-action-button {
+    min-height: 48px;
+    padding: 0.60rem 0.80rem;
+  }
+
+  .modal-footer {
+    justify-content: stretch;
+  }
+
+  .modal-footer button {
+    flex: 1 1 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINTS: <= 480px
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .btn {
+    min-height: 44px;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .filter-btn {
+    min-height: 40px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.74rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+
+  .patient-ai-conversation-container {
+    border-radius: 14px;
+    min-height: 420px;
+  }
+
+  .patient-ai-bubble {
+    max-width: 96% !important;
+    font-size: 0.84rem !important;
+  }
+
+  .patient-ai-input-container {
+    padding: 0.60rem 0.75rem;
+  }
+
+  .patient-ai-input-bar button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .patient-ai-chat-panel {
+    width: calc(100vw - 16px) !important;
+    right: 8px !important;
+    bottom: 8px !important;
+    height: calc(100vh - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
+    border-radius: 16px !important;
+  }
+}
+
+/* ==========================================================================
+   BREAKPOINTS: <= 360px & <= 320px
+   ========================================================================== */
+
+@media (max-width: 360px) {
+  html {
+    font-size: 13.5px;
+  }
+
+  .brand-name {
+    font-size: 0.88rem;
+  }
+
+  .app-header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .main-content {
+    padding: 0.75rem 0.5rem 1.25rem 0.5rem;
+  }
+
+  .patient-ai-bubble {
+    max-width: 98% !important;
+    font-size: 0.82rem !important;
+    padding: 0.70rem 0.85rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .brand-name {
+    font-size: 0.82rem;
+  }
+
+  .patient-ai-bubble {
+    font-size: 0.80rem !important;
+    padding: 0.60rem 0.75rem !important;
   }
 }

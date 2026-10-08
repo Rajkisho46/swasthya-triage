@@ -12,6 +12,9 @@ from .patient_auth import router as patient_auth_router
 from .bedside import router as bedside_router
 from .cases import router as cases_router
 
+from .patient_chat import router as patient_chat_router
+from .health_ai import router as health_ai_router
+
 api_router = APIRouter()
 api_router.include_router(auth_router)
 api_router.include_router(patient_auth_router)
@@ -20,6 +23,8 @@ api_router.include_router(intake_router)
 api_router.include_router(triage_router)
 api_router.include_router(multimodal_router)
 api_router.include_router(voice_router)
+api_router.include_router(patient_chat_router)
+api_router.include_router(health_ai_router)
 api_router.include_router(review_router)
 api_router.include_router(audit_router)
 api_router.include_router(referral_router)

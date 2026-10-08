@@ -46,6 +46,9 @@ interface PatientIntakeFormProps {
   onCaseCreated: (newCase: TriageCase) => void;
   onOpenTrustCenter?: (tab?: TrustCenterTab) => void;
   defaultPatientId?: string;
+  initialSymptoms?: string;
+  initialLanguage?: string;
+  initialOCRReports?: OCRReportData[];
 }
 
 const PRESET_SCENARIOS = [
@@ -90,12 +93,15 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
   onCaseCreated,
   onOpenTrustCenter,
   defaultPatientId,
+  initialSymptoms = '',
+  initialLanguage = 'English',
+  initialOCRReports = [],
 }) => {
   const [patientId, setPatientId] = useState<string>(() => defaultPatientId || generatePatientId());
   const [age, setAge] = useState<number | ''>('');
   const [gender, setGender] = useState<TriageFormData['gender']>('');
-  const [preferredLanguage, setPreferredLanguage] = useState<string>('English');
-  const [symptoms, setSymptoms] = useState<string>('');
+  const [preferredLanguage, setPreferredLanguage] = useState<string>(() => initialLanguage || 'English');
+  const [symptoms, setSymptoms] = useState<string>(() => initialSymptoms || '');
   const [consentGiven, setConsentGiven] = useState<boolean>(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
@@ -103,7 +109,7 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
   // V2 Multimodal State
   const [activeInputMode, setActiveInputMode] = useState<'text' | 'voice' | 'ocr'>('text');
   const [voiceData, setVoiceData] = useState<VoiceInputData | undefined>(undefined);
-  const [ocrReports, setOcrReports] = useState<OCRReportData[]>([]);
+  const [ocrReports, setOcrReports] = useState<OCRReportData[]>(() => initialOCRReports || []);
   const [processorMode, setProcessorModeState] = useState<'deterministic' | 'ai_pluggable'>(
     getActiveProcessorMode()
   );

@@ -34,8 +34,9 @@ class AuthService:
         payload = decode_access_token(token)
         if not payload:
             return None
+        user_id = payload.get("user_id") or payload.get("sub") or "usr_anon"
         return UserProfile(
-            user_id=payload.get("user_id", "usr_anon"),
+            user_id=user_id,
             username=payload.get("sub", "anonymous"),
             display_name=payload.get("display_name", "Anonymous"),
             role=payload.get("role", "PATIENT")
