@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Sparkles,
   CheckSquare,
   AlertCircle,
   Mic,
@@ -51,43 +50,6 @@ interface PatientIntakeFormProps {
   initialOCRReports?: OCRReportData[];
 }
 
-const PRESET_SCENARIOS = [
-  {
-    label: 'Scenario A: Fever + Weakness',
-    text: 'I have had high fever for 3 days with intense body chills and extreme generalized weakness.',
-    age: 34,
-    gender: 'Male' as const,
-    lang: 'English',
-  },
-  {
-    label: 'Scenario B: Cough + Sore throat',
-    text: 'Severe dry cough and sore throat for the past 4 days with difficulty swallowing food.',
-    age: 26,
-    gender: 'Female' as const,
-    lang: 'English',
-  },
-  {
-    label: 'Scenario C: Breathing Difficulty + Chest heaviness',
-    text: 'I have had fever for 3 days and weakness. Since yesterday I am having difficulty breathing and chest heaviness.',
-    age: 67,
-    gender: 'Male' as const,
-    lang: 'English',
-  },
-  {
-    label: 'Scenario D: Headache + Dizziness',
-    text: 'Throbbing headache since yesterday morning with dizziness whenever standing up quickly.',
-    age: 58,
-    gender: 'Female' as const,
-    lang: 'English',
-  },
-  {
-    label: 'Scenario E: Abdominal Pain + Nausea',
-    text: 'Cramping abdominal pain around belly button since last night with two episodes of nausea.',
-    age: 42,
-    gender: 'Male' as const,
-    lang: 'English',
-  },
-];
 
 export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
   onCaseCreated,
@@ -160,69 +122,6 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
   const voiceSamples = defaultSpeechService.getPreloadedVoiceScenarios();
   const sampleReports = defaultOCRService.getPreloadedSampleReports();
 
-  const handleApplyPreset = (preset: (typeof PRESET_SCENARIOS)[0]) => {
-    cleanupRecording();
-    // Explicit reset of multimodal state when switching to text presets
-    setVoiceData(undefined);
-    setOcrReports([]);
-    setActiveInputMode('text');
-    setSymptoms(preset.text);
-    setAge(preset.age);
-    setGender(preset.gender);
-    setPreferredLanguage(preset.lang);
-    setConsentGiven(true);
-    setErrors({});
-  };
-
-  const handleLoadPrimaryDemo = async () => {
-    cleanupRecording();
-    setIsProcessing(true);
-    // Explicit reset of all prior attachments and errors
-    setVoiceData(undefined);
-    setOcrReports([]);
-    setErrors({});
-    setActiveInputMode('voice');
-
-    const hindiVoice =
-      voiceSamples.find((v) => v.id === 'voice-hindi-fever') || voiceSamples[0];
-    const chestOcr =
-      sampleReports.find((r) => r.id === 'report-cxr-radiology') ||
-      sampleReports.find((r) => r.fileType === 'image') ||
-      sampleReports[0];
-
-    let vRes: VoiceInputData | undefined = undefined;
-    let oRes: OCRReportData | undefined = undefined;
-
-    try {
-      if (hindiVoice) {
-        vRes = await defaultSpeechService.transcribeAudio(hindiVoice.id, { language: 'Hindi' });
-      }
-      if (chestOcr) {
-        oRes = await defaultOCRService.extractTextFromDocument(chestOcr.id, chestOcr.fileType);
-      }
-
-      if (!defaultPatientId) {
-        setPatientId(generatePatientId());
-      }
-      setSymptoms(
-        'मुझे 3 दिन से तेज बुखार है और कल से सांस लेने में बहुत तकलीफ हो रही है। छाती में भारीपन महसूस हो रहा है।'
-      );
-      setAge(67);
-      setGender('Male');
-      setPreferredLanguage('Hindi');
-      if (vRes) setVoiceData(vRes);
-      if (oRes) setOcrReports([oRes]);
-      setConsentGiven(true);
-    } catch (err: unknown) {
-      console.error('Error loading primary demo scenario:', err);
-      setErrors((prev) => ({
-        ...prev,
-        form: 'Unable to load clinical scenario. Please try again or enter patient information manually.',
-      }));
-    } finally {
-      setIsProcessing(false);
-    }
-  };
 
   const handleSelectVoiceSample = async (sampleId: string) => {
     cleanupRecording();
@@ -591,45 +490,6 @@ export const PatientIntakeForm: React.FC<PatientIntakeFormProps> = ({
         </div>
       </div>
 
-      {/* Clinical Protocol Scenarios Quick-Fill Section */}
-      <div className="sample-loader-box scroll-reveal reveal-delay-1">
-        <div className="sample-loader-title">
-          <Sparkles size={16} aria-hidden="true" />
-          <span>Preloaded Clinical Protocol Samples</span>
-        </div>
-
-        <div style={{ marginBottom: '0.85rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-          <button
-            type="button"
-            id="btn-primary-demo-quickfill"
-            onClick={handleLoadPrimaryDemo}
-            disabled={isProcessing}
-            className="btn btn-primary"
-            style={{ padding: '0.65rem 1.15rem', fontSize: '0.88rem', whiteSpace: 'normal', textAlign: 'left', width: '100%', lineHeight: 1.35 }}
-            title="1-Click load full Multimodal Clinical Case (Hindi + Audio STT + OCR + Urgency)"
-          >
-            <Sparkles size={16} aria-hidden="true" style={{ flexShrink: 0 }} />
-            <span>★ 1-Click Clinical Sample: Multimodal Hindi + Voice STT + Chest Urgency</span>
-          </button>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-            (Standard Clinical Protocol: 67y Male, Hindi voice + chest radiograph report)
-          </span>
-        </div>
-
-        <div className="sample-buttons-row">
-          {PRESET_SCENARIOS.map((preset, idx) => (
-            <button
-              key={idx}
-              type="button"
-              className="sample-chip-btn"
-              onClick={() => handleApplyPreset(preset)}
-              disabled={isProcessing}
-            >
-              {preset.label}
-            </button>
-          ))}
-        </div>
-      </div>
 
       <form onSubmit={handleSubmit} noValidate>
         {/* Main 2-Column Split Workspace */}
