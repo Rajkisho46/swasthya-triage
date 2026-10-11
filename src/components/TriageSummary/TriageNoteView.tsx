@@ -31,6 +31,7 @@ import { SafetyBanner } from '../SafetyDisclaimer/SafetyBanner';
 import { CaseJourney } from '../Layout/CaseJourney';
 import { caseService } from '../../services/caseService';
 import { useAuth } from '../../context/AuthContext';
+import { DeterministicTriageProcessor } from '../../services/processor/DeterministicProcessor';
 
 interface TriageNoteViewProps {
   triageCase: TriageCase;
@@ -84,7 +85,10 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
     }
   };
 
-  const hasUrgency = Boolean(triageCase.urgencySignals && triageCase.urgencySignals.length > 0);
+  const hasUrgency = Boolean(
+    (triageCase.urgencySignals && triageCase.urgencySignals.length > 0) ||
+    DeterministicTriageProcessor.hasUrgencySignals(triageCase.rawSymptoms)
+  );
   const hasPatientEvidence = Boolean(
     (triageCase.rawSymptoms && triageCase.rawSymptoms.trim().length > 0) ||
     triageCase.voiceData ||
@@ -165,6 +169,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                 type="button"
                 className="btn btn-secondary glass"
                 onClick={onNavigateToReviewer}
+                id="btn-nav-reviewer-queue"
               >
                 <ArrowRight size={15} aria-hidden="true" />
                 <span>Reviewer Queue</span>
@@ -683,6 +688,7 @@ export const TriageNoteView: React.FC<TriageNoteViewProps> = ({
                 type="button"
                 className="btn btn-secondary glass"
                 onClick={onNavigateToReviewer}
+                id="btn-nav-reviewer-queue-bottom"
               >
                 <ArrowRight size={15} aria-hidden="true" />
                 <span>Reviewer Queue</span>

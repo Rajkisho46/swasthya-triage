@@ -10,6 +10,7 @@ interface AdministratorPortalProps {
   onUpdateCase: (updatedCase: TriageCase) => void;
   onViewSummary: (triageCase: TriageCase) => void;
   onOpenTrustCenter: () => void;
+  portalResetKey?: number;
 }
 
 export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
@@ -17,8 +18,16 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
   onUpdateCase,
   onViewSummary,
   onOpenTrustCenter,
+  portalResetKey,
 }) => {
   const [adminTab, setAdminTab] = useState<'audit' | 'overview' | 'oversight'>('audit');
+
+  // Reset portal state whenever portal-specific reset is triggered
+  React.useEffect(() => {
+    if (portalResetKey !== undefined && portalResetKey > 0) {
+      setAdminTab('audit');
+    }
+  }, [portalResetKey]);
 
   const pendingCount = cases.filter((c) => c.reviewStatus === 'awaiting_review').length;
   const reviewedCount = cases.filter((c) => c.reviewStatus === 'reviewed').length;
@@ -76,7 +85,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
       </div>
 
       {/* Tab 1: Audit Trail & Provenance */}
-      {adminTab === 'audit' && <AuditLogView />}
+      {adminTab === 'audit' && <AuditLogView key={`admin_audit_${portalResetKey || 0}`} />}
 
       {/* Tab 2: System Governance & Telemetry */}
       {adminTab === 'overview' && (
@@ -150,6 +159,7 @@ export const AdministratorPortal: React.FC<AdministratorPortalProps> = ({
       {/* Tab 3: Clinical Queue Oversight */}
       {adminTab === 'oversight' && (
         <ReviewerDashboard
+          key={`admin_oversight_${portalResetKey || 0}`}
           cases={cases}
           onUpdateCase={onUpdateCase}
           onViewSummary={onViewSummary}

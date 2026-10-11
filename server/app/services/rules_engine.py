@@ -11,6 +11,12 @@ class DeterministicSafetyRulesEngine:
     IMPORTANT:
     These rules output SIGNALS FOR HUMAN CLINICAL REVIEW.
     They do NOT make disease diagnoses.
+
+    CLINICAL SAFETY DISCLAIMER:
+    These deterministic safety rules serve strictly as automated screening triggers
+    for prioritized human clinician triage review. Automated unit and regression test
+    passage does NOT constitute clinical validation. Formal review, validation, and sign-off
+    by qualified clinical specialists are mandatory prior to real-world clinical deployment.
     """
 
     RULES = [
@@ -106,21 +112,25 @@ class DeterministicSafetyRulesEngine:
             "name": "Severe Isolated Respiratory Failure",
             "keywords_a": [
                 "severe shortness of breath", "gasping for air", "unable to breathe", "severe breathing difficulty",
-                "सांस लेने में बहुत ज्यादा तकलीफ", "दम घुट रहा है",
-                "ନିଶ୍ୱାସ ନେଇପାରୁନାହିଁ", "ଶ୍ୱାସକଷ୍ଟ ବହୁତ ବେଶୀ",
-                "শ্বাস নিতে পারছি না", "মারাত্মক শ্বাসকষ্ট",
-                "శ్వాస అసలు ఆడటం లేదు", "తీవ్రమైన శ్వాస ఇబ్బంది",
-                "மூச்சு விடவே முடியவில்லை", "கடுமையான மூச்சு திணறல்",
-                "ಉಸಿರಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ", "ತೀವ್ರ ಉಸಿರಾಟದ ತೊಂದರೆ",
-                "ശ്വാസമെടുക്കാൻ ഒട്ടും സാധിക്കുന്നില്ല",
-                "श्वास घेणे अशक्य होत आहे",
-                "શ્વાસ લેવો ખૂબ મુશ્કેલ છે",
-                "ਸਾਹ ਲੈਣਾ ਬਹੁਤ ਔਖਾ ਹੈ"
+                "breathlessness at rest", "breathless at rest", "shortness of breath at rest", "dyspnea at rest",
+                "difficulty breathing at rest", "breathing trouble at rest", "struggling to breathe at rest",
+                "breathless even at rest", "short of breath at rest", "trouble breathing at rest",
+                "orthopnea", "cannot breathe lying down", "gasping at rest",
+                "सांस लेने में बहुत ज्यादा तकलीफ", "दम घुट रहा है", "बैठे हुए भी सांस फूलना", "आराम करते समय सांस में तकलीफ",
+                "ନିଶ୍ୱାସ ନେଇପାରୁନାହିଁ", "ଶ୍ୱାସକଷ୍ଟ ବହୁତ ବେଶୀ", "ବିଶ୍ରାମ ସମୟରେ ଶ୍ୱାସକଷ୍ଟ",
+                "শ্বাস নিতে পারছি না", "মারাত্মক শ্বাসকষ্ট", "বিশ্রামের সময় শ্বাসকষ্ট",
+                "శ్వాస అసలు ఆడటం లేదు", "తీవ్రమైన శ్వాస ఇబ్బంది", "విశ్రాంతి సమయంలో శ్వాస ఆడకపోవడం",
+                "மூச்சு விடவே முடியவில்லை", "கடுமையான மூச்சு திணறல்", "ஓய்வில் மூச்சு திணறல்",
+                "ಉಸಿರಾಡಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ", "ತೀವ್ರ ಉಸಿರಾಟದ ತೊಂದರೆ", "ವಿಶ್ರಾಂತಿಯಲ್ಲಿ ಉಸಿರಾಟದ ತೊಂದರೆ",
+                "ശ്വാസമെടുക്കാൻ ഒട്ടും സാധിക്കുന്നില്ല", "വിശ്രമിക്കുമ്പോഴും ശ്വാസംമുട്ടൽ",
+                "श्वास घेणे अशक्य होत आहे", "विश्रांतीच्या वेळी श्वास घेण्यास त्रास",
+                "શ્વાસ લેવો ખૂબ મુશ્કેલ છે", "વિશ્રામ સમયે શ્વાસ લેવામાં તકલીફ",
+                "ਸਾਹ ਲੈਣਾ ਬਹੁਤ ਔਖਾ ਹੈ", "ਅਰਾਮ ਕਰਨ ਵੇਲੇ ਸਾਹ ਚੜ੍ਹਨਾ"
             ],
             "keywords_b": None,
             "level": "immediate_attention",
             "signal": "Severe Acute Respiratory Impairment Signal",
-            "reason": "Deterministic rule match: Marked respiratory distress identified."
+            "reason": "Deterministic rule match: Marked respiratory distress / breathlessness at rest identified."
         },
         {
             "id": "RULE-005",
@@ -141,7 +151,7 @@ class DeterministicSafetyRulesEngine:
             ],
             "keywords_b": [
                 "vomiting", "rigid", "guarding", "उल्टी", "चक्कर", "दौरा",
-                "ବାନ୍ତି", "ଝାଡ଼ା", "বমি", "வாంతులు", "வாந்தி", "ವಾಂತಿ", "ഛർദ്ദി", "उलटी", "ઉલટી", "ਉਲਟੀ",
+                "ବାନ୍ତି", "ଝାଡ଼ା", "বমি", "வாம்తులు", "வாந்தி", "ವಾಂತಿ", "ഛർദ്ദി", "उलटी", "ઉલટી", "ਉਲਟੀ",
                 "vomit", "dizzy", "guarding"
             ],
             "level": "attention_required",
@@ -156,6 +166,67 @@ class DeterministicSafetyRulesEngine:
             "level": "attention_required",
             "signal": "Critical Lab Biomarker Alert",
             "reason": "Deterministic rule match: Documented lab values indicate potential physiological anomaly."
+        },
+        {
+            "id": "RULE-007",
+            "name": "Hemoptysis / Airway Hemorrhage",
+            "keywords_a": [
+                "hemoptysis", "blood in cough", "blood in the cough", "blood in coughing", "coughing blood", "coughing up blood",
+                "cough with blood", "coughing with blood", "blood with cough", "bloody cough", "blood while coughing",
+                "blood in sputum", "blood in the sputum", "blood in phlegm", "blood in the phlegm", "spitting blood", "spitting up blood",
+                "cough with hemoptysis", "bloody sputum", "bloody phlegm", "blood tinged sputum", "blood-tinged sputum",
+                "pink frothy sputum", "coughing pink frothy", "blood stained sputum", "blood-stained sputum",
+                "खांसी में खून", "खून की खांसी", "बलगम में खून", "खूनी खांसी", "khansi me khoon", "khoon ki khansi",
+                "balgam me khoon", "khansi mein khoon", "khasi me khun",
+                "କାଶରେ ରକ୍ତ", "କାଶ ସହ ରକ୍ତ", "ରକ୍ତ କାଶ", "କଫରେ ରକ୍ତ", "rakta kasha",
+                "কাশিতে রক্ত", "কাশির সাথে রক্ত", "রক্ত কাশি", "কফে রক্ত", "kashite rokto",
+                "దగ్గులో రక్తం", "రక్తం దగ్గు", "కఫంలో రక్తం", "daggulo raktam",
+                "இருமலில் இரத்தம்", "இரத்த இருமல்", "சளியில் இரத்தம்", "irumalil ratham",
+                "ಕೆಮ್ಮಿನಲ್ಲಿ ರಕ್ತ", "ರಕ್ತದ ಕೆಮ್ಮು", "ಕಫದಲ್ಲಿ ರಕ್ತ", "kemminalli rakta",
+                "ചുമയിൽ രക്തം", "രക്തം ചുമയ്ക്കുക", "കഫത്തിൽ രക്തം", "chumayil raktham",
+                "खोकल्यातून रक्त", "रक्ताची खोकला", "थुंकीत रक्त",
+                "ખાંસીમાં લોહી", "લોહીવાળી ખાંસી", "કફમાં લોહી",
+                "ਖੰਘ ਵਿੱਚ ਖੂਨ", "ਖੂਨ ਦੀ ਖੰਘ", "ਬਲਗ਼ਮ ਵਿੱਚ ਖੂਨ"
+            ],
+            "keywords_b": None,
+            "level": "immediate_attention",
+            "signal": "Hemoptysis / Acute Airway Hemorrhage Signal",
+            "reason": "Deterministic rule match: Blood in cough or sputum (hemoptysis) requires immediate physician assessment to rule out acute pulmonary hemorrhage or serious underlying pathology."
+        },
+        {
+            "id": "RULE-008",
+            "name": "High Grade Febrile State",
+            "keywords_a": [
+                "102f", "102 f", "102°f", "102 degrees", "102.", "103f", "103 f", "103°f", "104f", "104 f", "104°f", "105f", "105 f", "105°f",
+                "38.9°c", "38.9 c", "39°c", "39 c", "39.5°c", "40°c", "40 c", "40.5°c", "41°c",
+                "high fever", "very high fever", "severe fever", "persistent fever", "prolonged fever",
+                "fever of 102", "fever 102", "fever of approximately 102", "fever around 102", "fever ~102",
+                "fever of 103", "fever 103", "fever of 104", "fever 104", "102 degree fever", "102 f fever", "102°f fever",
+                "tezz bukhar", "tej bukhar", "तेज बुखार", "तीव्र ज्वर", "ପ୍ରବଳ ଜ୍ୱର", "ତୀବ୍ର ଜ୍ୱର",
+                "তীব্র জ্বর", "తీవ్ర జ్వరం", "அதிக காய்ச்சல்", "ತೀವ್ರ ಜ್ವರ", "കഠിനമായ പനി",
+                "तीव्र ताप", "ખૂબ તાવ", "ਤੇਜ਼ ਬੁਖਾਰ"
+            ],
+            "keywords_b": None,
+            "level": "attention_required",
+            "signal": "High Grade Fever Clinical Assessment Alert",
+            "reason": "Deterministic rule match: Documented high fever (>=102°F / 38.9°C or persistent high febrile trajectory) warrants priority clinical workup for severe infection."
+        },
+        {
+            "id": "RULE-009",
+            "name": "Febrile Respiratory Distress / Compromise",
+            "keywords_a": [
+                "fever", "bukhar", "बुखार", "ଜ୍ୱର", "জ্বর", "జ్వరం", "காய்ச்சல்", "ಜ್ವರ", "പനി", "ताप", "તાવ", "ਬੁਖਾਰ",
+                "temp", "101", "102", "103", "104", "febrile", "pyrexia"
+            ],
+            "keywords_b": [
+                "breathless", "shortness of breath", "dyspnea", "breathing difficulty", "difficulty breathing",
+                "gasping", "breathlessness at rest", "breathless at rest", "shortness of breath at rest",
+                "hemoptysis", "blood in cough", "blood in the cough", "coughing blood", "सांस", "दम फूलना",
+                "ଶ୍ୱାସ", "শ্বাস", "శ్వାస", "மூச்சு", "ಉಸಿರು", "ശ്വാസം", "श्वास", "શ્વાસ", "ਸਾਹ"
+            ],
+            "level": "immediate_attention",
+            "signal": "Febrile Acute Respiratory Distress Signal",
+            "reason": "Deterministic rule match: Co-occurring fever and respiratory distress or airway hemorrhage indicates significant risk of acute lower respiratory infection or compromise."
         }
     ]
 
@@ -163,23 +234,44 @@ class DeterministicSafetyRulesEngine:
     def evaluate(cls, combined_text: str) -> List[UrgencySignalSchema]:
         """
         Evaluate text against deterministic clinical safety rules.
+        Applies phrase normalization, punctuation decoupling, and regex pattern matching.
         """
         if not combined_text:
             return []
 
-        text_lower = combined_text.lower()
+        # 1. Normalize text: collapse whitespace, lowercase, normalize degree symbols
+        raw_lower = combined_text.lower()
+        norm_text = re.sub(r'[°º]', '°', raw_lower)
+        norm_text_clean = re.sub(r'[\t\r\n]+', ' ', norm_text)
+
         matched_signals: List[UrgencySignalSchema] = []
+        triggered_rule_ids = set()
+
+        # Dynamic regex evaluation for temperature variations: e.g. "fever ... 102", "102°f ... fever"
+        fever_high_temp_match = bool(
+            re.search(r'\b(?:10[2-9]|11[0-5])(?:\.[0-9]+)?\s*(?:°\s*[fc]|[fc]\b|degrees?|\b)', norm_text_clean) and
+            any(f in norm_text_clean for f in ["fever", "bukhar", "temp", "बुखार", "ଜ୍ୱର", "জ্বর", "జ్వరం", "காய்ச்சல்", "ಜ್ವರ", "പനി", "ताप", "તાવ", "ਬੁਖਾਰ"])
+        )
+        celsius_high_temp_match = bool(
+            re.search(r'\b(?:38\.[9]|39|4[0-2](?:\.[0-9]+)?)\s*(?:°\s*c|c\b|degrees?|\b)', norm_text_clean) and
+            any(f in norm_text_clean for f in ["fever", "bukhar", "temp", "बुखार", "ଜ୍ୱର", "জ্বর", "జ్వరం", "காய்ச்சல்", "ಜ್ವರ", "പനി", "ताप", "તાવ", "ਬੁਖਾਰ"])
+        )
 
         for rule in cls.RULES:
-            match_a = any(k in text_lower for k in rule["keywords_a"])
+            match_a = any(k in norm_text_clean for k in rule["keywords_a"])
             
+            # Special check for RULE-008 high fever regex
+            if rule["id"] == "RULE-008" and not match_a and (fever_high_temp_match or celsius_high_temp_match):
+                match_a = True
+
             if rule["keywords_b"] is not None:
-                match_b = any(k in text_lower for k in rule["keywords_b"])
+                match_b = any(k in norm_text_clean for k in rule["keywords_b"])
                 is_triggered = match_a and match_b
             else:
                 is_triggered = match_a
 
-            if is_triggered:
+            if is_triggered and rule["id"] not in triggered_rule_ids:
+                triggered_rule_ids.add(rule["id"])
                 matched_signals.append(
                     UrgencySignalSchema(
                         signal=rule["signal"],

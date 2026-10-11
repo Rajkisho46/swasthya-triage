@@ -1238,15 +1238,37 @@ Remember:
 
                 sanitized_reply = HealthAISafetyPipeline.sanitize_output_text(reply_text)
 
+                # Deterministic Safety Rules Override: AI cannot downgrade concerning symptoms
+                all_convo_text = " ".join([m.content for m in request.messages])
+                det_signals = DeterministicSafetyRulesEngine.evaluate(all_convo_text)
+                det_urgent = len(det_signals) > 0
+                det_level = "emergency" if any(s.level == "immediate_attention" for s in det_signals) else ("urgent" if det_urgent else "routine")
+                det_reasons = [s.reason for s in det_signals]
+
+                llm_urgent = parsed.get("urgency_detected", False)
+                llm_level = parsed.get("urgency_level", "routine")
+                llm_reasons = [HealthAISafetyPipeline.sanitize_output_text(r) for r in parsed.get("urgency_reasons", []) if r]
+
+                final_urgent = det_urgent or llm_urgent
+                final_level = det_level if det_urgent else llm_level
+                final_reasons = list(det_reasons)
+                for r in llm_reasons:
+                    if r not in final_reasons:
+                        final_reasons.append(r)
+
+                suggested_actions = parsed.get("suggested_actions", ["Start Symptom Intake", "Speak Instead"])
+                if final_urgent and "Seek Emergency Care" not in suggested_actions:
+                    suggested_actions.insert(0, "Seek Emergency Care")
+
                 return PatientChatResponse(
                     reply=sanitized_reply,
                     is_healthcare_related=parsed.get("is_healthcare_related", True),
-                    urgency_detected=parsed.get("urgency_detected", False),
-                    urgency_level=parsed.get("urgency_level", "routine"),
-                    urgency_reasons=[HealthAISafetyPipeline.sanitize_output_text(r) for r in parsed.get("urgency_reasons", []) if r],
+                    urgency_detected=final_urgent,
+                    urgency_level=final_level,
+                    urgency_reasons=final_reasons,
                     follow_up_questions=[HealthAISafetyPipeline.sanitize_output_text(q) for q in parsed.get("follow_up_questions", []) if q],
                     structured_symptoms=parsed.get("structured_symptoms", {}),
-                    suggested_actions=parsed.get("suggested_actions", ["Start Symptom Intake", "Speak Instead"]),
+                    suggested_actions=suggested_actions,
                     fallback_used=False,
                     model_name=model_name
                 )

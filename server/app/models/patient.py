@@ -46,7 +46,15 @@ class PatientCase(Base):
     reviewer_role = Column(String(64), nullable=True)
 
     def to_dict(self):
+        signals = json.loads(self.urgency_signals) if self.urgency_signals else []
+        if not signals and self.raw_symptoms:
+            from ..services.rules_engine import DeterministicSafetyRulesEngine
+            evaluated = DeterministicSafetyRulesEngine.evaluate(self.raw_symptoms)
+            if evaluated:
+                signals = [s.model_dump() for s in evaluated]
+
         return {
+            "id": self.id,
             "caseId": self.id,
             "patientId": self.patient_id,
             "age": self.age,
@@ -66,7 +74,7 @@ class PatientCase(Base):
             "timeline": json.loads(self.timeline) if self.timeline else [],
             "missingInformation": json.loads(self.missing_information) if self.missing_information else [],
             "followUpQuestions": json.loads(self.follow_up_questions) if self.follow_up_questions else [],
-            "urgencySignals": json.loads(self.urgency_signals) if self.urgency_signals else [],
+            "urgencySignals": signals,
             "aiSummary": self.ai_summary or "",
             "reviewStatus": self.review_status,
             "reviewerNotes": self.reviewer_notes,

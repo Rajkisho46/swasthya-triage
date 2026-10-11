@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { TriageCase } from './types/triage';
+import type { UserRole } from './types/auth';
 import { caseService } from './services/caseService';
-import { clearAuditLogs } from './utils/audit';
 import { initScrollRevealObserver, refreshScrollReveal } from './utils/scrollReveal';
 import { Header } from './components/Layout/Header';
 import type { ActiveTab } from './components/Layout/Header';
@@ -11,6 +11,7 @@ import type { TrustCenterTab } from './components/TrustCenter/PrivacyTrustCenter
 import { LoginScreen } from './components/Auth/LoginScreen';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { RoleGuard } from './portals/RoleGuard';
+import { workshopResetService } from './services/workshop/workshopResetService';
 
 function MainWorkspace() {
   const { currentUser, isAuthenticated } = useAuth();
@@ -18,6 +19,17 @@ function MainWorkspace() {
   const [cases, setCases] = useState<TriageCase[]>([]);
   const [activeCase, setActiveCase] = useState<TriageCase | null>(null);
   const [intakeResetKey, setIntakeResetKey] = useState<number>(0);
+  const [portalResetKeys, setPortalResetKeys] = useState<{
+    PATIENT: number;
+    NURSE: number;
+    DOCTOR: number;
+    ADMIN: number;
+  }>({
+    PATIENT: 0,
+    NURSE: 0,
+    DOCTOR: 0,
+    ADMIN: 0,
+  });
 
   // Initialize global scroll reveal observer
   useEffect(() => {
@@ -118,16 +130,37 @@ function MainWorkspace() {
     setActiveTab('summary');
   };
 
-  const handleResetToDemo = () => {
-    clearAuditLogs();
-    loadCases();
+  const handleResetPortal = async (portalRole: UserRole) => {
+    const normalizedRole = workshopResetService.normalizePortalScope(portalRole);
+
+    // 1. Scoped cleanup of portal storage, preferences, and backend audit verification
+    await workshopResetService.resetPortalWorkshop(normalizedRole);
+
+    // 2. Increment targeted portal reset key to trigger clean re-mount of workshop components
+    setPortalResetKeys((prev) => ({
+      ...prev,
+      [normalizedRole]: prev[normalizedRole] + 1,
+    }));
+
+    // 3. Reset portal navigation to default tab
+    if (normalizedRole === 'PATIENT') {
+      setIntakeResetKey((k) => k + 1);
+      setActiveTab('patient_portal');
+    } else if (normalizedRole === 'NURSE') {
+      setActiveTab('nurse_queue');
+    } else if (normalizedRole === 'DOCTOR') {
+      setActiveTab('reviewer');
+    } else if (normalizedRole === 'ADMIN') {
+      setActiveTab('audit');
+    } else {
+      setActiveTab('patient_portal');
+    }
     setActiveCase(null);
-    setIntakeResetKey((k) => k + 1);
-    if (currentUser?.role === 'PATIENT') setActiveTab('patient_portal');
-    else if (currentUser?.role === 'NURSE') setActiveTab('nurse_queue');
-    else if (currentUser?.role === 'DOCTOR') setActiveTab('reviewer');
-    else if (currentUser?.role === 'ADMIN') setActiveTab('audit');
-    else setActiveTab('patient_portal');
+  };
+
+  const handleResetToDemo = async (specificRole?: UserRole) => {
+    const roleToReset = specificRole || currentUser?.role || 'PATIENT';
+    await handleResetPortal(roleToReset);
   };
 
 
@@ -145,7 +178,10 @@ function MainWorkspace() {
     );
   }
 
-  const pendingCount = cases.filter((c) => c.reviewStatus === 'awaiting_review').length;
+  // Header badge: NURSE sees cases awaiting nurse triage; DOCTOR/other roles see cases awaiting clinical review
+  const pendingCount = currentUser?.role === 'NURSE'
+    ? cases.filter((c) => c.reviewStatus === 'awaiting_nursing_triage').length
+    : cases.filter((c) => c.reviewStatus === 'awaiting_review').length;
 
   return (
     <div className="app-container">
@@ -176,6 +212,7 @@ function MainWorkspace() {
           onViewSummary={handleViewSummary}
           onOpenTrustCenter={() => handleOpenTrustCenter('overview')}
           intakeResetKey={intakeResetKey}
+          portalResetKeys={portalResetKeys}
         />
       </main>
 

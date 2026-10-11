@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { TriageCase } from '../../types/triage';
 import { NurseQueueView } from '../../components/NurseQueue/NurseQueueView';
 import { BedsideIntakeView } from '../../components/NurseBedside/BedsideIntakeView';
 import { TriageNoteView } from '../../components/TriageSummary/TriageNoteView';
-import { HeartPulse, Stethoscope, FileText } from 'lucide-react';
+import { HeartPulse, Stethoscope, FileText, ShieldAlert } from 'lucide-react';
 
 interface NursePortalProps {
   cases: TriageCase[];
   activeCase: TriageCase | null;
   onUpdateCase: (updatedCase: TriageCase) => void;
-  onCaseCreated: (newCase: TriageCase) => void;
+  onCaseCreated?: (newCase: TriageCase) => void;
   onViewSummary: (triageCase: TriageCase) => void;
   onSendForReview: (updatedCase: TriageCase) => void;
-  intakeResetKey: number;
+  intakeResetKey?: number;
+  portalResetKey?: number;
 }
 
 export const NursePortal: React.FC<NursePortalProps> = ({
@@ -23,24 +24,40 @@ export const NursePortal: React.FC<NursePortalProps> = ({
   onViewSummary,
   onSendForReview,
   intakeResetKey: _intakeResetKey,
+  portalResetKey,
 }) => {
   const [nurseTab, setNurseTab] = useState<'queue' | 'intake' | 'summary'>('queue');
-  const [selectedCaseForNote, setSelectedCaseForNote] = useState<TriageCase | null>(activeCase);
+  const [selectedCase, setSelectedCase] = useState<TriageCase | null>(activeCase);
+  const [permissionNotice, setPermissionNotice] = useState<string | null>(null);
+
+  // Reset portal state whenever portal-specific reset is triggered
+  useEffect(() => {
+    if (portalResetKey !== undefined && portalResetKey > 0) {
+      setNurseTab('queue');
+      setSelectedCase(null);
+      setPermissionNotice(null);
+    }
+  }, [portalResetKey]);
 
   const handleView = (c: TriageCase) => {
-    setSelectedCaseForNote(c);
+    setSelectedCase(c);
     onViewSummary(c);
     setNurseTab('summary');
   };
 
+  const handleStartTriage = (c: TriageCase) => {
+    setSelectedCase(c);
+    setNurseTab('intake');
+  };
+
   const handleUpdate = (updatedCase: TriageCase) => {
     onUpdateCase(updatedCase);
-    setSelectedCaseForNote(updatedCase);
+    setSelectedCase(updatedCase);
   };
 
   const handleSendToReview = (updatedCase: TriageCase) => {
     onSendForReview(updatedCase);
-    setSelectedCaseForNote(null);
+    setSelectedCase(updatedCase);
     setNurseTab('queue');
   };
 
@@ -49,13 +66,46 @@ export const NursePortal: React.FC<NursePortalProps> = ({
     (c) => c.reviewStatus === 'awaiting_nursing_triage'
   );
   const pendingCount = pendingNursingCases.length;
-  const targetCase = (selectedCaseForNote && selectedCaseForNote.reviewStatus === 'awaiting_nursing_triage')
-    ? selectedCaseForNote
-    : ((activeCase && activeCase.reviewStatus === 'awaiting_nursing_triage') ? activeCase : null);
+
+  // Selected case is decoupled from awaiting_nursing_triage so nurses can inspect evidence
+  // and manage bedside vitals for any accessible patient case
+  const targetCase = selectedCase || activeCase || (pendingNursingCases.length > 0 ? pendingNursingCases[0] : (cases.length > 0 ? cases[0] : null));
 
   return (
     <div className="portal-container nurse-portal-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {/* 3 Primary Navigation Sections */}
+      {/* Permission Notice Banner */}
+      {permissionNotice && (
+        <div
+          className="glass-card"
+          style={{
+            background: 'rgba(239, 68, 68, 0.12)',
+            border: '1px solid rgba(248, 113, 113, 0.4)',
+            padding: '0.85rem 1.25rem',
+            borderRadius: 'var(--radius-md)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '0.75rem',
+            color: 'var(--text-primary)',
+          }}
+          role="alert"
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            <ShieldAlert size={18} color="var(--urgency-light)" />
+            <span style={{ fontSize: '0.85rem', fontWeight: 600 }}>{permissionNotice}</span>
+          </div>
+          <button
+            type="button"
+            className="btn btn-secondary glass"
+            onClick={() => setPermissionNotice(null)}
+            style={{ fontSize: '0.74rem', padding: '0.25rem 0.60rem' }}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+
+      {/* Primary Navigation Sections */}
       <div
         className="glass scroll-reveal"
         style={{
@@ -88,30 +138,29 @@ export const NursePortal: React.FC<NursePortalProps> = ({
           id="btn-nav-nurse-intake"
         >
           <Stethoscope size={14} color="var(--teal)" style={{ marginRight: '4px' }} />
-          02 Bedside Vitals
+          02 Bedside Vitals {targetCase ? `(${targetCase.caseId})` : ''}
         </button>
 
-        {targetCase && (
-          <button
-            type="button"
-            className={`nav-btn glass ${nurseTab === 'summary' ? 'active' : ''}`}
-            onClick={() => setNurseTab('summary')}
-            style={{ fontSize: '0.82rem', padding: '0.40rem 0.85rem' }}
-            id="btn-nav-nurse-summary"
-          >
-            <FileText size={14} color="var(--champagne)" style={{ marginRight: '4px' }} />
-            03 Evidence Note
-          </button>
-        )}
+        <button
+          type="button"
+          className={`nav-btn glass ${nurseTab === 'summary' ? 'active' : ''}`}
+          onClick={() => setNurseTab('summary')}
+          style={{ fontSize: '0.82rem', padding: '0.40rem 0.85rem' }}
+          id="btn-nav-nurse-summary"
+        >
+          <FileText size={14} color="var(--champagne)" style={{ marginRight: '4px' }} />
+          03 Evidence Note {targetCase ? `(${targetCase.caseId})` : ''}
+        </button>
       </div>
 
       {/* 01 — NURSING TRIAGE QUEUE */}
       {nurseTab === 'queue' && (
         <NurseQueueView
+          key={`nurse_queue_${portalResetKey || 0}`}
           cases={cases}
           onUpdateCase={handleUpdate}
           onViewSummary={handleView}
-          onNavigateToIntake={() => setNurseTab('intake')}
+          onStartTriage={handleStartTriage}
         />
       )}
 
@@ -119,6 +168,7 @@ export const NursePortal: React.FC<NursePortalProps> = ({
       {nurseTab === 'intake' && (
         <div className="nurse-bedside-intake-container">
           <BedsideIntakeView
+            key={`nurse_bedside_${portalResetKey || 0}_${targetCase?.caseId || 'none'}`}
             cases={cases}
             activeCase={targetCase}
             onUpdateCase={handleUpdate}
@@ -151,6 +201,7 @@ export const NursePortal: React.FC<NursePortalProps> = ({
                   className="btn btn-secondary glass"
                   onClick={() => setNurseTab('queue')}
                   style={{ fontSize: '0.78rem', padding: '0.35rem 0.75rem' }}
+                  id="btn-return-nurse-queue"
                 >
                   &larr; Return to Nursing Queue
                 </button>
@@ -161,7 +212,10 @@ export const NursePortal: React.FC<NursePortalProps> = ({
                 onSendForReview={(updated) => {
                   handleSendToReview(updated);
                 }}
-                onNavigateToReviewer={() => setNurseTab('queue')}
+                onNavigateToReviewer={() => {
+                  setPermissionNotice('Access Restricted: Medical Reviewer Queue requires Physician (Doctor) role. Nurses manage cases in the Nursing Queue.');
+                  setTimeout(() => setPermissionNotice(null), 8000);
+                }}
               />
             </>
           ) : (
@@ -191,16 +245,17 @@ export const NursePortal: React.FC<NursePortalProps> = ({
                 <HeartPulse size={32} />
               </div>
               <h2 style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-primary)', margin: 0 }}>
-                NO ACTIVE EVIDENCE NOTE PENDING NURSE ACTION
+                NO ACTIVE EVIDENCE NOTE
               </h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', maxWidth: '520px', margin: 0 }}>
-                Evidence note for completed patient cases has been submitted and forwarded to the Doctor / Medical Reviewer Clinical Review Queue.
+                No active patient case selected. Please select a case from the Nursing Queue to inspect the clinical evidence note.
               </p>
               <button
                 type="button"
-                className="btn btn-primary glass"
+                className="btn btn-secondary glass"
                 onClick={() => setNurseTab('queue')}
                 style={{ fontSize: '0.84rem', padding: '0.45rem 1rem' }}
+                id="btn-return-nurse-queue-empty"
               >
                 Return to Nursing Queue
               </button>
@@ -211,3 +266,4 @@ export const NursePortal: React.FC<NursePortalProps> = ({
     </div>
   );
 };
+

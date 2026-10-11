@@ -23,6 +23,11 @@ const CLINICAL_KNOWLEDGE_BASE: PatternRule[] = [
       'difficulty breathing',
       'difficulty in breathing',
       'shortness of breath',
+      'breathlessness at rest',
+      'breathless at rest',
+      'shortness of breath at rest',
+      'dyspnea at rest',
+      'difficulty breathing at rest',
       'breathlessness',
       'dyspnea',
       'dyspneic',
@@ -41,7 +46,7 @@ const CLINICAL_KNOWLEDGE_BASE: PatternRule[] = [
     symptomName: 'Breathing Difficulty / Dyspnea',
     urgency: {
       level: 'immediate_attention',
-      reason: 'Reported respiratory compromise / breathing difficulty requires urgent clinical evaluation',
+      reason: 'Reported respiratory compromise / breathlessness at rest requires urgent clinical evaluation',
     },
     missingQuestions: {
       missing: ['Oxygen Saturation (SpO2)', 'Respiratory Rate', 'Cyanosis presence', 'History of Asthma/COPD'],
@@ -49,6 +54,57 @@ const CLINICAL_KNOWLEDGE_BASE: PatternRule[] = [
         'What is the patient’s current SpO2 on room air?',
         'What is the measured respiratory rate per minute?',
         'Does the patient have a history of asthma, COPD, or cardiac conditions?',
+      ],
+    },
+  },
+  {
+    keywords: [
+      'hemoptysis',
+      'blood in cough',
+      'blood in the cough',
+      'blood in coughing',
+      'coughing blood',
+      'coughing up blood',
+      'cough with blood',
+      'coughing with blood',
+      'blood with cough',
+      'bloody cough',
+      'blood while coughing',
+      'blood in sputum',
+      'blood in the sputum',
+      'blood in phlegm',
+      'blood in the phlegm',
+      'spitting blood',
+      'spitting up blood',
+      'cough with hemoptysis',
+      'bloody sputum',
+      'bloody phlegm',
+      'blood tinged sputum',
+      'blood-tinged sputum',
+      'खांसी में खून',
+      'खून की खांसी',
+      'बलगम में खून',
+      'khansi me khoon',
+      'khoon ki khansi',
+      'balgam me khoon',
+      'କାଶରେ ରକ୍ତ',
+      'কাশিতে রক্ত',
+      'దగ్గులో రక్తం',
+      'இருமலில் இரத்தம்',
+      'ಕೆಮ್ಮಿನಲ್ಲಿ ರಕ್ತ',
+      'ചുമയിൽ രക്തം',
+    ],
+    symptomName: 'Hemoptysis / Blood in Cough',
+    urgency: {
+      level: 'immediate_attention',
+      reason: 'Reported blood in cough or sputum (hemoptysis) requires immediate physician review to rule out pulmonary hemorrhage',
+    },
+    missingQuestions: {
+      missing: ['Estimated blood volume (streaks vs frank blood)', 'Duration of bleeding', 'Chest CT / X-ray availability'],
+      questions: [
+        'Is the blood coughed up in small streaks or significant quantities?',
+        'How many days has blood been noted in the sputum?',
+        'Are there accompanying chest pain or dizziness symptoms?',
       ],
     },
   },
@@ -390,6 +446,14 @@ export class DeterministicTriageProcessor implements ITriageProcessor {
   public name = 'Deterministic Knowledge Base Engine (V1 / Fallback)';
   public description = 'Rule-based clinical symptom and urgency extractor without external cloud API dependencies';
   public isAIBased = false;
+
+  static hasUrgencySignals(text?: string): boolean {
+    if (!text) return false;
+    const lowerText = text.toLowerCase();
+    return CLINICAL_KNOWLEDGE_BASE.some((rule) =>
+      Boolean(rule.urgency) && rule.keywords.some((kw) => lowerText.includes(kw))
+    );
+  }
 
   processTriageSync(formData: TriageFormData): TriageCase {
     // 1. Gather all multimodal inputs into normalized text

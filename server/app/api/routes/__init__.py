@@ -14,6 +14,7 @@ from .cases import router as cases_router
 
 from .patient_chat import router as patient_chat_router
 from .health_ai import router as health_ai_router
+from .workshop import router as workshop_router
 
 api_router = APIRouter()
 api_router.include_router(auth_router)
@@ -30,5 +31,6 @@ api_router.include_router(audit_router)
 api_router.include_router(referral_router)
 api_router.include_router(patient_router)
 api_router.include_router(bedside_router)
+api_router.include_router(workshop_router)
 
 __all__ = ["api_router"]

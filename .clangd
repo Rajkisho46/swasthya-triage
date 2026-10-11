@@ -1,0 +1,4 @@
+If:
+  PathMatch: [.*venv.*, .*site-packages.*]
+Diagnostics:
+  Suppress: ["*"]

@@ -24,6 +24,7 @@ import { recordAuditEvent } from '../../utils/audit';
 import { SafetyBanner } from '../SafetyDisclaimer/SafetyBanner';
 import { useAuth } from '../../context/AuthContext';
 import { bedsideService } from '../../services/bedside/bedsideService';
+import type { BackendBedsidePayload } from '../../services/bedside/bedsideService';
 import { caseService } from '../../services/caseService';
 import type { BedsideAssessment } from '../../types/triage';
 
@@ -47,6 +48,7 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
     triageCase.reviewerDecision || ''
   );
   const [error, setError] = useState<string>('');
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const [expandedOCRId, setExpandedOCRId] = useState<string | null>(null);
   const [latestBedside, setLatestBedside] = useState<BedsideAssessment | null>(triageCase.bedsideAssessment || null);
 
@@ -129,9 +131,38 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
   const handleConfirm = async () => {
     if (isNurse) {
       try {
+        setError('');
+        setIsSaving(true);
+        const payload: BackendBedsidePayload = {
+          nurse_notes: reviewerNotes.trim() || null,
+          status: 'draft',
+          vitals: latestBedside ? {
+            systolic_bp: latestBedside.vitals.systolicBP === '' || latestBedside.vitals.systolicBP === undefined ? null : Number(latestBedside.vitals.systolicBP),
+            diastolic_bp: latestBedside.vitals.diastolicBP === '' || latestBedside.vitals.diastolicBP === undefined ? null : Number(latestBedside.vitals.diastolicBP),
+            heart_rate: latestBedside.vitals.heartRate === '' || latestBedside.vitals.heartRate === undefined ? null : Number(latestBedside.vitals.heartRate),
+            spo2: latestBedside.vitals.spo2 === '' || latestBedside.vitals.spo2 === undefined ? null : Number(latestBedside.vitals.spo2),
+            temperature: latestBedside.vitals.temperature === '' || latestBedside.vitals.temperature === undefined ? null : Number(latestBedside.vitals.temperature),
+            temperature_unit: latestBedside.vitals.tempUnit || 'F',
+            respiratory_rate: latestBedside.vitals.respiratoryRate === '' || latestBedside.vitals.respiratoryRate === undefined ? null : Number(latestBedside.vitals.respiratoryRate),
+            blood_glucose: latestBedside.vitals.bloodGlucose === '' || latestBedside.vitals.bloodGlucose === undefined ? null : Number(latestBedside.vitals.bloodGlucose),
+          } : undefined,
+          observations: latestBedside ? {
+            general_appearance: latestBedside.observation.generalAppearance,
+            consciousness: latestBedside.observation.consciousnessOrientation,
+            breathing_effort: latestBedside.observation.breathingEffort,
+            mobility_status: latestBedside.observation.mobilityStatus,
+            pain_score: latestBedside.observation.painScore === '' || latestBedside.observation.painScore === undefined ? null : Number(latestBedside.observation.painScore),
+            visible_distress: latestBedside.observation.visibleDistress,
+            additional_symptoms: latestBedside.observation.additionalSymptoms,
+          } : undefined,
+        };
+
+        const persistedAssessment = await bedsideService.createBedsideAssessment(triageCase.caseId, payload);
+
         const updatedCase: TriageCase = {
           ...triageCase,
           reviewerNotes: reviewerNotes.trim(),
+          bedsideAssessment: persistedAssessment,
         };
 
         recordAuditEvent(
@@ -143,8 +174,10 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
 
         onConfirmReview(updatedCase);
       } catch (err: unknown) {
-        console.error('Failed to save nursing observations:', err);
-        setError('Failed to save observations. Please try again.');
+        console.error('Failed to save nursing observations to backend:', err);
+        setError((err as Error).message || 'Failed to save observations to backend. Please check connection and permissions.');
+      } finally {
+        setIsSaving(false);
       }
       return;
     }
@@ -796,10 +829,11 @@ export const CaseReviewModal: React.FC<CaseReviewModalProps> = ({
                       type="button"
                       className="btn btn-primary glass"
                       onClick={handleConfirm}
+                      disabled={isSaving}
                       id="btn-save-nurse-observations"
                     >
                       <CheckCircle2 size={16} />
-                      <span>Save Observations</span>
+                      <span>{isSaving ? 'Saving...' : 'Save Observations'}</span>
                     </button>
                   ) : (
                     <button

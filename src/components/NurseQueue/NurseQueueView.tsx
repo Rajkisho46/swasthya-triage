@@ -19,14 +19,14 @@ interface NurseQueueProps {
   cases: TriageCase[];
   onUpdateCase: (updatedCase: TriageCase) => void;
   onViewSummary: (triageCase: TriageCase) => void;
-  onNavigateToIntake?: () => void;
+  onStartTriage?: (triageCase: TriageCase) => void;
 }
 
 export const NurseQueueView: React.FC<NurseQueueProps> = ({
   cases,
   onUpdateCase,
   onViewSummary,
-  onNavigateToIntake,
+  onStartTriage,
 }) => {
   const [selectedCaseForModal, setSelectedCaseForModal] = useState<TriageCase | null>(null);
   const [statusFilter, setStatusFilter] = useState<'awaiting_nursing_triage' | 'all'>('awaiting_nursing_triage');
@@ -104,16 +104,6 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                   {highUrgencyCount} High Urgency
                 </span>
               </div>
-            )}
-            {onNavigateToIntake && (
-              <button
-                type="button"
-                onClick={onNavigateToIntake}
-                className="btn btn-secondary glass"
-                style={{ fontSize: '0.80rem', padding: '0.45rem 0.85rem' }}
-              >
-                + New Intake
-              </button>
             )}
           </div>
         </div>
@@ -242,6 +232,7 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                       className="btn btn-secondary glass"
                       onClick={() => onViewSummary(c)}
                       style={{ fontSize: '0.80rem', padding: '0.45rem 0.85rem' }}
+                      id={`btn-view-note-${c.caseId}`}
                     >
                       <Eye size={14} />
                       <span>View Note</span>
@@ -249,8 +240,15 @@ export const NurseQueueView: React.FC<NurseQueueProps> = ({
                     <button
                       type="button"
                       className="btn btn-primary glass"
-                      onClick={() => handleOpenReviewModal(c)}
+                      onClick={() => {
+                        if (onStartTriage) {
+                          onStartTriage(c);
+                        } else {
+                          handleOpenReviewModal(c);
+                        }
+                      }}
                       style={{ fontSize: '0.80rem', padding: '0.45rem 0.85rem' }}
+                      id={`btn-start-triage-${c.caseId}`}
                     >
                       <FileCheck2 size={14} />
                       <span>{isReviewed ? 'Re-Evaluate' : 'Start Triage'}</span>

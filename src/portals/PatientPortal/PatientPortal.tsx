@@ -15,6 +15,7 @@ interface PatientPortalProps {
   onSendForReview: (updatedCase: TriageCase) => void;
   onViewSummary: (triageCase: TriageCase) => void;
   intakeResetKey: number;
+  portalResetKey?: number;
 }
 
 export const PatientPortal: React.FC<PatientPortalProps> = ({
@@ -24,11 +25,21 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
   onSendForReview,
   onViewSummary,
   intakeResetKey,
+  portalResetKey,
 }) => {
   const [patientTab, setPatientTab] = useState<'home' | 'ai' | 'submit' | 'cases' | 'summary'>('home');
   const [selectedCaseForSummary, setSelectedCaseForSummary] = useState<TriageCase | null>(activeCase);
   const [aiHandoffData, setAiHandoffData] = useState<PatientAIHandoffData | null>(null);
   const { currentUser } = useAuth();
+
+  // Reset portal state whenever portal-specific reset is triggered
+  React.useEffect(() => {
+    if (portalResetKey !== undefined && portalResetKey > 0) {
+      setPatientTab('home');
+      setSelectedCaseForSummary(null);
+      setAiHandoffData(null);
+    }
+  }, [portalResetKey]);
 
   const handleStartIntake = () => {
     setAiHandoffData(null);
@@ -144,6 +155,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
       {patientTab === 'ai' && (
         <div className="patient-health-ai-stage">
           <PatientAIPage
+            key={`patient_ai_${portalResetKey || 0}`}
             onHandoffToIntake={handleHandoffToIntake}
             onNavigateToCases={() => setPatientTab('cases')}
             preferredLanguage={aiHandoffData?.preferredLanguage || 'English'}
@@ -155,7 +167,7 @@ export const PatientPortal: React.FC<PatientPortalProps> = ({
       {patientTab === 'submit' && (
         <div className="patient-submit-symptoms-container">
           <PatientIntakeForm
-            key={`${intakeResetKey}_${aiHandoffData?.symptoms ? 'prefilled' : 'clean'}`}
+            key={`${intakeResetKey}_${portalResetKey || 0}_${aiHandoffData?.symptoms ? 'prefilled' : 'clean'}`}
             defaultPatientId={currentUser?.userId || currentUser?.username}
             initialSymptoms={aiHandoffData?.symptoms || ''}
             initialLanguage={aiHandoffData?.preferredLanguage || 'English'}

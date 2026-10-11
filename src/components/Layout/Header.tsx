@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Stethoscope,
   ShieldAlert,
@@ -16,6 +17,7 @@ import {
 import type { TrustCenterTab } from '../TrustCenter/PrivacyTrustCenter';
 import { useAuth } from '../../context/AuthContext';
 import type { UserRole } from '../../types/auth';
+import { workshopResetService } from '../../services/workshop/workshopResetService';
 
 export type ActiveTab = 'intake' | 'summary' | 'reviewer' | 'audit' | 'patient_portal' | 'nurse_queue';
 
@@ -24,7 +26,7 @@ interface HeaderProps {
   onSelectTab: (tab: ActiveTab) => void;
   pendingCount: number;
   hasActiveCase?: boolean;
-  onResetToDemo: () => void;
+  onResetToDemo: (specificRole?: UserRole) => Promise<void> | void;
   onOpenTrustCenter?: (tab?: TrustCenterTab) => void;
 }
 
@@ -38,19 +40,27 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const { currentUser, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
+  const [isResetting, setIsResetting] = useState<boolean>(false);
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetSuccessMessage, setResetSuccessMessage] = useState<string | null>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const role: UserRole = currentUser?.role || 'PATIENT';
+
+  const portalSummary = workshopResetService.getPortalResetSummary(role);
+  const getPortalDisplayName = (r: UserRole): string => workshopResetService.getPortalDisplayName(workshopResetService.normalizePortalScope(r));
 
   // Close mobile menu on Escape key press or outside click
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
-        setMobileMenuOpen(false);
+      if (e.key === 'Escape' && !isResetting) {
+        if (showResetConfirm) setShowResetConfirm(false);
+        if (mobileMenuOpen) setMobileMenuOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, showResetConfirm, isResetting]);
 
   const handleNavClick = (tab: ActiveTab) => {
     onSelectTab(tab);
@@ -65,8 +75,33 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const handleResetDemoClick = () => {
-    onResetToDemo();
+    setResetError(null);
+    setShowResetConfirm(true);
     setMobileMenuOpen(false);
+  };
+
+  const handleConfirmReset = async () => {
+    setIsResetting(true);
+    setResetError(null);
+    try {
+      await onResetToDemo(role);
+      setShowResetConfirm(false);
+      setResetSuccessMessage(`${portalSummary.displayName} workshop has been reset to defaults successfully.`);
+      setTimeout(() => {
+        setResetSuccessMessage(null);
+      }, 5000);
+    } catch (err: any) {
+      console.error('[Header] Failed to reset portal workshop:', err);
+      setResetError(err.message || 'Failed to complete portal reset. Please try again.');
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
+  const handleCancelReset = () => {
+    if (isResetting) return;
+    setResetError(null);
+    setShowResetConfirm(false);
   };
 
   const handleLogoutClick = () => {
@@ -202,7 +237,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <HeartPulse size={15} aria-hidden="true" />
                 <span>Nursing Queue</span>
                 {pendingCount > 0 && (
-                  <span className="badge-count" title={`${pendingCount} cases awaiting review`}>
+                  <span className="badge-count" title={`${pendingCount} cases awaiting nursing triage`}>
                     {pendingCount}
                   </span>
                 )}
@@ -275,17 +310,17 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          {/* Reset Workspace Secondary Action (Separate from Logout) */}
+          {/* Reset Workshop Action */}
           <button
             type="button"
             className="nav-btn nav-btn-utility glass"
             onClick={handleResetDemoClick}
-            title="Reload cases and reset audit log"
+            title={`Reset ${getPortalDisplayName(role)} workshop state`}
             id="btn-reset-demo"
-            aria-label="Reset workspace and audit log"
+            aria-label={`Reset ${getPortalDisplayName(role)} workshop`}
           >
             <RotateCcw size={13} aria-hidden="true" />
-            <span>Reset Workspace</span>
+            <span>Reset Workshop</span>
           </button>
 
           {/* Clearly Accessible Logout Action */}
@@ -457,9 +492,10 @@ export const Header: React.FC<HeaderProps> = ({
                 type="button"
                 className="mobile-drawer-util-btn glass"
                 onClick={handleResetDemoClick}
+                id="btn-mobile-reset-demo"
               >
                 <RotateCcw size={16} color="var(--champagne)" aria-hidden="true" />
-                <span>Reset Workspace State</span>
+                <span>Reset Workshop ({getPortalDisplayName(role)})</span>
               </button>
 
               {currentUser && (
@@ -476,6 +512,127 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       )}
+
+      {/* Portal-Specific Reset Workshop Confirmation Modal (Rendered to document.body to avoid parent clipping) */}
+      {showResetConfirm &&
+        (typeof document !== 'undefined' && document.body
+          ? createPortal(
+              <div
+                className="modal-overlay reset-workshop-overlay"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="reset-modal-title"
+                id="reset-workshop-confirmation-modal"
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) handleCancelReset();
+                }}
+              >
+                <div
+                  className="modal-content glass-modal reset-workshop-dialog"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '12px',
+                        background: 'rgba(226, 195, 130, 0.16)',
+                        border: '1px solid rgba(226, 195, 130, 0.35)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <RotateCcw size={20} color="var(--champagne)" />
+                    </div>
+                    <div>
+                      <h3 id="reset-modal-title" style={{ margin: 0, fontSize: '1.15rem', color: 'var(--text-primary)', fontWeight: 700 }}>
+                        Reset {getPortalDisplayName(role)} Workshop?
+                      </h3>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                        Portal-specific workspace reset
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: '1.25rem' }}>
+                    <p style={{ margin: '0 0 0.75rem 0' }}>
+                      This will reset active forms, unsaved entries, filters, selected cases, and open tabs in <strong>{getPortalDisplayName(role)}</strong> back to their initial defaults.
+                    </p>
+                    <div
+                      style={{
+                        background: 'rgba(53, 224, 193, 0.08)',
+                        border: '1px solid rgba(53, 224, 193, 0.25)',
+                        borderRadius: 'var(--radius-sm)',
+                        padding: '0.75rem 0.85rem',
+                        fontSize: '0.80rem',
+                        color: 'var(--text-primary)',
+                      }}
+                    >
+                      <strong style={{ color: 'var(--mint)' }}>Safety Guarantee:</strong> Saved patient cases, database records, clinical assessments, audit logs, login sessions, and other portals will remain completely unchanged and preserved.
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      className="btn btn-secondary glass"
+                      onClick={handleCancelReset}
+                      id="btn-cancel-reset-workshop"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary glass"
+                      onClick={handleConfirmReset}
+                      id="btn-confirm-reset-workshop"
+                    >
+                      <RotateCcw size={14} style={{ display: 'inline', marginRight: '4px' }} />
+                      Confirm Reset
+                    </button>
+                  </div>
+                </div>
+              </div>,
+              document.body
+            )
+          : null)}
+
+      {/* Success Notification Toast (Rendered to document.body to avoid parent clipping) */}
+      {resetSuccessMessage &&
+        (typeof document !== 'undefined' && document.body
+          ? createPortal(
+              <div
+                className="glass reset-workshop-toast"
+                id="reset-workshop-success-toast"
+                role="status"
+                aria-live="polite"
+              >
+                <ShieldCheck size={18} color="var(--mint)" style={{ flexShrink: 0 }} />
+                <span>{resetSuccessMessage}</span>
+                <button
+                  type="button"
+                  onClick={() => setResetSuccessMessage(null)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-muted)',
+                    cursor: 'pointer',
+                    marginLeft: '0.5rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '2px',
+                  }}
+                  aria-label="Dismiss notice"
+                >
+                  <X size={14} />
+                </button>
+              </div>,
+              document.body
+            )
+          : null)}
     </header>
   );
 };

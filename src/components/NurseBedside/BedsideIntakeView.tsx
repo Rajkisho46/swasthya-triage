@@ -29,15 +29,14 @@ import type {
   NurseObservation,
   BedsideVerifications,
   BedsideVerificationStatus,
-  BedsideAssessment,
 } from '../../types/triage';
 import { useAuth } from '../../context/AuthContext';
 import { recordAuditEvent } from '../../utils/audit';
 import { formatDateTime } from '../../utils/caseId';
 import { SafetyBanner } from '../SafetyDisclaimer/SafetyBanner';
 import { CaseJourney } from '../Layout/CaseJourney';
-
 import { bedsideService } from '../../services/bedside/bedsideService';
+import { refreshScrollReveal } from '../../utils/scrollReveal';
 
 interface BedsideIntakeViewProps {
   cases: TriageCase[];
@@ -94,26 +93,39 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
 }) => {
   const { currentUser } = useAuth();
 
-  // Find candidate cases awaiting bedside triage
-  const candidateCases = cases.filter(
+  // Candidate cases grouped by triage workflow state
+  const pendingCases = cases.filter(
     (c) => c.reviewStatus === 'awaiting_nursing_triage'
   );
-  const initialCase = (activeCase && activeCase.reviewStatus === 'awaiting_nursing_triage')
-    ? activeCase
-    : (candidateCases.length > 0 ? candidateCases[0] : null);
+  const inReviewCases = cases.filter(
+    (c) => c.reviewStatus === 'awaiting_review'
+  );
+  const reviewedCases = cases.filter(
+    (c) => c.reviewStatus === 'reviewed'
+  );
+
+  // Initial case selection: activeCase first, then pendingCases, then any available cases
+  const initialCase = activeCase || (pendingCases.length > 0 ? pendingCases[0] : (cases.length > 0 ? cases[0] : null));
 
   const [selectedCaseId, setSelectedCaseId] = useState<string>(initialCase ? initialCase.caseId : '');
-  const currentCase = candidateCases.find((c) => c.caseId === selectedCaseId) || (candidateCases.length > 0 ? candidateCases[0] : null);
+  const currentCase = cases.find((c) => c.caseId === selectedCaseId) || initialCase;
 
   useEffect(() => {
-    if (candidateCases.length > 0) {
-      if (!selectedCaseId || !candidateCases.some((c) => c.caseId === selectedCaseId)) {
-        setSelectedCaseId(candidateCases[0].caseId);
+    if (activeCase) {
+      setSelectedCaseId(activeCase.caseId);
+    } else if (cases.length > 0) {
+      if (!selectedCaseId || !cases.some((c) => c.caseId === selectedCaseId)) {
+        const nextCase = pendingCases[0] || cases[0];
+        setSelectedCaseId(nextCase.caseId);
       }
     } else {
       setSelectedCaseId('');
     }
-  }, [cases]);
+  }, [cases, activeCase]);
+
+  useEffect(() => {
+    refreshScrollReveal();
+  }, [currentCase]);
 
   // 1. Bedside Vitals State
   const [systolicBP, setSystolicBP] = useState<number | ''>('');
@@ -368,27 +380,11 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
         verifications,
         nurseNotes,
         'Emergency Triage & Bedside Bay',
-        sendToReview ? 'pending_physician_review' : 'completed'
+        sendToReview ? 'pending_physician_review' : 'draft'
       );
 
-      // Call real backend API: POST /api/cases/{case_id}/bedside-assessment
-      let persistedAssessment: BedsideAssessment;
-      try {
-        persistedAssessment = await bedsideService.createBedsideAssessment(currentCase.caseId, payload);
-      } catch (apiErr: any) {
-        console.warn('Real backend save notice (using structured sync):', apiErr);
-        persistedAssessment = {
-          vitals,
-          observation,
-          verifications,
-          nurseNotes: nurseNotes.trim(),
-          assessmentTime: new Date().toISOString(),
-          nurseId: currentUser?.userId || currentUser?.username || 'usr_nur_01',
-          nurseName: currentUser?.displayName || 'Nurse Priya Nair, RN',
-          facilityDepartment: 'Emergency Triage & Bedside Observation Bay',
-          assessmentStatus: sendToReview ? 'pending_physician_review' : 'recorded',
-        };
-      }
+      // Call real authenticated backend API: POST /api/cases/{case_id}/bedside-assessment
+      const persistedAssessment = await bedsideService.createBedsideAssessment(currentCase.caseId, payload);
 
       const nurseSummaryNotes = constructBedsideSummary(vitals, observation, nurseNotes);
 
@@ -396,7 +392,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
         ...currentCase,
         bedsideAssessment: persistedAssessment,
         reviewerNotes: nurseSummaryNotes,
-        reviewStatus: sendToReview ? 'awaiting_review' : 'awaiting_nursing_triage',
+        reviewStatus: sendToReview ? 'awaiting_review' : currentCase.reviewStatus,
       };
 
       // Record Audit Event with Nurse identity
@@ -455,7 +451,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
       <CaseJourney currentStep="intake" compact />
 
       {/* 3. Workstation Header Bar */}
-      <div className="triage-case-header-bar glass-panel scroll-reveal reveal-delay-1">
+      <div className="triage-case-header-bar glass-panel">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
             <div className="intake-step-badge" style={{ borderColor: 'var(--teal)', color: 'var(--teal)' }}>
@@ -488,16 +484,40 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                   cursor: 'pointer',
                 }}
               >
-                {candidateCases.length === 0 ? (
+                {cases.length === 0 ? (
                   <option value="" style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
-                    No cases in queue (0)
+                    No cases in clinic queue (0)
                   </option>
                 ) : (
-                  candidateCases.map((c) => (
-                    <option key={c.caseId} value={c.caseId} style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
-                      {c.caseId} &bull; {c.patientId} ({c.age ? `${c.age}y` : 'N/A'}, {c.gender || 'N/A'})
-                    </option>
-                  ))
+                  <>
+                    {pendingCases.length > 0 && (
+                      <optgroup label="Awaiting Nursing Triage" style={{ background: 'var(--surface-lowest)', color: 'var(--mint)' }}>
+                        {pendingCases.map((c) => (
+                          <option key={c.caseId} value={c.caseId} style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
+                            {c.caseId} • {c.patientId} ({c.age ? `${c.age}y` : 'N/A'}, {c.gender || 'N/A'}) [Pending Vitals]
+                          </option>
+                        ))}
+                      </optgroup>
+                    )}
+                    {inReviewCases.length > 0 && (
+                      <optgroup label="Forwarded to Physician Review" style={{ background: 'var(--surface-lowest)', color: 'var(--champagne)' }}>
+                        {inReviewCases.map((c) => (
+                          <option key={c.caseId} value={c.caseId} style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
+                            {c.caseId} • {c.patientId} ({c.age ? `${c.age}y` : 'N/A'}) [In Doctor Review]
+                          </option>
+                        ))}
+                      </optgroup>
+                    )}
+                    {reviewedCases.length > 0 && (
+                      <optgroup label="Completed / Signed-off" style={{ background: 'var(--surface-lowest)', color: 'var(--teal)' }}>
+                        {reviewedCases.map((c) => (
+                          <option key={c.caseId} value={c.caseId} style={{ background: 'var(--surface-lowest)', color: 'var(--text-primary)' }}>
+                            {c.caseId} • {c.patientId} [Reviewed: {c.reviewerDecision || 'Done'}]
+                          </option>
+                        ))}
+                      </optgroup>
+                    )}
+                  </>
                 )}
               </select>
             </div>
@@ -565,6 +585,53 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
         ) : (
           <div className="glass-card" style={{ padding: '0.85rem 1rem', marginTop: '0.85rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
             No queued cases found. Bedside assessment will initialize on selection.
+          </div>
+        )}
+
+        {/* Workflow State Differentiation for in-review and reviewed cases */}
+        {currentCase && currentCase.reviewStatus === 'awaiting_review' && (
+          <div
+            className="glass-card"
+            style={{
+              marginTop: '0.85rem',
+              padding: '0.75rem 1rem',
+              background: 'rgba(226, 195, 130, 0.12)',
+              border: '1px solid rgba(226, 195, 130, 0.35)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.65rem',
+              fontSize: '0.82rem',
+              color: 'var(--text-primary)',
+            }}
+          >
+            <Clock size={16} color="var(--champagne)" />
+            <span>
+              <strong>Workflow Notice:</strong> This case is currently queued for Doctor / Clinical Review. Recorded bedside vitals are displayed below; nurses can update telemetry if new vitals are observed.
+            </span>
+          </div>
+        )}
+
+        {currentCase && currentCase.reviewStatus === 'reviewed' && (
+          <div
+            className="glass-card"
+            style={{
+              marginTop: '0.85rem',
+              padding: '0.75rem 1rem',
+              background: 'rgba(53, 224, 193, 0.12)',
+              border: '1px solid rgba(53, 224, 193, 0.35)',
+              borderRadius: 'var(--radius-sm)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.65rem',
+              fontSize: '0.82rem',
+              color: 'var(--text-primary)',
+            }}
+          >
+            <CheckCircle2 size={16} color="var(--mint)" />
+            <span>
+              <strong>Workflow Notice:</strong> Clinical review completed by Medical Officer with disposition: <strong style={{ color: 'var(--mint)' }}>{currentCase.reviewerDecision}</strong>.
+            </span>
           </div>
         )}
 
@@ -687,7 +754,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
               ========================================================================= */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* SECTION 1 — BEDSIDE VITALS */}
-          <div className="card glass-card scroll-reveal reveal-delay-2" style={{ marginBottom: 0 }}>
+          <div className="card glass-card" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Activity size={18} color="var(--mint)" />
@@ -1026,7 +1093,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           </div>
 
           {/* SECTION 2 — NURSE OBSERVATION */}
-          <div className="card glass-card scroll-reveal reveal-delay-3" style={{ marginBottom: 0 }}>
+          <div className="card glass-card" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <BadgeCheck size={18} color="var(--teal)" />
@@ -1269,7 +1336,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
             ========================================================================= */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* SECTION 3 — PATIENT INFORMATION VERIFICATION */}
-          <div className="card glass-card scroll-reveal reveal-delay-2" style={{ marginBottom: 0 }}>
+          <div className="card glass-card" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <ClipboardCheck size={18} color="var(--champagne)" />
@@ -1304,7 +1371,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
                         <strong style={{ fontSize: '0.82rem', color: 'var(--text-primary)' }}>
                           {item.label}
                         </strong>
-                        <div style={{ display: 'flex', gap: '0.25rem' }}>
+                        <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
                           <button
                             type="button"
                             onClick={() => handleUpdateVerificationStatus(itemKey, 'patient_reported')}
@@ -1372,7 +1439,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           </div>
 
           {/* SECTION 4 — NURSE CLINICAL NOTES */}
-          <div className="card glass-card scroll-reveal reveal-delay-3" style={{ marginBottom: 0 }}>
+          <div className="card glass-card" style={{ marginBottom: 0 }}>
             <div className="card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <FileText size={18} color="var(--mint)" />
@@ -1403,7 +1470,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
           </div>
 
           {/* SECTION 5 — MEASUREMENT METADATA */}
-          <div className="card glass-card scroll-reveal reveal-delay-4" style={{ marginBottom: 0, padding: '0.85rem 1rem' }}>
+          <div className="card glass-card" style={{ marginBottom: 0, padding: '0.85rem 1rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.6rem' }}>
               <Building2 size={16} color="var(--teal)" />
               <strong style={{ fontSize: '0.82rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em', fontFamily: 'var(--font-mono)' }}>
@@ -1451,7 +1518,7 @@ export const BedsideIntakeView: React.FC<BedsideIntakeViewProps> = ({
 
           {/* BOTTOM ACTION AREA */}
           <div
-            className="glass-card scroll-reveal reveal-delay-4"
+            className="glass-card"
             style={{
               padding: '1rem',
               display: 'flex',

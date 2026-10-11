@@ -17,6 +17,12 @@ interface RoleGuardProps {
   onViewSummary: (triageCase: TriageCase) => void;
   onOpenTrustCenter: () => void;
   intakeResetKey: number;
+  portalResetKeys?: {
+    PATIENT: number;
+    NURSE: number;
+    DOCTOR: number;
+    ADMIN: number;
+  };
 }
 
 /**
@@ -34,6 +40,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
   onViewSummary,
   onOpenTrustCenter,
   intakeResetKey,
+  portalResetKeys,
 }) => {
   const { currentUser } = useAuth();
 
@@ -51,6 +58,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
           onSendForReview={onSendForReview}
           onViewSummary={onViewSummary}
           intakeResetKey={intakeResetKey}
+          portalResetKey={portalResetKeys?.PATIENT}
         />
       );
 
@@ -64,6 +72,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
           onViewSummary={onViewSummary}
           onSendForReview={onSendForReview}
           intakeResetKey={intakeResetKey}
+          portalResetKey={portalResetKeys?.NURSE}
         />
       );
 
@@ -79,6 +88,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
           onViewSummary={onViewSummary}
           onSendForReview={onSendForReview}
           intakeResetKey={intakeResetKey}
+          portalResetKey={portalResetKeys?.DOCTOR}
         />
       );
 
@@ -90,6 +100,7 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({
           onUpdateCase={onUpdateCase}
           onViewSummary={onViewSummary}
           onOpenTrustCenter={onOpenTrustCenter}
+          portalResetKey={portalResetKeys?.ADMIN}
         />
       );
 

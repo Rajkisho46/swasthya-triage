@@ -131,10 +131,11 @@ async def create_bedside_assessment(
     elif req.nurse_notes and not case.reviewer_decision:
         case.reviewer_notes = f"Nurse Notes: {req.nurse_notes}"
 
-    # Atomic workflow transition: move case to awaiting_review for doctor clinical review
+    # Workflow transition: only transition to awaiting_review if nurse assessment is submitted for review
     prev_status = case.review_status
-    if case.review_status in ["awaiting_nursing_triage", "awaiting_triage", "awaiting_bedside", "awaiting_review"]:
-        case.review_status = "awaiting_review"
+    if req.status in ["pending_physician_review", "submitted"]:
+        if case.review_status in ["awaiting_nursing_triage", "awaiting_triage", "awaiting_bedside"]:
+            case.review_status = "awaiting_review"
 
     db.add(assessment)
     await db.commit()

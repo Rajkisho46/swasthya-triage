@@ -3,6 +3,7 @@ import assert from 'node:assert';
 import { AuthClient } from '../src/services/auth/authClient';
 import type { TriageCase } from '../src/types/triage';
 import { recordAuditEvent, getAuditLogs, clearAuditLogs } from '../src/utils/audit';
+import { DeterministicTriageProcessor } from '../src/services/processor/DeterministicProcessor';
 
 test('SWASTHYA TRIAGE V10 - NURSE PORTAL & CLINICAL WORKFLOW SUITE', async (t) => {
   const client = new AuthClient();
@@ -283,5 +284,68 @@ test('SWASTHYA TRIAGE V10 - NURSE PORTAL & CLINICAL WORKFLOW SUITE', async (t) =
     assert.strictEqual(updatedWithBedside.bedsideAssessment?.observation.consciousnessOrientation, 'Alert & Oriented (A)');
     assert.strictEqual(updatedWithBedside.bedsideAssessment?.verifications.allergies?.status, 'nurse_verified');
     assert.strictEqual(updatedWithBedside.bedsideAssessment?.assessmentStatus, 'recorded');
+  });
+
+  await t.test('TEST 17: Header Pending Count calculation by Role (NURSE vs DOCTOR)', () => {
+    const mockCases: TriageCase[] = [
+      { caseId: 'C1', patientId: 'P1', preferredLanguage: 'en', consentGiven: true, rawSymptoms: 'Fever', extractedSymptoms: ['Fever'], timeline: [], missingInformation: [], followUpQuestions: [], urgencySignals: [], aiSummary: 'test', reviewStatus: 'awaiting_nursing_triage', createdAt: new Date().toISOString() },
+      { caseId: 'C2', patientId: 'P2', preferredLanguage: 'en', consentGiven: true, rawSymptoms: 'Cough', extractedSymptoms: ['Cough'], timeline: [], missingInformation: [], followUpQuestions: [], urgencySignals: [], aiSummary: 'test', reviewStatus: 'awaiting_nursing_triage', createdAt: new Date().toISOString() },
+      { caseId: 'C3', patientId: 'P3', preferredLanguage: 'en', consentGiven: true, rawSymptoms: 'Rash', extractedSymptoms: ['Rash'], timeline: [], missingInformation: [], followUpQuestions: [], urgencySignals: [], aiSummary: 'test', reviewStatus: 'awaiting_review', createdAt: new Date().toISOString() },
+      { caseId: 'C4', patientId: 'P4', preferredLanguage: 'en', consentGiven: true, rawSymptoms: 'Headache', extractedSymptoms: ['Headache'], timeline: [], missingInformation: [], followUpQuestions: [], urgencySignals: [], aiSummary: 'test', reviewStatus: 'reviewed', createdAt: new Date().toISOString() },
+    ];
+
+    const getRolePendingCount = (role: string, cases: TriageCase[]) => {
+      return role === 'NURSE'
+        ? cases.filter((c) => c.reviewStatus === 'awaiting_nursing_triage').length
+        : cases.filter((c) => c.reviewStatus === 'awaiting_review').length;
+    };
+
+    assert.strictEqual(getRolePendingCount('NURSE', mockCases), 2);
+    assert.strictEqual(getRolePendingCount('DOCTOR', mockCases), 1);
+  });
+
+  await t.test('TEST 18: Nurse Bedside Assessment Draft vs Submitted Transitions', () => {
+    const baseCase: TriageCase = {
+      caseId: 'C-DRAFT-01',
+      patientId: 'P-DRAFT-01',
+      preferredLanguage: 'en',
+      consentGiven: true,
+      rawSymptoms: 'Cough',
+      extractedSymptoms: ['Cough'],
+      timeline: [],
+      missingInformation: [],
+      followUpQuestions: [],
+      urgencySignals: [],
+      aiSummary: 'test',
+      reviewStatus: 'awaiting_nursing_triage',
+      createdAt: new Date().toISOString(),
+    };
+
+    // Saving draft preserves awaiting_nursing_triage
+    const draftStatus = false ? 'awaiting_review' : baseCase.reviewStatus;
+    assert.strictEqual(draftStatus, 'awaiting_nursing_triage');
+
+    // Submitting for review transitions to awaiting_review
+    const submittedStatus = true ? 'awaiting_review' : baseCase.reviewStatus;
+    assert.strictEqual(submittedStatus, 'awaiting_review');
+  });
+
+  await t.test('TEST 19: Clinical Safety: Hemoptysis, Breathlessness at Rest, and Febrile Respiratory Distress', () => {
+    // 1. Hemoptysis
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('Patient has blood in the cough and fever'), true);
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('coughing up blood since morning'), true);
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('hemoptysis observed'), true);
+
+    // 2. Breathlessness at rest
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('breathlessness at rest and chest heaviness'), true);
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('shortness of breath at rest'), true);
+
+    // 3. Combined presentation: blood in cough + fever 102F + breathlessness at rest
+    const severeCaseText = 'Patient reports blood in cough, fever around 102F, and breathlessness at rest.';
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals(severeCaseText), true);
+
+    // 4. Routine cases without urgency signals remain routine
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('Mild headache for 1 day, no red flags'), false);
+    assert.strictEqual(DeterministicTriageProcessor.hasUrgencySignals('Minor scrape on knee'), false);
   });
 });

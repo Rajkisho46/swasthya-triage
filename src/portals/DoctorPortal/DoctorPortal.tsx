@@ -11,6 +11,7 @@ interface DoctorPortalProps {
   onViewSummary: (triageCase: TriageCase) => void;
   onSendForReview?: (updatedCase: TriageCase) => void;
   intakeResetKey?: number;
+  portalResetKey?: number;
 }
 
 /**

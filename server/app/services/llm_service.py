@@ -50,6 +50,11 @@ class LLMStructuringService:
 
         # Extract symptoms deterministically
         symptoms_map = {
+            "hemoptysis": "Hemoptysis / Blood in cough",
+            "blood in cough": "Hemoptysis / Blood in cough",
+            "coughing blood": "Hemoptysis / Blood in cough",
+            "breathlessness at rest": "Breathlessness at rest",
+            "shortness of breath at rest": "Breathlessness at rest",
             "chest pain": "Chest pain / discomfort",
             "breathless": "Shortness of breath / dyspnea",
             "breathing difficulty": "Breathing difficulty",

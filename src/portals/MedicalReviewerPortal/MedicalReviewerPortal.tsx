@@ -14,6 +14,7 @@ interface MedicalReviewerPortalProps {
   onViewSummary: (triageCase: TriageCase) => void;
   onSendForReview?: (updatedCase: TriageCase) => void;
   intakeResetKey?: number;
+  portalResetKey?: number;
 }
 
 export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
@@ -22,9 +23,18 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
   onUpdateCase,
   onDeleteCase,
   onViewSummary,
+  portalResetKey,
 }) => {
   const [activeTab, setActiveTab] = useState<'queue' | 'review_note' | 'audit'>('queue');
   const [selectedCaseForNote, setSelectedCaseForNote] = useState<TriageCase | null>(activeCase);
+
+  // Reset portal state whenever portal-specific reset is triggered
+  React.useEffect(() => {
+    if (portalResetKey !== undefined && portalResetKey > 0) {
+      setActiveTab('queue');
+      setSelectedCaseForNote(null);
+    }
+  }, [portalResetKey]);
 
   const handleViewNote = (triageCase: TriageCase) => {
     setSelectedCaseForNote(triageCase);
@@ -101,6 +111,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
       {/* 1. Review Queue Workspace */}
       {activeTab === 'queue' && (
         <ReviewerDashboard
+          key={`reviewer_dashboard_${portalResetKey || 0}`}
           cases={submittedCases}
           onUpdateCase={handleUpdateAndReturn}
           onViewSummary={handleViewNote}
@@ -173,7 +184,7 @@ export const MedicalReviewerPortal: React.FC<MedicalReviewerPortalProps> = ({
               &larr; Return to Review Queue
             </button>
           </div>
-          <AuditLogView />
+          <AuditLogView key={`reviewer_audit_${portalResetKey || 0}`} />
         </div>
       )}
     </div>
